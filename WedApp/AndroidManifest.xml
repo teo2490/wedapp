@@ -7,10 +7,10 @@
     <uses-sdk
         android:minSdkVersion="9"
         android:targetSdkVersion="18" />
-    
-    <!--  Internet Permissions -->
+
+    <!-- Internet Permissions -->
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -20,10 +20,13 @@
         <activity
             android:name="wedapp.activity.NewProductActivity"
             android:label="@string/title_activity_new_product" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
+        </activity>
+        <activity
+            android:name="wedapp.activity.MainActivity"
+            android:label="@string/title_activity_main" >
+                <intent-filter>
+                	<action android:name="android.intent.action.MAIN" />
+                	<category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>
