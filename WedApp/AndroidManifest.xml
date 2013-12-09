@@ -22,6 +22,14 @@
             android:label="@string/title_activity_new_product" >
         </activity>
         <activity
+            android:name="wedapp.activity.LoginActivity"
+            android:label="@string/title_activity_login" >
+        </activity>
+        <activity
+            android:name="wedapp.activity.DashboardActivity"
+            android:label="@string/title_activity_dashboard" >
+        </activity>
+        <activity
             android:name="wedapp.activity.MainActivity"
             android:label="@string/title_activity_main" >
                 <intent-filter>
