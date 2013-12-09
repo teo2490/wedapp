@@ -56,6 +56,7 @@ public class NewProductActivity extends Activity {
 	private String photoName;
 	Uri imageUri;
 	private static final int PICK_Camera_IMAGE = 2;
+	private boolean isLastThread = false;
 	//private ProgressDialog dialog;
  
     // url to create new product
@@ -177,11 +178,13 @@ public class NewProductActivity extends Activity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            /*
             pDialog = new ProgressDialog(NewProductActivity.this);
             pDialog.setMessage("Creating Product..");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
             pDialog.show();
+            */
         }
  
         /**
@@ -231,10 +234,14 @@ public class NewProductActivity extends Activity {
          * After completing background task Dismiss the progress dialog
          * **/
         protected void onPostExecute(String file_url) {
-            // dismiss the dialog once done
-            pDialog.dismiss();
+        	if(isLastThread){
+        		// dismiss the dialog once done
+        		pDialog.dismiss();
+        	}
+        	else{
+        		isLastThread=true;
+        	}
         }
- 
     }
     
     class ImageGalleryTask extends AsyncTask<Void, Void, String> {
@@ -283,17 +290,14 @@ public class NewProductActivity extends Activity {
 
 		@Override
 		protected void onPostExecute(String sResponse) {
-			try {
-				if (pDialog.isShowing())
-					pDialog.dismiss();
-			} catch (Exception e) {
-				Toast.makeText(getApplicationContext(),
-						e.getMessage(),
-						Toast.LENGTH_LONG).show();
-				Log.e(e.getClass().getName(), e.getMessage(), e);
-			}
-		}
-
+        	if(isLastThread){
+        		// dismiss the dialog once done
+        		pDialog.dismiss();
+        	}
+        	else{
+        		isLastThread=true;
+        	}
+        }
 	}
 
 	@SuppressWarnings("deprecation")
