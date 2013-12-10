@@ -23,7 +23,7 @@ public class WedApp extends Activity {
 		btnUser = (Button) findViewById(R.id.button1);
 		btnMerchant = (Button) findViewById(R.id.button2);
 		
-		btnUser.setOnClickListener(new View.OnClickListener() {
+		btnMerchant.setOnClickListener(new View.OnClickListener() {
 
 			public void onClick(View v) {
 				Intent intent = new Intent(WedApp.this, LoginActivity.class);
