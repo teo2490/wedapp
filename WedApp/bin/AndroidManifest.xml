@@ -20,6 +20,10 @@
         <activity
             android:name="wedapp.activity.NewProductActivity"
             android:label="@string/title_activity_new_product" >
+            <intent-filter>
+                	<action android:name="android.intent.action.MAIN" />
+                	<category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name="wedapp.activity.LoginActivity"
@@ -32,10 +36,7 @@
         <activity
             android:name="wedapp.activity.WedApp"
             android:label="@string/title_activity_main" >
-                <intent-filter>
-                	<action android:name="android.intent.action.MAIN" />
-                	<category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            
         </activity>
     </application>
 

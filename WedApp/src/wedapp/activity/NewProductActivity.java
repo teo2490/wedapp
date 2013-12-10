@@ -56,7 +56,7 @@ public class NewProductActivity extends Activity {
 	private String photoName;
 	Uri imageUri;
 	private static final int PICK_Camera_IMAGE = 2;
-	private boolean isLastThread = false;
+	private boolean isLastThread = true;
 	//private ProgressDialog dialog;
  
     // url to create new product
@@ -113,7 +113,7 @@ public class NewProductActivity extends Activity {
 					Long tsLong = System.currentTimeMillis()/1000;
 					photoName = tsLong.toString();
 					// Uploading photo in background thread
-					new ImageGalleryTask().execute();
+					//new ImageGalleryTask().execute();
 					// creating new product in background thread
 	                new CreateNewProduct().execute();
 				}
@@ -200,13 +200,15 @@ public class NewProductActivity extends Activity {
             params.add(new BasicNameValuePair("name", name));
             params.add(new BasicNameValuePair("price", price));
             params.add(new BasicNameValuePair("photo", phName));
- 
+            params.add(new BasicNameValuePair("id_list", "1"));
+            params.add(new BasicNameValuePair("m_email", "prova"));
+             
             // getting JSON Object
             // Note that create product url accepts POST method
             JSONObject json = jsonParser.makeHttpRequest(url_create_product,
                     "POST", params);
- 
-            // check log cat fro response
+                        
+            // check log cat for response
             Log.d("Create Response", json.toString());
  
             // check for success tag
