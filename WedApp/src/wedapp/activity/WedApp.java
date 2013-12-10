@@ -10,7 +10,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 
-public class MainActivity extends Activity {
+public class WedApp extends Activity {
 	
 	private Button btnUser;
 	private Button btnMerchant;
@@ -26,7 +26,7 @@ public class MainActivity extends Activity {
 		btnUser.setOnClickListener(new View.OnClickListener() {
 
 			public void onClick(View v) {
-				Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+				Intent intent = new Intent(WedApp.this, LoginActivity.class);
 	        	startActivity(intent);
 			}
 		});
