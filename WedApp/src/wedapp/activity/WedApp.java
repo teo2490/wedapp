@@ -30,6 +30,14 @@ public class WedApp extends Activity {
 	        	startActivity(intent);
 			}
 		});
+		
+		btnUser.setOnClickListener(new View.OnClickListener() {
+
+			public void onClick(View v) {
+				Intent intent = new Intent(WedApp.this, ProductDetailActivity.class);
+	        	startActivity(intent);
+			}
+		});
 	}
 
 	@Override

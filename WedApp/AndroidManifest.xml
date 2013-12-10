@@ -19,6 +19,8 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="wedapp.activity.NewProductActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" 
             android:label="@string/title_activity_new_product" >
         </activity>
         <activity
@@ -33,9 +35,14 @@
             android:name="wedapp.activity.WedApp"
             android:label="@string/title_activity_main" >
             <intent-filter>
-                	<action android:name="android.intent.action.MAIN" />
-                	<category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="wedapp.activity.ProductDetailActivity"
+            android:label="@string/title_activity_product_detail" >
         </activity>
     </application>
 

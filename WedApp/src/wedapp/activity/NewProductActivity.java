@@ -109,11 +109,11 @@ public class NewProductActivity extends Activity {
 				} else {
 					pDialog = ProgressDialog.show(NewProductActivity.this, "Uploading",
 							"Please wait...", true);
-					//Create the name of the photo by the timestamp
+					//Create the name of the photo by the timestamp MANCA LA CONCATENAZIONE CON ID COMMERCIANTE!
 					Long tsLong = System.currentTimeMillis()/1000;
 					photoName = tsLong.toString();
 					// Uploading photo in background thread
-					//new ImageGalleryTask().execute();
+					new ImageGalleryTask().execute();
 					// creating new product in background thread
 	                new CreateNewProduct().execute();
 				}
