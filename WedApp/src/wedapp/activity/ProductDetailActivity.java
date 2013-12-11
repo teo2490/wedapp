@@ -109,7 +109,7 @@ public class ProductDetailActivity extends Activity {
 				// creating intent for reservation and passing id of the gift
         		Intent intent = new Intent(getApplicationContext(), ReservationActivity.class);
         		///intent.putExtra(TAG_PID, pid)
-        		intent.putExtra("TAG_PID", "7");
+        		intent.putExtra(TAG_PID, "7");
         		startActivity(intent);
         	}
         	});

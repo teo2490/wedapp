@@ -1,8 +1,17 @@
 package wedapp.activity;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
+
+import wedapp.activity.ProductDetailActivity.DownloadImage;
+import wedapp.library.JSONParser;
 
 import com.paypal.android.sdk.payments.PayPalPayment;
 import com.paypal.android.sdk.payments.PayPalService;
@@ -12,12 +21,18 @@ import com.paypal.android.sdk.payments.PaymentConfirmation;
 import dima.wedapp.R;
 import dima.wedapp.R.layout;
 import dima.wedapp.R.menu;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.text.util.Linkify;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class ReservationActivity extends Activity {
@@ -31,14 +46,32 @@ public class ReservationActivity extends Activity {
     private static final String CONFIG_CLIENT_ID = "AUK5NxC1PzfUyaNPB9N5WwcG4TWnwSiWpeZKmj-56VaxsO0so9QkvMRyBsVS";
     // when testing in sandbox, this is likely the -facilitator email address. EMAIL DI CHI RICEVE IL PAGAMENTO !!
     private static final String CONFIG_RECEIVER_EMAIL = "wedmerchant@gmail.com"; 
+    
+    private static final String TAG_PID = "pid";
+    private static final String TAG_SUCCESS = "success";
+    private String gid;
+    private ProgressDialog pDialog;
+    JSONParser jsonParser = new JSONParser();
+    EditText inputName;
+    EditText inputSurname;
+    EditText inputEmail;
+    
+ // url to add a reservation
+    private static String url_add_reservation = "http://wedapp.altervista.org/add_reservation.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reservation);
         
-        Intent i = new Intent();
-        //String gid = i.getExtras();
+        Intent i = getIntent();
+        gid = i.getStringExtra(TAG_PID);
+        System.out.println(gid);
+        
+        // Edit Text
+        inputName = (EditText) findViewById(R.id.inputName);
+        inputSurname = (EditText) findViewById(R.id.inputSurname);
+        inputEmail = (EditText) findViewById(R.id.inputEmail);
         
         Intent intent = new Intent(this, PayPalService.class);
         
@@ -86,6 +119,7 @@ public class ReservationActivity extends Activity {
                     // see https://developer.paypal.com/webapps/developer/docs/integration/mobile/verify-mobile-payment/
                     // for more details.
                     //Aggiungere una riga nella tabella delle reservation
+                    new AddReservation().execute();
 
                 } catch (JSONException e) {
                     Log.e("paymentExample", "an extremely unlikely failure occurred: ", e);
@@ -113,6 +147,73 @@ public class ReservationActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.reservation, menu);
 		return true;
+	}
+	
+	/**
+	 * Background Async Task to Get complete product details
+	 * */
+	class AddReservation extends AsyncTask<String, String, String> {
+
+		/**
+		 * Before starting background thread Show Progress Dialog
+		 * */
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			pDialog = ProgressDialog.show(ReservationActivity.this, "Loading",
+					"Please wait...", true);
+		}
+
+		/**
+         * Creating product
+         * */
+        protected String doInBackground(String... args) {
+            String name = inputName.getText().toString();
+            String surname = inputSurname.getText().toString();
+            String email = inputEmail.getText().toString();
+ 
+            System.out.println(gid);
+            // Building Parameters
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair("name", name));
+            params.add(new BasicNameValuePair("surname", surname));
+            params.add(new BasicNameValuePair("email", email));
+            params.add(new BasicNameValuePair("id_gift", gid));
+             
+            // getting JSON Object
+            // Note that create product url accepts POST method
+            JSONObject json = jsonParser.makeHttpRequest(url_add_reservation,
+                    "POST", params);
+                        
+            // check log cat for response
+            Log.d("Create Response", json.toString());
+ 
+            // check for success tag
+            try {
+                int success = json.getInt(TAG_SUCCESS);
+ 
+                if (success == 1) {
+                	//Toast.makeText(getApplicationContext(), "Reservation Confirmed", Toast.LENGTH_LONG).show();
+                    // closing this screen
+                    finish();
+                } else {
+                	//Toast.makeText(getApplicationContext(), "Reservation Failed", Toast.LENGTH_LONG).show();
+                    // failed to add reservation
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+ 
+            return null;
+        }
+
+
+		/**
+		 * After completing background task Dismiss the progress dialog
+		 * **/
+		protected void onPostExecute(String file_url) {
+			pDialog.dismiss();
+		}
 	}
 
 }
