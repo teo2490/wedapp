@@ -79,7 +79,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	 * */
 	public HashMap<String, String> getUserDetails(){
 		HashMap<String,String> user = new HashMap<String,String>();
-		String selectQuery = "SELECT  * FROM " + TABLE_LOGIN;
+		String selectQuery = "SELECT * FROM " + TABLE_LOGIN;
 		 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);

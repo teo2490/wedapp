@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -19,6 +20,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.util.Linkify;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -31,8 +33,8 @@ public class LoginActivity extends Activity {
 	EditText inputEmail;
 	EditText inputPassword;
 	TextView loginErrorMsg;
-	private boolean isLastThread = true;
 	private ProgressDialog pDialog;
+	private String errMsg;
 	
 	JSONParser jsonParser = new JSONParser();
 	private static String loginURL = "http://wedapp.altervista.org/login.php";
@@ -72,6 +74,8 @@ public class LoginActivity extends Activity {
 		@Override
         protected void onPreExecute() {
             super.onPreExecute();
+            pDialog = ProgressDialog.show(LoginActivity.this, "Loading",
+					"Please wait...", true);
         }
 		
 		protected String doInBackground(String... args) {
@@ -86,13 +90,15 @@ public class LoginActivity extends Activity {
 			// check for login response
 			try {
 				if (json.getString(KEY_SUCCESS) != null) {
-					loginErrorMsg.setText("");
+					errMsg = "";
 					String res = json.getString(KEY_SUCCESS); 
 					if(Integer.parseInt(res) == 1){
 						// user successfully logged in
 						// Store user details in SQLite Database
 						DatabaseHandler db = new DatabaseHandler(getApplicationContext());
-						JSONObject json_user = json.getJSONObject("merchant");
+						System.out.println(json.toString());
+						JSONArray merchantObj = json.getJSONArray("merchant");
+						JSONObject json_user = merchantObj.getJSONObject(0);
 						
 						// Clear all previous data in database
 						//userFunction.logoutUser(getApplicationContext());
@@ -103,30 +109,32 @@ public class LoginActivity extends Activity {
 						
 						// Close all views before launching Dashboard
 						dashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+						pDialog.dismiss();
 						startActivity(dashboard);
 						
 						// Close Login Screen
 						finish();
 					}else{
 						// Error in login
-						System.out.println("fail!!!");
-						loginErrorMsg.setText("Incorrect username/password");
+						errMsg = "Incorrect username/password";
 					}
 				}
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
+			// updating UI from Background Thread
+			runOnUiThread(new Runnable() {
+				public void run() {
+					// display errMsg in TextView
+					loginErrorMsg.setText(errMsg);
+				}
+			});
 			return null;
 		}
 		
-		protected void onPostExecute(String file_url) {
-        	if(isLastThread){
+		protected void onPostExecute() {
         		// dismiss the dialog once done
         		pDialog.dismiss();
-        	}
-        	else{
-        		isLastThread=true;
-        	}
         }
 
 		// Link to Register Screen
