@@ -8,8 +8,18 @@
         android:minSdkVersion="9"
         android:targetSdkVersion="18" />
 
-    <!-- Internet Permissions -->
-    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- for card.io card scanning -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
+    <uses-feature android:name="android.hardware.camera.autofocus" android:required="false" />
+
+    <!-- for most things, including card.io & paypal -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
@@ -20,8 +30,8 @@
         <activity
             android:name="wedapp.activity.NewProductActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait" 
-            android:label="@string/title_activity_new_product" >
+            android:label="@string/title_activity_new_product"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="wedapp.activity.LoginActivity"
@@ -44,6 +54,26 @@
             android:name="wedapp.activity.ProductDetailActivity"
             android:label="@string/title_activity_product_detail" >
         </activity>
+        <activity
+            android:name="wedapp.activity.ReservationActivity"
+            android:label="@string/title_activity_reservation" >
+        </activity>
+        
+        <!-- PayPal START -->
+          
+        <service android:name="com.paypal.android.sdk.payments.PayPalService"
+            android:exported="false" />
+        
+        <activity android:name="com.paypal.android.sdk.payments.PaymentActivity" />
+        <activity android:name="com.paypal.android.sdk.payments.LoginActivity" />
+        <activity android:name="com.paypal.android.sdk.payments.PaymentMethodActivity" />
+        <activity android:name="com.paypal.android.sdk.payments.PaymentConfirmActivity" />
+        <activity android:name="com.paypal.android.sdk.payments.PaymentCompletedActivity" />
+        <activity
+            android:name="io.card.payment.CardIOActivity"
+            android:configChanges="keyboardHidden|orientation" />
+        <activity android:name="io.card.payment.DataEntryActivity" />
+        <!-- PayPal END -->
     </application>
 
 </manifest>

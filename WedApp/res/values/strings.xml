@@ -9,5 +9,6 @@
     <string name="title_activity_dashboard">DashboardActivity</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_product_detail">ProductDetailActivity</string>
+    <string name="title_activity_reservation">Reserving Gift</string>
 
 </resources>

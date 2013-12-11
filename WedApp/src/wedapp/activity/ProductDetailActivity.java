@@ -1,9 +1,15 @@
 package wedapp.activity;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,6 +27,8 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.text.util.Linkify;
 import android.util.Log;
 import android.view.Menu;
@@ -42,6 +50,8 @@ public class ProductDetailActivity extends Activity {
 	Button btnReserve;
 	ImageView imgPhoto;
 
+	Bitmap image;
+	
 	//Strings used to get result from AsyncTask in order to update UI
 	private String name;
 	private String price;
@@ -49,6 +59,7 @@ public class ProductDetailActivity extends Activity {
 	private String email;
 	private String phone;
 	private String address;
+	private String photo;
 	
 	private String pid;
 
@@ -86,6 +97,22 @@ public class ProductDetailActivity extends Activity {
 		
 		btnReserve = (Button) findViewById(R.id.buttonReserve);
 		btnDrive = (Button) findViewById(R.id.buttonDrive);
+		
+		btnReserve.setOnClickListener(new View.OnClickListener() {
+        	@Override
+			public void onClick(View v) {	
+        		// getting product details from intent
+				///Intent i = getIntent();
+				
+				// getting product id (pid) from intent
+				///pid = i.getStringExtra(TAG_PID);
+				// creating intent for reservation and passing id of the gift
+        		Intent intent = new Intent(getApplicationContext(), ReservationActivity.class);
+        		///intent.putExtra(TAG_PID, pid)
+        		intent.putExtra("TAG_PID", "7");
+        		startActivity(intent);
+        	}
+        	});
 		
 		btnDrive.setOnClickListener(new View.OnClickListener() {
         	@Override
@@ -185,6 +212,9 @@ public class ProductDetailActivity extends Activity {
 
 							name = product.getString(TAG_NAME);
 							price = product.getString(TAG_PRICE);
+							photo = product.getString(TAG_PHOTO);
+							
+							new DownloadImage().execute();
 							
 							// Building Parameters Merchant
 							List<NameValuePair> mparams = new ArrayList<NameValuePair>();
@@ -248,8 +278,7 @@ public class ProductDetailActivity extends Activity {
 		 * After completing background task Dismiss the progress dialog
 		 * **/
 		protected void onPostExecute(String file_url) {
-			// dismiss the dialog once got all details
-			pDialog.dismiss();
+			
 		}
 	}
 	
@@ -267,5 +296,92 @@ public class ProductDetailActivity extends Activity {
         }
     }
 
+    //AsyncTask for dowloading photos of a product
+    class DownloadImage extends AsyncTask<Void,Void,Void>
+    {
+
+        @Override
+        protected void onPreExecute() {
+            // TODO Auto-generated method stub
+            super.onPreExecute();
+            
+        }
+
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            // TODO Auto-generated method stub
+            try
+            {
+            //URL url = new URL( "http://a3.twimg.com/profile_images/670625317/aam-logo-v3-twitter.png");
+            String dwn = "http://wedapp.altervista.org/"+photo+".bmp";
+            image = downloadBitmap(dwn);
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            // TODO Auto-generated method stub
+            super.onPostExecute(result);
+            if(image!=null)
+            {
+                imgPhoto.setImageBitmap(image);
+            }
+         // dismiss the dialog once got all details
+         			pDialog.dismiss();
+        }   
+    }
+     private Bitmap downloadBitmap(String url) {
+         // initilize the default HTTP client object
+         final DefaultHttpClient client = new DefaultHttpClient();
+
+         //forming a HttoGet request 
+         final HttpGet getRequest = new HttpGet(url);
+         try {
+
+             HttpResponse response = client.execute(getRequest);
+
+             //check 200 OK for success
+             final int statusCode = response.getStatusLine().getStatusCode();
+
+             if (statusCode != HttpStatus.SC_OK) {
+                 Log.w("ImageDownloader", "Error " + statusCode + 
+                         " while retrieving bitmap from " + url);
+                 return null;
+
+             }
+
+             final HttpEntity entity = response.getEntity();
+             if (entity != null) {
+                 InputStream inputStream = null;
+                 try {
+                     // getting contents from the stream 
+                     inputStream = entity.getContent();
+
+                     // decoding stream data back into image Bitmap that android understands
+                     image = BitmapFactory.decodeStream(inputStream);
+
+
+                 } finally {
+                     if (inputStream != null) {
+                         inputStream.close();
+                     }
+                     entity.consumeContent();
+                 }
+             }
+         } catch (Exception e) {
+             // You Could provide a more explicit error message for IOException
+             getRequest.abort();
+             Log.e("ImageDownloader", "Something went wrong while" +
+                     " retrieving bitmap from " + url + e.toString());
+         } 
+
+         return image;
+     }
 
 }
