@@ -2,6 +2,8 @@ package wedapp.activity;
 
 import wedapp.library.DatabaseHandler;
 import dima.wedapp.R;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
@@ -9,6 +11,7 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class DashboardActivity extends Activity {
 	
@@ -31,9 +34,16 @@ public class DashboardActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		//Controllo connessione ON
+		Networking nw = new Networking();
+        if(!nw.isNetworkAvailable(getApplicationContext())){
+            Toast.makeText(this, "L'applicazione necessita di una connessione dati!", Toast.LENGTH_LONG).show();
+            finish();
+        }
 		
 		if(isMerchantLogged(getApplicationContext())){
 			setContentView(R.layout.activity_dashboard);
+	        
         	btnLogout = (Button) findViewById(R.id.btnLogout);
         	
         	btnLogout.setOnClickListener(new View.OnClickListener() {
@@ -62,4 +72,23 @@ public class DashboardActivity extends Activity {
 		return true;
 	}
 
+    public class Networking {
+      	 /*
+      	 *@return boolean return true if the application can access the internet
+      	 */
+      	 public boolean isNetworkAvailable(Context context) {
+      	     ConnectivityManager connectivity = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+      	     if (connectivity != null) {
+      	        NetworkInfo[] info = connectivity.getAllNetworkInfo();
+      	        if (info != null) {
+      	           for (int i = 0; i < info.length; i++) {
+      	              if (info[i].getState() == NetworkInfo.State.CONNECTED) {
+      	                 return true;
+      	              }
+      	           }
+      	        }
+      	     }
+      	     return false;
+      	  }
+      	}
 }
