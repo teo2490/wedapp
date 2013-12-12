@@ -11,11 +11,14 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class DashboardActivity extends Activity {
 	
 	Button btnLogout;
+	TextView nameText;
+	TextView cityText;
 	
 	private boolean isMerchantLogged(Context context) {
 		DatabaseHandler db = new DatabaseHandler(context);
@@ -43,8 +46,14 @@ public class DashboardActivity extends Activity {
 		
 		if(isMerchantLogged(getApplicationContext())){
 			setContentView(R.layout.activity_dashboard);
-	        
+			
+			DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+        	nameText = (TextView) findViewById(R.id.nameText);
+        	cityText = (TextView) findViewById(R.id.cityText);
         	btnLogout = (Button) findViewById(R.id.btnLogout);
+
+        	/*nameText.setText(db.getReadableDatabase());
+        	cityText.setText("test");*/
         	
         	btnLogout.setOnClickListener(new View.OnClickListener() {
     			
