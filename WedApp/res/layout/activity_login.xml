@@ -48,7 +48,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Login"
-    	android:background="#fc6c85"
+    	android:background="@drawable/button_color"
     	android:textColor="#ffffff"
         android:layout_margin="5dip"/>
     

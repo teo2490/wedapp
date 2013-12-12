@@ -86,7 +86,7 @@
         	android:layout_height="wrap_content"
         	android:layout_weight="0.5"
         	android:layout_margin="5dip"
-        	android:background="#fc6c85"
+        	android:background="@drawable/button_color"
     		android:textColor="#ffffff"
         	android:text="Drive me" />
         
@@ -96,7 +96,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:layout_margin="5dip"
-            android:background="#fc6c85"
+            android:background="@drawable/button_color"
     		android:textColor="#ffffff"
             android:text="Reserve" />
 

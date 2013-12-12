@@ -10,6 +10,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import wedapp.activity.LoginActivity.loginMerchant;
 import wedapp.activity.ProductDetailActivity.DownloadImage;
 import wedapp.library.JSONParser;
 
@@ -30,6 +31,7 @@ import android.text.util.Linkify;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -55,6 +57,11 @@ public class ReservationActivity extends Activity {
     EditText inputName;
     EditText inputSurname;
     EditText inputEmail;
+    Button btnReserve;
+    
+    private String name;
+    private String surname;
+    private String email;
     
  // url to add a reservation
     private static String url_add_reservation = "http://wedapp.altervista.org/add_reservation.php";
@@ -72,6 +79,24 @@ public class ReservationActivity extends Activity {
         inputName = (EditText) findViewById(R.id.inputName);
         inputSurname = (EditText) findViewById(R.id.inputSurname);
         inputEmail = (EditText) findViewById(R.id.inputEmail);
+        btnReserve = (Button) findViewById(R.id.btnReserve);
+        
+        btnReserve.setOnClickListener(new View.OnClickListener() {
+
+			public void onClick(View view) {
+				name = inputName.getText().toString();
+				surname = inputSurname.getText().toString();
+				email = inputEmail.getText().toString();
+				
+				if(!name.equals("") && !surname.equals("") && !email.equals("")){
+					onBuyPressed(getCurrentFocus());
+				}
+				else{
+					Toast.makeText(getApplicationContext(), "Please, fill all the field", Toast.LENGTH_LONG).show();
+				}
+			}
+		});
+        
         
         Intent intent = new Intent(this, PayPalService.class);
         
@@ -95,7 +120,7 @@ public class ReservationActivity extends Activity {
         // app midway through the payment UI flow.
         intent.putExtra(PaymentActivity.EXTRA_CLIENT_ID, "AUK5NxC1PzfUyaNPB9N5WwcG4TWnwSiWpeZKmj-56VaxsO0so9QkvMRyBsVS");
         //In EXTRA_PAYER_ID ci va email di chi compra!
-        intent.putExtra(PaymentActivity.EXTRA_PAYER_ID, "wedbuyer@gmail.com");
+        intent.putExtra(PaymentActivity.EXTRA_PAYER_ID, email);
         intent.putExtra(PaymentActivity.EXTRA_PAYMENT, thingToBuy);
         
         startActivityForResult(intent, 0);
@@ -120,6 +145,7 @@ public class ReservationActivity extends Activity {
                     // for more details.
                     //Aggiungere una riga nella tabella delle reservation
                     new AddReservation().execute();
+                    finish();
 
                 } catch (JSONException e) {
                     Log.e("paymentExample", "an extremely unlikely failure occurred: ", e);
@@ -168,9 +194,9 @@ public class ReservationActivity extends Activity {
          * Creating product
          * */
         protected String doInBackground(String... args) {
-            String name = inputName.getText().toString();
-            String surname = inputSurname.getText().toString();
-            String email = inputEmail.getText().toString();
+            name = inputName.getText().toString();
+            surname = inputSurname.getText().toString();
+            email = inputEmail.getText().toString();
  
             System.out.println(gid);
             // Building Parameters

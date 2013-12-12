@@ -26,6 +26,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class LoginActivity extends Activity {
 	Button btnLogin;
@@ -48,6 +49,9 @@ public class LoginActivity extends Activity {
 	private static String KEY_BUILD = "build_number";
 	private static String KEY_PHONE = "phone";
 	
+	private String email;
+	private String password;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -64,7 +68,14 @@ public class LoginActivity extends Activity {
 		btnLogin.setOnClickListener(new View.OnClickListener() {
 
 			public void onClick(View view) {
-				new loginMerchant().execute();
+				email = inputEmail.getText().toString();
+				password = inputPassword.getText().toString();
+				if(!email.equals("") && !password.equals("")){
+					new loginMerchant().execute();
+				}
+				else{
+					Toast.makeText(getApplicationContext(), "Please, fill all the field", Toast.LENGTH_LONG).show();
+				}
 			}
 		});
 	}
@@ -79,8 +90,7 @@ public class LoginActivity extends Activity {
         }
 		
 		protected String doInBackground(String... args) {
-			String email = inputEmail.getText().toString();
-			String password = inputPassword.getText().toString();
+			
 			Log.d("Button", "Login");
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
 			params.add(new BasicNameValuePair("email", email));
