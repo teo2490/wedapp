@@ -1,0 +1,106 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dip" >
+        
+        <!-- Groom name Label -->
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Groom name"
+	    	android:textColor="#fc6c85" />
+        <!--  Groom name TextField -->
+        <EditText
+            android:id="@+id/registerNameGroom"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text" />
+        
+		<!-- Groom surname TextField -->
+		<TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Groom surname"
+	    	android:textColor="#fc6c85" />
+		<!-- Groom surname TextField -->
+        <EditText
+            android:id="@+id/registerSurnameGroom"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text" />
+        
+		<!-- Bride name Label -->
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Bride name"
+	    	android:textColor="#fc6c85" />
+        <!-- Bride name TextField -->
+        <EditText
+            android:id="@+id/registerNameBride"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text" />
+        
+        <!-- Bride surname Label -->
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Bride surname"
+	    	android:textColor="#fc6c85" />
+        <!-- Bride surname TextField -->
+        <EditText
+            android:id="@+id/registerSurnameBride"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text" />
+        
+        <!-- Date Label -->
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Wedding date"
+	    	android:textColor="#fc6c85" />
+        <!-- Date TextField -->
+        <EditText
+            android:id="@+id/registerDate"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="date" />
+        
+        <!--  Error message -->
+        <TextView android:id="@+id/addListError"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#e52b50"
+            android:padding="10dip"
+            android:textStyle="bold"/>
+
+		<!-- Register Button -->        
+        <Button
+            android:id="@+id/btnAddList"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dip"
+            android:text="Add List"
+	    	android:background="#fc6c85"
+	    	android:textColor="#ffffff" />
+
+        <!--  Link to Login Screen -->
+        <Button
+            android:id="@+id/btnLinkToHome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dip"
+            android:background="@null"
+            android:text="Go back to merchant's home"
+            android:textColor="#e52b50"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</ScrollView>

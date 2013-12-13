@@ -86,12 +86,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // Move to first row
         cursor.moveToFirst();
         if(cursor.getCount() > 0){
-        	user.put("email", cursor.getString(1));
-        	user.put("name", cursor.getString(2));
-        	user.put("city", cursor.getString(3));
-        	user.put("address", cursor.getString(4));
-        	user.put("build_number", cursor.getString(5));
-        	user.put("phone", cursor.getString(6));
+        	user.put("email", cursor.getString(0));
+        	user.put("name", cursor.getString(1));
+        	user.put("city", cursor.getString(2));
+        	user.put("address", cursor.getString(3));
+        	user.put("build_number", cursor.getString(4));
+        	user.put("phone", cursor.getString(5));
         }
         cursor.close();
         db.close();

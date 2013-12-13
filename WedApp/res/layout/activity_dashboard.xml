@@ -8,38 +8,19 @@
         android:orientation="vertical"
         android:padding="10dip" >
         
-     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:padding="10dip" >
-           
-        <!--  Welcome message -->
-        <TextView android:id="@+id/hiText"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#e52b50"
-            android:padding="10dip"
-            android:textStyle="bold"
-            android:text="Hi "/>
-        <!--  Welcome message -->
-        <TextView android:id="@+id/nameText"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#e52b50"
-            android:padding="10dip"
-            android:textStyle="bold"/>
-        <!--  Welcome message -->
-        <TextView android:id="@+id/cityText"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#e52b50"
-            android:padding="10dip"
-            android:textStyle="bold"/>
-        
-        </LinearLayout>
+        <!-- welcome Text -->
 
-		<!-- List Button -->        
+        <TextView
+            android:id="@+id/txtWelcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:height="30sp"
+        	android:textSize="25sp"
+            android:textColor="#fc6c85"
+        	android:textStyle="bold" />
+
+		<!-- List Button -->
+        
         <Button
             android:id="@+id/btnList"
             android:layout_width="fill_parent"

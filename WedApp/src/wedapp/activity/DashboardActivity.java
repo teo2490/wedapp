@@ -17,8 +17,9 @@ import android.widget.Toast;
 public class DashboardActivity extends Activity {
 	
 	Button btnLogout;
-	TextView nameText;
-	TextView cityText;
+	Button btnGift;
+	Button btnList;
+	TextView txtWelcome;
 	
 	private boolean isMerchantLogged(Context context) {
 		DatabaseHandler db = new DatabaseHandler(context);
@@ -48,9 +49,12 @@ public class DashboardActivity extends Activity {
 			setContentView(R.layout.activity_dashboard);
 			
 			DatabaseHandler db = new DatabaseHandler(getApplicationContext());
-        	nameText = (TextView) findViewById(R.id.nameText);
-        	cityText = (TextView) findViewById(R.id.cityText);
         	btnLogout = (Button) findViewById(R.id.btnLogout);
+        	btnGift = (Button) findViewById(R.id.btnGift);
+        	txtWelcome = (TextView) findViewById(R.id.txtWelcome);
+        	
+        	String wlcMsg = "Hi "+db.getUserDetails().get("name")+" "+db.getUserDetails().get("city");
+        	txtWelcome.setText(wlcMsg);
 
         	/*nameText.setText(db.getReadableDatabase());
         	cityText.setText("test");*/
@@ -65,6 +69,17 @@ public class DashboardActivity extends Activity {
     	        	finish();
     			}
     		});
+        	
+        	btnGift.setOnClickListener(new View.OnClickListener() {
+        		
+				public void onClick(View v) {
+					Intent newGift = new Intent(getApplicationContext(), NewProductActivity.class);
+					newGift.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+					startActivity(newGift);
+					finish();
+				}
+			});
+        	
 		} else {
 			// user is not logged in show login screen
         	Intent choose = new Intent(getApplicationContext(), WedApp.class);

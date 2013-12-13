@@ -82,6 +82,10 @@
             android:name="wedapp.activity.RegisterActivity"
             android:label="@string/title_activity_register" >
         </activity>
+        <activity
+            android:name="wedapp.activity.NewListActivity"
+            android:label="@string/title_activity_new_list" >
+        </activity>
     </application>
 
 </manifest>
