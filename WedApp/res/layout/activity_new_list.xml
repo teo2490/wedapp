@@ -73,12 +73,13 @@
             android:layout_height="wrap_content"
             android:inputType="date" />
         
-        <!--  Error message -->
-        <TextView android:id="@+id/addListError"
+        <!--  Message -->
+        <TextView android:id="@+id/addListMessage"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textColor="#e52b50"
             android:padding="10dip"
+            android:textSize="25sp"
             android:textStyle="bold"/>
 
 		<!-- Register Button -->        

@@ -17,8 +17,10 @@ import android.widget.Toast;
 public class DashboardActivity extends Activity {
 	
 	Button btnLogout;
-	Button btnGift;
-	Button btnList;
+	Button btnNewList;
+	Button btnDeleteList;
+	Button btnUpList;
+	Button btnUpProfile;
 	TextView txtWelcome;
 	
 	private boolean isMerchantLogged(Context context) {
@@ -50,17 +52,46 @@ public class DashboardActivity extends Activity {
 			
 			DatabaseHandler db = new DatabaseHandler(getApplicationContext());
         	btnLogout = (Button) findViewById(R.id.btnLogout);
-        	btnGift = (Button) findViewById(R.id.btnGift);
+        	btnNewList = (Button) findViewById(R.id.btnNewList);
+        	btnDeleteList = (Button) findViewById(R.id.btnDeleteList);
+        	btnUpList = (Button) findViewById(R.id.btnUpList);
+        	btnUpProfile = (Button) findViewById(R.id.btnUpProfile);
+        	//btnGift = (Button) findViewById(R.id.btnGift);
         	txtWelcome = (TextView) findViewById(R.id.txtWelcome);
         	
         	String wlcMsg = "Hi "+db.getUserDetails().get("name")+" "+db.getUserDetails().get("city");
         	txtWelcome.setText(wlcMsg);
-
-        	/*nameText.setText(db.getReadableDatabase());
-        	cityText.setText("test");*/
+        	
+        	btnNewList.setOnClickListener(new View.OnClickListener() {		
+    			public void onClick(View view) {
+    				Intent newList = new Intent(getApplicationContext(), NewListActivity.class);
+    	        	newList.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+    	        	startActivity(newList);
+    	        	finish();
+    			}
+    		});
+        	
+        	btnUpList.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View view) {
+					
+				}
+			});
+        	
+        	btnDeleteList.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View view) {
+					
+				}
+			});
+        	
+        	btnUpProfile.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View view) {
+					Intent upProfile = new Intent(getApplicationContext(), UpdateProfileActivity.class);
+					upProfile.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+					startActivity(upProfile);
+				}
+			});
         	
         	btnLogout.setOnClickListener(new View.OnClickListener() {
-    			
     			public void onClick(View view) {
     				logoutMerchant(getApplicationContext());
     				Intent choose = new Intent(getApplicationContext(), WedApp.class);
@@ -70,7 +101,9 @@ public class DashboardActivity extends Activity {
     			}
     		});
         	
-        	btnGift.setOnClickListener(new View.OnClickListener() {
+        	
+        	
+        	/*btnGift.setOnClickListener(new View.OnClickListener() {
         		
 				public void onClick(View v) {
 					Intent newGift = new Intent(getApplicationContext(), NewProductActivity.class);
@@ -78,7 +111,7 @@ public class DashboardActivity extends Activity {
 					startActivity(newGift);
 					finish();
 				}
-			});
+			});*/
         	
 		} else {
 			// user is not logged in show login screen

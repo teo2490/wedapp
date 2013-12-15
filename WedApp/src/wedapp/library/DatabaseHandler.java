@@ -96,7 +96,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         cursor.close();
         db.close();
 		return user;
-	}
+	} 
 
 	/**
 	 * Getting user login status

@@ -14,31 +14,47 @@
             android:id="@+id/txtWelcome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:height="30sp"
         	android:textSize="25sp"
             android:textColor="#fc6c85"
         	android:textStyle="bold" />
 
-		<!-- List Button -->
-        
+    
         <Button
-            android:id="@+id/btnList"
+            android:id="@+id/btnNewList"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dip"
             android:text="Add List"
 	    	android:background="#fc6c85"
 	    	android:textColor="#ffffff" />
-        <!-- Gift Button -->        
+              
         <Button
-            android:id="@+id/btnGift"
+            android:id="@+id/btnUpList"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dip"
-            android:text="Add Gift"
+            android:text="Update List"
 	    	android:background="#fc6c85"
 	    	android:textColor="#ffffff" />
-        <!-- Logout Button -->        
+
+        <Button
+            android:id="@+id/btnDeleteList"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dip"
+            android:background="#fc6c85"
+            android:text="Delete List"
+            android:textColor="#ffffff" />
+
+        <Button
+            android:id="@+id/btnUpProfile"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dip"
+            android:background="#fc6c85"
+            android:text="Update Your Profile"
+            android:textColor="#ffffff" />
+        
         <Button
             android:id="@+id/btnLogout"
             android:layout_width="fill_parent"

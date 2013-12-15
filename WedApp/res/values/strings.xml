@@ -12,5 +12,6 @@
     <string name="title_activity_reservation">Reserving Gift</string>
     <string name="title_activity_register">RegisterActivity</string>
     <string name="title_activity_new_list">NewListActivity</string>
+    <string name="title_activity_update_profile">UpdateProfileActivity</string>
 
 </resources>

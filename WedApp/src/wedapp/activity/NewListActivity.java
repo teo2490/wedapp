@@ -1,5 +1,6 @@
 package wedapp.activity;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,27 +30,20 @@ import android.widget.TextView;
 public class NewListActivity extends Activity {
 	
 	Button btnAddList;
-	Button btnGoBack;
+	Button btnLinkToHome;
 	EditText nGroom;
 	EditText sGroom;
 	EditText nBride;
 	EditText sBride;
 	EditText wDate;
 	TextView errorMsg;
-	
-	DatabaseHandler db = new DatabaseHandler(getApplicationContext());
 
 	private static String KEY_SUCCESS = "success";
-	private static String KEY_GNAME = "groomName";
-	private static String KEY_GSURNAME = "groomSurname";
-	private static String KEY_BNAME = "brideName";
-	private static String KEY_BSURNAME = "brideSurname";
-	private static String KEY_WDATE = "weddingdate";
 	
 	private ProgressDialog pDialog;
 	private String errMsg;
 	JSONParser jsonParser = new JSONParser();
-	private static String URL = "http://wedapp.altervista.org/createList.php";
+	private static String URL = "http://wedapp.altervista.org/create_list.php";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -62,12 +56,21 @@ public class NewListActivity extends Activity {
 		sBride = (EditText) findViewById(R.id.registerSurnameBride);
 		wDate = (EditText) findViewById(R.id.registerDate);
 		btnAddList = (Button) findViewById(R.id.btnAddList);
-		btnGoBack = (Button) findViewById(R.id.btnLinkToHome);
-		errorMsg = (TextView) findViewById(R.id.addListError);
+		btnLinkToHome = (Button) findViewById(R.id.btnLinkToHome);
+		errorMsg = (TextView) findViewById(R.id.addListMessage);
 		
 		btnAddList.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
 				new addList().execute();
+			}
+		});
+		
+		btnLinkToHome.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View view) {
+				Intent i = new Intent(getApplicationContext(), DashboardActivity.class);
+				startActivity(i);
+				// Close Registration View
+				finish();
 			}
 		});
 	}
@@ -82,37 +85,34 @@ public class NewListActivity extends Activity {
         }
 		
 		protected String doInBackground(String... args) {
+			DatabaseHandler db = new DatabaseHandler(getApplicationContext());
 			String gName = nGroom.getText().toString();
 			String gSurname = sGroom.getText().toString();
 			String bName = nBride.getText().toString();
 			String bSurname = sBride.getText().toString();
 			String date = wDate.getText().toString();
 			String mEmail = db.getUserDetails().get("email");
+			/*System.out.println(gName);
+			System.out.println(gSurname);
+			System.out.println(bName);
+			System.out.println(bSurname);
+			System.out.println(date);
+			System.out.println(mEmail);*/
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
-			params.add(new BasicNameValuePair("gName", gName));
-			params.add(new BasicNameValuePair("gSurname", gSurname));
-			params.add(new BasicNameValuePair("bName", gName));
-			params.add(new BasicNameValuePair("ssurname", gSurname));
-			params.add(new BasicNameValuePair("date", date));
-			params.add(new BasicNameValuePair("mEmail", mEmail));
+			params.add(new BasicNameValuePair("n_groom", gName));
+			params.add(new BasicNameValuePair("s_groom", gSurname));
+			params.add(new BasicNameValuePair("n_bride", bName));
+			params.add(new BasicNameValuePair("s_bride", bSurname));
+			params.add(new BasicNameValuePair("w_date", date));
+			params.add(new BasicNameValuePair("m_email", mEmail));
 			JSONObject json = jsonParser.makeHttpRequest(URL, "POST", params);
-			//Andare avanti da qui!!!!!!
 			try {
 				if (json.getString(KEY_SUCCESS) != null) {
-					errMsg = "";
 					String res = json.getString(KEY_SUCCESS); 
 					if(Integer.parseInt(res) == 1){
-						JSONArray listObj = json.getJSONArray("code");
-						JSONObject json_list = listObj.getJSONObject(0);
-						db.addUser(json_list.getString(KEY_EMAIL), json_user.getString(KEY_NAME), json_user.getString(KEY_CITY), json_user.getString(KEY_ADDRESS), json_user.getString(KEY_BUILD), json_user.getString(KEY_PHONE));						
-						// Launch Dashboard Screen
-						Intent dashboard = new Intent(getApplicationContext(), DashboardActivity.class);
-						// Close all views before launching Dashboard
-						dashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+						int codeList = json.getInt("list");
+						errMsg = "List correctly created! The list code is: " + codeList;
 						pDialog.dismiss();
-						startActivity(dashboard);
-						// Close Registration Screen
-						finish();
 					}else{
 						// Error in registration
 						errMsg = "Error occured in adding list";
@@ -121,6 +121,19 @@ public class NewListActivity extends Activity {
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
+			runOnUiThread(new Runnable() {
+				public void run() {
+					// display errMsg in TextView
+					pDialog.dismiss();
+					errorMsg.setText(errMsg);
+				}
+			});
+			return null;
+		}
+		
+		protected void onPostExecute() {
+    		// dismiss the dialog once done
+    		pDialog.dismiss();
 		}
 	}
 
