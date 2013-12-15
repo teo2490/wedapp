@@ -54,6 +54,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		// Create tables again
 		onCreate(db);
 	}
+	
+	public void upgradeDatabase() {
+		SQLiteDatabase db = this.getWritableDatabase();
+		db.delete(TABLE_LOGIN, null, null);
+		onCreate(db);
+	}
 
 	/**
 	 * Storing user details in database

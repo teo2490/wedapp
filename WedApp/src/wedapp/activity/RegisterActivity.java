@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -28,7 +27,6 @@ public class RegisterActivity extends Activity {
 	private ProgressDialog pDialog;
 	private String errMsg;
 	JSONParser jsonParser = new JSONParser();
-	private static String loginURL = "http://wedapp.altervista.org/login.php";
 	private static String registerURL = "http://wedapp.altervista.org/create_merchant.php";
 	
 	Button btnRegister;
@@ -44,12 +42,6 @@ public class RegisterActivity extends Activity {
 	TextView registerErrorMsg;
 
 	private static String KEY_SUCCESS = "success";
-	private static String KEY_EMAIL = "email";
-	private static String KEY_NAME = "name";
-	private static String KEY_CITY = "city";
-	private static String KEY_ADDRESS = "address";
-	private static String KEY_BUILD = "build_number";
-	private static String KEY_PHONE = "phone";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -122,11 +114,8 @@ public class RegisterActivity extends Activity {
 					if(Integer.parseInt(res) == 1){
 						// user successfully registred
 						// Store user details in SQLite DatabaseJSONObject
-						json = jsonParser.makeHttpRequest(loginURL, "POST", params);
 						DatabaseHandler db = new DatabaseHandler(getApplicationContext());
-						JSONArray merchantObj = json.getJSONArray("merchant");
-						JSONObject json_user = merchantObj.getJSONObject(0);
-						db.addUser(json_user.getString(KEY_EMAIL), json_user.getString(KEY_NAME), json_user.getString(KEY_CITY), json_user.getString(KEY_ADDRESS), json_user.getString(KEY_BUILD), json_user.getString(KEY_PHONE));						
+						db.addUser(email, name, city, address, build_number, phone);						
 						// Launch Dashboard Screen
 						Intent dashboard = new Intent(getApplicationContext(), DashboardActivity.class);
 						// Close all views before launching Dashboard

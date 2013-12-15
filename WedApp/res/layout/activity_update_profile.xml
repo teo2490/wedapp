@@ -1,16 +1,115 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".UpdateProfileActivity" >
+    android:layout_height="match_parent" >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dip" >
+        
+        <!-- Email -->
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Email"
+	    	android:textColor="#fc6c85" />
+        
+        <EditText
+            android:id="@+id/updateEmail"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"/>
+		<!-- New password -->
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Password"
+	    	android:textColor="#fc6c85" />
 
-</RelativeLayout>
+        <EditText
+            android:id="@+id/updatePassword"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword" /> 
+        <!-- City -->
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="City"
+	    	android:textColor="#fc6c85" />
+
+        <EditText
+            android:id="@+id/updateCity"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text" />        
+        <!-- Address -->
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Address"
+	    	android:textColor="#fc6c85" />
+
+        <EditText
+            android:id="@+id/updateAddress"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text" />
+        
+        <!-- Build -->
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Build Number"
+	    	android:textColor="#fc6c85" />
+
+        <EditText
+            android:id="@+id/updateBuild"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number" />        
+        <!-- Phone -->
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Phone"
+	    	android:textColor="#fc6c85" />
+
+        <EditText
+            android:id="@+id/updatePhone"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="phone" />
+        
+        <!--  Error message -->
+        <TextView android:id="@+id/update_error"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#e52b50"
+            android:padding="10dip"
+            android:textStyle="bold"/>
+
+		<!-- Update Button -->        
+        <Button
+            android:id="@+id/btnUpdate"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dip"
+            android:text="Update"
+	    	android:background="#fc6c85"
+	    	android:textColor="#ffffff" />
+
+        <!--  Link to Login Screen -->
+        <Button
+            android:id="@+id/btnLinkToHome2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dip"
+            android:background="@null"
+            android:text="Go back to merchant's home"
+            android:textColor="#e52b50"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</ScrollView>
