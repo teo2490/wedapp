@@ -94,6 +94,10 @@
             android:name="wedapp.activity.UpdateProduct"
             android:label="@string/title_activity_update_product" >
         </activity>
+        <activity
+            android:name="wedapp.activity.UpdateListDetailActivity"
+            android:label="@string/title_activity_update_list_detail" >
+        </activity>
     </application>
 
 </manifest>

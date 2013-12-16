@@ -101,11 +101,11 @@ public class DashboardActivity extends Activity {
         	btnUpList.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View view) {
 					DatabaseHandler db = new DatabaseHandler(getApplicationContext());
-					String email = db.getUserDetails().get("email");
 					
-					Intent i = new Intent(getApplicationContext(), UpdateProduct.class);
-					i.putExtra("email", email);
-					i.putExtra("pid", "7");
+					String pid = listToUpdate.getText().toString();
+					
+					Intent i = new Intent(getApplicationContext(), UpdateListDetailActivity.class);
+					i.putExtra("pid", pid);
 					startActivity(i);
 				}
 			});

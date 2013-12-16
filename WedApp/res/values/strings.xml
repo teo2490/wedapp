@@ -14,5 +14,6 @@
     <string name="title_activity_new_list">NewListActivity</string>
     <string name="title_activity_update_profile">UpdateProfileActivity</string>
     <string name="title_activity_update_product">Update Product</string>
+    <string name="title_activity_update_list_detail">UpdateListDetailActivity</string>
 
 </resources>

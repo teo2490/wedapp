@@ -77,7 +77,6 @@ public class UpdateProduct extends Activity {
 
 	// single product url
 	private static final String url_product_details = "http://wedapp.altervista.org/get_gift_details.php";
-	
 	private static final String url_update_details = "http://wedapp.altervista.org/update_gift.php";
 
 
