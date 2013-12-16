@@ -64,7 +64,7 @@
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Wedding date"
+            android:text="Wedding date (aa/mm/gg)"
 	    	android:textColor="#fc6c85" />
         <!-- Date TextField -->
         <EditText

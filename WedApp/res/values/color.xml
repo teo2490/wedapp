@@ -2,4 +2,5 @@
 <resources>
      <color name="pressed">#fb3a5c</color>
      <color name="normal">#fc6c85</color>
+     <color name="enabled">#fec7fe</color>
 </resources>

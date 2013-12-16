@@ -1,21 +1,16 @@
 package wedapp.activity;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import wedapp.activity.RegisterActivity.registerMerchant;
 import wedapp.library.DatabaseHandler;
 import wedapp.library.JSONParser;
 import dima.wedapp.R;
-import dima.wedapp.R.layout;
-import dima.wedapp.R.menu;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
@@ -39,6 +34,7 @@ public class NewListActivity extends Activity {
 	TextView errorMsg;
 
 	private static String KEY_SUCCESS = "success";
+	private boolean flagEmptyFields = false;
 	
 	private ProgressDialog pDialog;
 	private String errMsg;
@@ -60,8 +56,14 @@ public class NewListActivity extends Activity {
 		errorMsg = (TextView) findViewById(R.id.addListMessage);
 		
 		btnAddList.setOnClickListener(new View.OnClickListener() {
+			@SuppressWarnings("deprecation")
 			public void onClick(View view) {
 				new addList().execute();
+				if(flagEmptyFields){
+					btnAddList.setClickable(false);
+					btnAddList.setEnabled(false);
+					btnAddList.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_color));
+				}
 			}
 		});
 		
@@ -111,10 +113,12 @@ public class NewListActivity extends Activity {
 					String res = json.getString(KEY_SUCCESS); 
 					if(Integer.parseInt(res) == 1){
 						int codeList = json.getInt("list");
+						flagEmptyFields = true;
 						errMsg = "List correctly created! The list code is: " + codeList;
 						pDialog.dismiss();
 					}else{
 						// Error in registration
+						flagEmptyFields = false;
 						errMsg = "Error occured in adding list";
 					}
 				}
@@ -124,6 +128,13 @@ public class NewListActivity extends Activity {
 			runOnUiThread(new Runnable() {
 				public void run() {
 					// display errMsg in TextView
+					if(flagEmptyFields){
+						nGroom.setText("");
+						sGroom.setText("");
+						nBride.setText("");
+						sBride.setText("");
+						wDate.setText("");
+					}
 					pDialog.dismiss();
 					errorMsg.setText(errMsg);
 				}

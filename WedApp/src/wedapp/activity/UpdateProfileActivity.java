@@ -110,11 +110,12 @@ public class UpdateProfileActivity extends Activity {
 					errMsg = "";
 					String res = json.getString(KEY_SUCCESS); 
 					if(Integer.parseInt(res) == 1){
+						String name = db.getUserDetails().get("name");
 						db.resetTables();
 						/*json = jsonParser.makeHttpRequest(detailsURL, "POST", params);
 						JSONArray merchantObj = json.getJSONArray("merchant");
 						JSONObject json_user = merchantObj.getJSONObject(0);*/
-						db.addUser(newEmail, db.getUserDetails().get("name"), city, address, build_number, phone);
+						db.addUser(newEmail, name, city, address, build_number, phone);
 						// Launch Dashboard Screen
 						Intent dashboard = new Intent(getApplicationContext(), DashboardActivity.class);
 						// Close all views before launching Dashboard
