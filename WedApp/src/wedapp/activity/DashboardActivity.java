@@ -1,16 +1,28 @@
 package wedapp.activity;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import wedapp.library.DatabaseHandler;
+import wedapp.library.JSONParser;
 import dima.wedapp.R;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,7 +33,19 @@ public class DashboardActivity extends Activity {
 	Button btnDeleteList;
 	Button btnUpList;
 	Button btnUpProfile;
+	EditText listToDelete;
+	EditText listToUpdate;
 	TextView txtWelcome;
+	TextView txtMessage;
+	
+	private static String KEY_SUCCESS = "success";
+	
+	private ProgressDialog pDialog;
+	private String message;
+	private boolean flagDelete;
+	JSONParser jsonParser = new JSONParser();
+	private static String deleteURL = "http://wedapp.altervista.org/delete_list.php";
+	private static String updateURL = "http://wedapp.altervista.org/update_list.php";
 	
 	private boolean isMerchantLogged(Context context) {
 		DatabaseHandler db = new DatabaseHandler(context);
@@ -57,7 +81,10 @@ public class DashboardActivity extends Activity {
         	btnUpList = (Button) findViewById(R.id.btnUpList);
         	btnUpProfile = (Button) findViewById(R.id.btnUpProfile);
         	//btnGift = (Button) findViewById(R.id.btnGift);
+        	listToDelete = (EditText) findViewById(R.id.listToDelete);
+        	listToUpdate = (EditText) findViewById(R.id.listToUpdate);
         	txtWelcome = (TextView) findViewById(R.id.txtWelcome);
+        	txtMessage = (TextView) findViewById(R.id.txtMessage);
         	
         	String wlcMsg = "Hi "+db.getUserDetails().get("name")+" "+db.getUserDetails().get("city");
         	txtWelcome.setText(wlcMsg);
@@ -79,7 +106,7 @@ public class DashboardActivity extends Activity {
         	
         	btnDeleteList.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View view) {
-					
+					new deleteList().execute();
 				}
 			});
         	
@@ -146,6 +173,55 @@ public class DashboardActivity extends Activity {
       	        }
       	     }
       	     return false;
-      	  }
-      	}
+      	 }
+    }
+    
+    class deleteList extends AsyncTask<String, String, String> {
+		
+		@Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = ProgressDialog.show(DashboardActivity.this, "Loading",
+					"Please wait...", true);
+        }
+		
+		@Override
+		protected String doInBackground(String... args) {
+			DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+			String code = listToDelete.getText().toString();
+			String email = db.getUserDetails().get("email");
+			List<NameValuePair> params = new ArrayList<NameValuePair>();
+			params.add(new BasicNameValuePair("id", code));
+			params.add(new BasicNameValuePair("merchant_email", email));
+			JSONObject json = jsonParser.makeHttpRequest(deleteURL, "POST", params);
+			try {
+				if (json.getString(KEY_SUCCESS) != null) {
+					String res = json.getString(KEY_SUCCESS); 
+					if(Integer.parseInt(res) == 1){
+						flagDelete = true;
+						message = "List deleted!";
+						pDialog.dismiss();
+					}else{
+						flagDelete = false;
+						message = "Error occured during the deletion";
+					}
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			// updating UI from Background Thread
+			runOnUiThread(new Runnable() {
+				public void run() {
+					// display errMsg in TextView
+					pDialog.dismiss();
+					if(flagDelete){
+						listToDelete.setText("");
+					}
+					txtMessage.setText(message);
+				}
+			});
+			return null;
+		}
+    	
+    }
 }
