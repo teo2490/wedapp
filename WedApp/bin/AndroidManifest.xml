@@ -90,6 +90,10 @@
             android:name="wedapp.activity.UpdateProfileActivity"
             android:label="@string/title_activity_update_profile" >
         </activity>
+        <activity
+            android:name="wedapp.activity.UpdateProduct"
+            android:label="@string/title_activity_update_product" >
+        </activity>
     </application>
 
 </manifest>
