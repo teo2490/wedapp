@@ -20,6 +20,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -45,7 +46,7 @@ public class DashboardActivity extends Activity {
 	private boolean flagDelete;
 	JSONParser jsonParser = new JSONParser();
 	private static String deleteURL = "http://wedapp.altervista.org/delete_list.php";
-	private static String updateURL = "http://wedapp.altervista.org/update_list.php";
+	//private static String updateURL = "http://wedapp.altervista.org/update_list.php";
 	
 	private boolean isMerchantLogged(Context context) {
 		DatabaseHandler db = new DatabaseHandler(context);
@@ -70,13 +71,16 @@ public class DashboardActivity extends Activity {
             Toast.makeText(this, "L'applicazione necessita di una connessione dati!", Toast.LENGTH_LONG).show();
             finish();
         }
+
+        //ActionBar ab = getActionBar();
+        //ab.setHomeButtonEnabled(true);
 		
 		if(isMerchantLogged(getApplicationContext())){
 			setContentView(R.layout.activity_dashboard);
 			
 			DatabaseHandler db = new DatabaseHandler(getApplicationContext());
-        	btnLogout = (Button) findViewById(R.id.btnLogout);
-        	btnNewList = (Button) findViewById(R.id.btnNewList);
+        	//btnLogout = (Button) findViewById(R.id.btnLogout);
+        	//btnNewList = (Button) findViewById(R.id.btnNewList);
         	btnDeleteList = (Button) findViewById(R.id.btnDeleteList);
         	btnUpList = (Button) findViewById(R.id.btnUpList);
         	btnUpProfile = (Button) findViewById(R.id.btnUpProfile);
@@ -89,18 +93,18 @@ public class DashboardActivity extends Activity {
         	String wlcMsg = "Hi "+db.getUserDetails().get("name")+" "+db.getUserDetails().get("city");
         	txtWelcome.setText(wlcMsg);
         	
-        	btnNewList.setOnClickListener(new View.OnClickListener() {		
+        	/*btnNewList.setOnClickListener(new View.OnClickListener() {		
     			public void onClick(View view) {
     				Intent newList = new Intent(getApplicationContext(), NewListActivity.class);
     	        	newList.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
     	        	startActivity(newList);
     	        	finish();
     			}
-    		});
+    		});*/
         	
         	btnUpList.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View view) {
-					DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+					//DatabaseHandler db = new DatabaseHandler(getApplicationContext());
 					
 					String pid = listToUpdate.getText().toString();
 					
@@ -124,7 +128,7 @@ public class DashboardActivity extends Activity {
 				}
 			});
         	
-        	btnLogout.setOnClickListener(new View.OnClickListener() {
+        	/*btnLogout.setOnClickListener(new View.OnClickListener() {
     			public void onClick(View view) {
     				logoutMerchant(getApplicationContext());
     				Intent choose = new Intent(getApplicationContext(), WedApp.class);
@@ -132,7 +136,7 @@ public class DashboardActivity extends Activity {
     	        	startActivity(choose);
     	        	finish();
     			}
-    		});
+    		});*/
         	
         	
         	
@@ -161,6 +165,29 @@ public class DashboardActivity extends Activity {
 		getMenuInflater().inflate(R.menu.dashboard, menu);
 		return true;
 	}
+	
+	@Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+        
+            case R.id.actLogout:
+				logoutMerchant(getApplicationContext());
+				Intent choose = new Intent(getApplicationContext(), WedApp.class);
+	        	choose.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	        	startActivity(choose);
+	        	finish();
+                return true;
+                
+            case R.id.actAddList:
+				Intent newList = new Intent(getApplicationContext(), NewListActivity.class);
+	        	newList.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	        	startActivity(newList);
+	        	finish();
+	        	
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
     public class Networking {
       	 /*

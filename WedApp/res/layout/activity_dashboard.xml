@@ -20,14 +20,14 @@
         	android:textStyle="bold" />
 
     
-        <Button
+        <!-- <Button
             android:id="@+id/btnNewList"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dip"
             android:text="Add List"
 	    	android:background="#fc6c85"
-	    	android:textColor="#ffffff" />
+	    	android:textColor="#ffffff" /> -->
               
         <LinearLayout
 		    android:layout_width="match_parent"
@@ -90,14 +90,14 @@
             android:text="Update Your Profile"
             android:textColor="#ffffff" />
         
-        <Button
+       <!--  <Button
             android:id="@+id/btnLogout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dip"
             android:text="Logout"
 	    	android:background="#fc6c85"
-	    	android:textColor="#ffffff" />
+	    	android:textColor="#ffffff" /> -->
         
      </LinearLayout>
 
