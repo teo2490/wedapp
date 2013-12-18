@@ -19,6 +19,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 	// Login table name
 	private static final String TABLE_LOGIN = "login";
+	private static final String TABLE_LIST = "list";
 
 	// Login Table Columns names
 	private static final String KEY_EMAIL = "email";
@@ -27,6 +28,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	private static final String KEY_ADDRESS = "address";
 	private static final String KEY_BUILD = "build_number";
 	private static final String KEY_PHONE = "phone";
+	private static final String KEY_ID = "id";
 
 	public DatabaseHandler(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -43,6 +45,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 				+ KEY_BUILD + " TEXT,"
 				+ KEY_PHONE + " TEXT" + ")";
 		db.execSQL(CREATE_LOGIN_TABLE);
+		
+		String CREATE_LIST_TABLE = "CREATE TABLE " + TABLE_LIST + "("
+				+ KEY_ID + " TEXT PRIMARY KEY" + ")";
+		db.execSQL(CREATE_LIST_TABLE);
 	}
 
 	// Upgrading database
@@ -50,6 +56,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		// Drop older table if existed
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_LOGIN);
+		db.execSQL("DROP TABLE IF EXISTS " + TABLE_LIST);
 
 		// Create tables again
 		onCreate(db);
@@ -80,6 +87,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		db.close(); // Closing database connection
 	}
 	
+	public void addList(String id) {
+		SQLiteDatabase db = this.getWritableDatabase();
+		ContentValues values = new ContentValues();
+		values.put(KEY_ID, id);
+		db.insert(TABLE_LIST, null, values);
+		db.close();
+	}
+	
 	/**
 	 * Getting user data from database
 	 * */
@@ -102,7 +117,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         cursor.close();
         db.close();
 		return user;
-	} 
+	}
+	
+	public String getListId() {
+		String list = new String();
+		String selectQuery = "SELECT * FROM " + TABLE_LIST;
+		SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        cursor.moveToFirst();
+        if(cursor.getCount() > 0){
+        	list = cursor.getString(0);
+        }
+        cursor.close();
+        db.close();
+        return list;
+	}
 
 	/**
 	 * Getting user login status
@@ -128,6 +157,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		SQLiteDatabase db = this.getWritableDatabase();
 		// Delete All Rows
 		db.delete(TABLE_LOGIN, null, null);
+		db.delete(TABLE_LIST, null, null);
 		db.close();
 	}
 
