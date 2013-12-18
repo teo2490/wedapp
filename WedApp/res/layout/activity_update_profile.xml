@@ -107,7 +107,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="40dip"
             android:background="@null"
-            android:text="@string/merchant_home"
+            android:text="@string/home_merchant"
             android:textColor="#e52b50"
             android:textStyle="bold" />
     </LinearLayout>
