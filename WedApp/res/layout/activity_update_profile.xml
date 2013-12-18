@@ -12,7 +12,7 @@
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Email"
+            android:text="@string/email"
 	    	android:textColor="#fc6c85" />
         
         <EditText
@@ -24,7 +24,7 @@
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Password"
+            android:text="@string/password"
 	    	android:textColor="#fc6c85" />
 
         <EditText
@@ -36,7 +36,7 @@
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="City"
+            android:text="@string/city"
 	    	android:textColor="#fc6c85" />
 
         <EditText
@@ -48,7 +48,7 @@
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Address"
+            android:text="@string/address"
 	    	android:textColor="#fc6c85" />
 
         <EditText
@@ -61,7 +61,7 @@
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Build Number"
+            android:text="@string/build_number"
 	    	android:textColor="#fc6c85" />
 
         <EditText
@@ -73,7 +73,7 @@
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Phone"
+            android:text="@string/phone"
 	    	android:textColor="#fc6c85" />
 
         <EditText
@@ -96,7 +96,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dip"
-            android:text="Update"
+            android:text="@string/update"
 	    	android:background="#fc6c85"
 	    	android:textColor="#ffffff" />
 
@@ -107,7 +107,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="40dip"
             android:background="@null"
-            android:text="Go back to merchant's home"
+            android:text="@string/merchant_home"
             android:textColor="#e52b50"
             android:textStyle="bold" />
     </LinearLayout>

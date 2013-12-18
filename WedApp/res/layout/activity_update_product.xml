@@ -11,7 +11,7 @@
     <!-- Name Label -->
     <TextView android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Name"
+        android:text="@string/name"
         android:paddingLeft="10dip"
         android:paddingRight="10dip"
         android:paddingTop="10dip"
@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:paddingLeft="10dip"
         android:paddingRight="10dip"
-        android:text="Price"
+        android:text="@string/price"
         android:textSize="17dip"
         android:textColor="#fc6c85"/> />
  
@@ -69,7 +69,7 @@
         	android:layout_margin="5dip"
         	android:background="@drawable/button_color"
     		android:textColor="#ffffff"
-        	android:text="Take a Photo" />
+        	android:text="@string/photo" />
         
         <Button
             android:id="@+id/btnCreateProduct"
@@ -79,7 +79,7 @@
             android:layout_margin="5dip"
             android:background="@drawable/button_color"
     		android:textColor="#ffffff"
-            android:text="Update Product" />
+            android:text="@string/update_product" />
 
     </LinearLayout>
  

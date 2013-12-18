@@ -12,7 +12,7 @@
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Groom name"
+            android:text="@string/groomn"
 	    	android:textColor="#fc6c85" />
         <!--  Groom name TextField -->
         <EditText
@@ -25,7 +25,7 @@
 		<TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Groom surname"
+            android:text="@string/grooms"
 	    	android:textColor="#fc6c85" />
 		<!-- Groom surname TextField -->
         <EditText
@@ -38,7 +38,7 @@
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Bride name"
+            android:text="@string/briden"
 	    	android:textColor="#fc6c85" />
         <!-- Bride name TextField -->
         <EditText
@@ -51,7 +51,7 @@
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Bride surname"
+            android:text="@string/brides"
 	    	android:textColor="#fc6c85" />
         <!-- Bride surname TextField -->
         <EditText
@@ -64,7 +64,7 @@
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Wedding date"
+            android:text="@string/wedding_date"
 	    	android:textColor="#fc6c85" />
         <!-- Date TextField -->
         <EditText
@@ -88,7 +88,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dip"
-            android:text="Update List"
+            android:text="@string/update_list"
 	    	android:background="#fc6c85"
 	    	android:textColor="#ffffff" />
 
@@ -99,7 +99,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="40dip"
             android:background="@null"
-            android:text="Go back to merchant's home"
+            android:text="@string/home_merchant"
             android:textColor="#e52b50"
             android:textStyle="bold" />
     </LinearLayout>

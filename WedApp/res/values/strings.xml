@@ -15,7 +15,7 @@
     <string name="title_activity_update_product">Update Product</string>
     <string name="title_activity_update_list_detail">Update List</string>
     <string name="add_list">Add List</string>
-    <string name="see_list">Vedi Lista</string>
+    <string name="see_list">See List</string>
     <string name="list_code">List Code</string>
     <string name="update_list">Update List</string>
     <string name="delete_list">Delete List</string>
@@ -32,9 +32,11 @@
     <string name="brides">Bride Surname</string>
     <string name="home_merchant">Merchant\'s Home</string>
     <string name="name">Name</string>
+    <string name="surname">Surname</string>
     <string name="price">Price</string>
     <string name="photo">Take a Photo</string>
     <string name="create_product">Create Product</string>
+    <string name="update_product">Update Product</string>
     <string name="merchant_name">Merchant</string>
     <string name="phone">Phone</string>
     <string name="drive">Drive Me</string>
@@ -45,4 +47,7 @@
     <string name="build_number">Build Number</string>
     <string name="register_me">Register</string>
     <string name="already_reg">Already registered. Login me!</string>
+    <string name="cancel">Cancel</string>
+    <string name="wedding_date">Wedding Date</string>
+    <string name="update">Update</string>
 </resources>

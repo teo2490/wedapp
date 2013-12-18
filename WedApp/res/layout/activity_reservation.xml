@@ -11,7 +11,7 @@
     <!-- Name Label -->
     <TextView android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Name"
+        android:text="@string/name"
         android:paddingLeft="10dip"
         android:paddingRight="10dip"
         android:paddingTop="10dip"
@@ -28,7 +28,7 @@
     <!-- Surname Label -->
     <TextView android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Surname"
+        android:text="@string/surname"
         android:paddingLeft="10dip"
         android:paddingRight="10dip"
         android:paddingTop="10dip"
@@ -48,7 +48,7 @@
         android:layout_height="wrap_content"
         android:paddingLeft="10dip"
         android:paddingRight="10dip"
-        android:text="Email"
+        android:text="@string/email"
         android:textSize="17dip"
         android:textColor="#fc6c85"/> />
  
@@ -75,7 +75,7 @@
             android:background="@drawable/button_color"
     		android:textColor="#ffffff"
     		android:onClick="onFinishPressed"
-            android:text="Cancel" />
+            android:text="@string/cancel" />
         
         <Button
         	android:id="@+id/btnReserve"
@@ -86,7 +86,7 @@
         	android:background="@drawable/button_color"
     		android:textColor="#ffffff"
     		
-        	android:text="Reserve" />
+        	android:text="@string/reserve" />
      
     </LinearLayout>
  
