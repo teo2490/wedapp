@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">WedApp</string>
+    <string name="title_activity_new_product">Create New Product</string>
+    <string name="action_settings">Impostazioni</string>
+    <string name="title_activity_main">WedApp</string>
+    <string name="title_activity_dashboard">WedApp</string>
+    <string name="title_activity_login">Login</string>
+    <string name="title_activity_product_detail">Dettagli Regalo</string>
+    <string name="title_activity_reservation">Prenotazione Regalo</string>
+    <string name="title_activity_register">Registrazione</string>
+    <string name="title_activity_new_list">Nuova Lista</string>
+    <string name="title_activity_update_profile">Aggiornamento Profilo</string>
+    <string name="title_activity_update_product">Aggiornamento Regalo</string>
+    <string name="title_activity_update_list_detail">Aggiornamento Lista</string>
+    <string name="add_list">Aggiungi Lista</string>
+    <string name="see_list">Vedi Lista</string>
+    <string name="list_code">Codice Lista</string>
+    <string name="update_list">Aggiorna Lista</string>
+    <string name="delete_list">Cancella Lista</string>
+    <string name="update_profile">Aggiorna Profilo</string>
+    <string name="logout">Logout</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>	
+    <string name="register">Non ho un account. Registrami!</string>
+    <string name="merchant">Sono un commerciante</string>
+    <string name="groomn">Nome Sposo</string>
+    <string name="grooms">Cognome Sposo</string>
+    <string name="briden">Nome Sposa</string>	
+    <string name="brides">Cognome Sposa</string>
+    <string name="home_merchant">Home Commerciante</string>
+    <string name="name">Nome</string>
+    <string name="price">Prezzo</string>
+    <string name="photo">Aggiungi Foto</string>
+    <string name="create_product">Crea Prodotto</string>
+</resources>

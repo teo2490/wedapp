@@ -13,10 +13,12 @@
         android:id="@+id/imageView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_header" />
+        android:layout_marginBottom="50dp"
+        android:src="@drawable/cover_wedding_pin_words" />
     <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="90dp"
     android:orientation="horizontal" >
 
     <EditText
@@ -24,7 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:ems="10"
-        android:hint="Codice Lista"
+        android:hint="@string/list_code"
         android:inputType="phone" />
 
     <Button
@@ -34,7 +36,7 @@
         android:layout_margin="5dip"
         android:layout_marginTop="69dp"
         android:background="@drawable/button_color"
-        android:text="See List"
+        android:text="@string/see_list"
         android:textColor="#ffffff" />
 	</LinearLayout>
     <Button
@@ -44,7 +46,7 @@
         android:layout_margin="5dip"
         android:layout_marginTop="40dip"
         android:background="@drawable/button_color"
-        android:text="I&apos;m a Merchant"
+        android:text="@string/merchant"
         android:layout_gravity="bottom"
         android:textColor="#ffffff" />
  

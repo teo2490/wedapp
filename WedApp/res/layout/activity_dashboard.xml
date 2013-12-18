@@ -25,7 +25,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dip"
-            android:text="Add List"
+            android:text="@string/add_list"
 	    	android:background="#fc6c85"
 	    	android:textColor="#ffffff" /> -->
               
@@ -38,7 +38,7 @@
 		        android:layout_width="wrap_content"
 		        android:layout_height="match_parent"
 		        android:ems="10"
-		        android:hint="Codice Lista"
+		        android:hint="@string/list_code"
 		        android:inputType="number" />	
 		    <Button
 		        android:id="@+id/btnUpList"
@@ -47,7 +47,7 @@
 		        android:layout_margin="5dip"
 		        android:layout_marginTop="69dp"
 		        android:background="@drawable/button_color"
-		        android:text="Update List"
+		        android:text="@string/update_list"
 		        android:textColor="#ffffff" />
 		</LinearLayout>
 		
@@ -60,7 +60,7 @@
 		        android:layout_width="wrap_content"
 		        android:layout_height="match_parent"
 		        android:ems="10"
-		        android:hint="Codice Lista"
+		        android:hint="@string/list_code"
 		        android:inputType="number" />	
 		    <Button
 		        android:id="@+id/btnDeleteList"
@@ -69,7 +69,7 @@
 		        android:layout_margin="5dip"
 		        android:layout_marginTop="69dp"
 		        android:background="@drawable/button_color"
-		        android:text="Delete List"
+		        android:text="@string/delete_list"
 		        android:textColor="#ffffff" />
 		</LinearLayout>
 		
@@ -87,7 +87,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dip"
             android:background="#fc6c85"
-            android:text="Update Your Profile"
+            android:text="@string/update_profile"
             android:textColor="#ffffff" />
         
        <!--  <Button
@@ -95,7 +95,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dip"
-            android:text="Logout"
+            android:text="@string/logout"
 	    	android:background="#fc6c85"
 	    	android:textColor="#ffffff" /> -->
         
