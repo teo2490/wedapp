@@ -11,7 +11,7 @@ import android.content.Context;
 
 public class UserFunctions {
 	
-	private JSONParser jsonParser;
+	/*private JSONParser jsonParser;
 	
 	private static String loginURL = "http://wedapp.altervista.org/login.php";
 	private static String registerURL = "http://wedapp.altervista.org/createMerchant.php";
@@ -24,11 +24,6 @@ public class UserFunctions {
 		jsonParser = new JSONParser();
 	}
 	
-	/**
-	 * function make Login Request
-	 * @param email
-	 * @param password
-	 * */
 	public JSONObject loginUser(String email, String password){
 		// Building Parameters
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -40,13 +35,7 @@ public class UserFunctions {
 		return json;
 	}
 	
-	/**
-	 * function make Login Request
-	 * @param name
-	 * @param email
-	 * @param password
-	 * */
-	/*public JSONObject registerUser(String email, String password, String piva, String name, String city, String address, String build_number, String phone){
+	public JSONObject registerUser(String email, String password, String piva, String name, String city, String address, String build_number, String phone){
 		// Building Parameters
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("tag", register_tag));
@@ -74,13 +63,13 @@ public class UserFunctions {
 			return true;
 		}
 		return false;
-	}
+	}*/
 	
 	
-	public boolean logoutUser(Context context){
+	public boolean logoutMerchant(Context context){
 		DatabaseHandler db = new DatabaseHandler(context);
 		db.resetTables();
 		return true;
-	}*/
+	}
 	
 }

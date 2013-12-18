@@ -13,5 +13,13 @@
         android:showAsAction="ifRoom"
         android:title="Logout"
         android:icon="@drawable/ic_action_logout"/>
+    
+    <item
+        android:id="@+id/actShare"
+        android:orderInCategory="100"
+        android:showAsAction="ifRoom"
+        android:title="Share"
+        android:icon="@drawable/ic_action_share" />
+        <!-- android:actionProviderClass="android.widget.ShareActionProvider" />  -->
 
 </menu>

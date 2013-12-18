@@ -21,6 +21,7 @@ import dima.wedapp.R;
 
 import wedapp.library.JSONParser;
 import wedapp.library.Base64;
+import wedapp.library.UserFunctions;
  
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -34,6 +35,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -345,4 +348,29 @@ public class NewProductActivity extends Activity {
 		imgView.setImageBitmap(bitmap);
 
 	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.new_product, menu);
+		return true;
+	}
+
+	@Override
+    public boolean onOptionsItemSelected(MenuItem item) {      
+        UserFunctions us = new UserFunctions();
+        switch (item.getItemId()) {
+        
+            case R.id.actLogout:
+				us.logoutMerchant(getApplicationContext());
+				Intent choose = new Intent(getApplicationContext(), WedApp.class);
+	        	choose.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	        	startActivity(choose);
+	        	finish();
+                return true;
+	        	
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 }

@@ -24,6 +24,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ShareActionProvider;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -111,6 +112,7 @@ public class DashboardActivity extends Activity {
 					Intent i = new Intent(getApplicationContext(), UpdateListDetailActivity.class);
 					i.putExtra("pid", pid);
 					startActivity(i);
+					finish();
 				}
 			});
         	
@@ -125,6 +127,7 @@ public class DashboardActivity extends Activity {
 					Intent upProfile = new Intent(getApplicationContext(), UpdateProfileActivity.class);
 					upProfile.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 					startActivity(upProfile);
+					finish();
 				}
 			});
         	
@@ -163,6 +166,8 @@ public class DashboardActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.dashboard, menu);
+        /*MenuItem item = menu.findItem(R.id.actShare);
+        ShareActionProvider mShareActionProvider = (ShareActionProvider) item.getActionProvider();*/
 		return true;
 	}
 	
@@ -183,6 +188,12 @@ public class DashboardActivity extends Activity {
 	        	newList.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 	        	startActivity(newList);
 	        	finish();
+	        	
+            case R.id.actShare:
+            	Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+                shareIntent.setType("text/plain");
+            	
 	        	
             default:
                 return super.onOptionsItemSelected(item);
