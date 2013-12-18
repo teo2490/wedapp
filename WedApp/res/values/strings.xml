@@ -35,4 +35,14 @@
     <string name="price">Price</string>
     <string name="photo">Take a Photo</string>
     <string name="create_product">Create Product</string>
+    <string name="merchant_name">Merchant</string>
+    <string name="phone">Phone</string>
+    <string name="drive">Drive Me</string>
+    <string name="reserve">Reserve</string>
+    <string name="vat">VAT</string>
+    <string name="city">City</string>
+    <string name="address">Address</string>
+    <string name="build_number">Build Number</string>
+    <string name="register_me">Register</string>
+    <string name="already_reg">Already registered. Login me!</string>
 </resources>

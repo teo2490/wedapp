@@ -35,4 +35,15 @@
     <string name="price">Prezzo</string>
     <string name="photo">Aggiungi Foto</string>
     <string name="create_product">Crea Prodotto</string>
+    <string name="merchant_name">Commerciante</string>
+    <string name="phone">Telefono</string>
+    <string name="drive">Guidami</string>
+    <string name="reserve">Prenota</string>
+    <string name="vat">Partita IVA</string>
+    <string name="city">Citta\'</string>
+    <string name="address">Indirizzo</string>
+    <string name="build_number">Numero Civico</string>
+    <string name="register_me">Registrami</string>
+    <string name="already_reg">Gia\' registrato. Login in!</string>    
+    
 </resources>
