@@ -98,6 +98,22 @@
             android:name="wedapp.activity.UpdateListDetailActivity"
             android:label="@string/title_activity_update_list_detail" >
         </activity>
+        <activity
+            android:name="wedapp.activity.ListActivity"
+            android:label="@string/title_activity_list" >
+        </activity>
+        <activity
+            android:name="wedapp.activity.DetailActivity"
+            android:label="@string/title_activity_detail" >
+        </activity>
+        <activity
+            android:name="wedapp.activity.MyListFragment"
+            android:label="@string/title_activity_my_list_fragment" >
+        </activity>
+        <activity
+            android:name="wedapp.activity.MyDetailFragment"
+            android:label="@string/title_activity_my_detail_fragment" >
+        </activity>
     </application>
 
 </manifest>

@@ -19,16 +19,16 @@
     <string name="list_code">List Code</string>
     <string name="update_list">Update List</string>
     <string name="delete_list">Delete List</string>
-	<string name="update_profile">Update Profile</string>
-	<string name="logout">Logout</string>
-	<string name="email">Email</string>
-	<string name="password">Password</string>
-	<string name="login">Login</string>	
-	<string name="register">I don\'t have an account. Register me!</string>
-	<string name="merchant">I\'m a Merchant</string>
-	<string name="groomn">Groom Name</string>
+    <string name="update_profile">Update Profile</string>
+    <string name="logout">Logout</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="register">I don\'t have an account. Register me!</string>
+    <string name="merchant">I\'m a Merchant</string>
+    <string name="groomn">Groom Name</string>
     <string name="grooms">Groom Surname</string>
-    <string name="briden">Bride Name</string>	
+    <string name="briden">Bride Name</string>
     <string name="brides">Bride Surname</string>
     <string name="home_merchant">Merchant\'s Home</string>
     <string name="name">Name</string>
@@ -50,4 +50,10 @@
     <string name="cancel">Cancel</string>
     <string name="wedding_date">Wedding Date</string>
     <string name="update">Update</string>
+    <string name="title_activity_list">ListActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_detail">Detail Activity</string>
+    <string name="title_activity_my_list_fragment">MyListFragment</string>
+    <string name="title_activity_my_detail_fragment">MyDetailFragment</string>
+
 </resources>

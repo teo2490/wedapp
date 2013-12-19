@@ -28,8 +28,10 @@ import wedapp.library.JSONParser;
 import wedapp.library.UserFunctions;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
@@ -37,6 +39,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.support.v4.app.NavUtils;
 import android.text.util.Linkify;
 import android.util.Log;
 import android.view.Menu;
@@ -48,6 +51,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class UpdateProduct extends Activity {
 	
     EditText inputName;
@@ -96,6 +100,9 @@ public class UpdateProduct extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_update_product);
+		 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+       	   getActionBar().setDisplayHomeAsUpEnabled(true);
+       	}
 		
 		 // Edit Text
         inputName = (EditText) findViewById(R.id.inputName);
@@ -561,6 +568,10 @@ public class UpdateProduct extends Activity {
 	        	startActivity(choose);
 	        	finish();
                 return true;
+            case android.R.id.home:
+		         NavUtils.navigateUpTo(this,
+		               new Intent(this, WedApp.class));
+		         return true;
 	        	
             default:
                 return super.onOptionsItemSelected(item);

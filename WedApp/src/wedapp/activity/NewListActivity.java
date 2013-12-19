@@ -13,10 +13,13 @@ import wedapp.library.JSONParser;
 import wedapp.library.UserFunctions;
 import dima.wedapp.R;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,6 +27,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class NewListActivity extends Activity {
 	
 	Button btnAddList;
@@ -47,6 +51,9 @@ public class NewListActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_new_list);
+		 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+         	   getActionBar().setDisplayHomeAsUpEnabled(true);
+         	}
 		
 		nGroom = (EditText) findViewById(R.id.registerNameGroom);
 		sGroom = (EditText) findViewById(R.id.registerSurnameGroom);
@@ -171,6 +178,10 @@ public class NewListActivity extends Activity {
 	        	startActivity(choose);
 	        	finish();
                 return true;
+            case android.R.id.home:
+		         NavUtils.navigateUpTo(this,
+		               new Intent(this, DashboardActivity.class));
+		         return true;
 	        	
             default:
                 return super.onOptionsItemSelected(item);

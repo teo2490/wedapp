@@ -12,16 +12,21 @@ import wedapp.library.DatabaseHandler;
 import wedapp.library.JSONParser;
 import dima.wedapp.R;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.support.v4.app.NavUtils;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class RegisterActivity extends Activity {
 	
 	private ProgressDialog pDialog;
@@ -47,6 +52,9 @@ public class RegisterActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_register);
+		 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+         	   getActionBar().setDisplayHomeAsUpEnabled(true);
+         	}
 
 		// Importing all assets like buttons, text fields
 		inputEmail = (EditText) findViewById(R.id.registerEmail);
@@ -76,6 +84,17 @@ public class RegisterActivity extends Activity {
 				finish();
 			}
 		});
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	   switch (item.getItemId()) {
+	      case android.R.id.home:
+	         NavUtils.navigateUpTo(this,
+	               new Intent(this, LoginActivity.class));
+	         return true;
+	   }
+	   return super.onOptionsItemSelected(item);
 	}
 	
 	class registerMerchant extends AsyncTask<String, String, String> {

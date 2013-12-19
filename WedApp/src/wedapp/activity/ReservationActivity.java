@@ -12,6 +12,7 @@ import org.json.JSONObject;
 
 import wedapp.activity.LoginActivity.loginMerchant;
 import wedapp.activity.ProductDetailActivity.DownloadImage;
+import wedapp.library.DatabaseHandler;
 import wedapp.library.JSONParser;
 
 import com.paypal.android.sdk.payments.PayPalPayment;
@@ -63,6 +64,8 @@ public class ReservationActivity extends Activity {
     private String surname;
     private String email;
     
+    private static final String TAG_LID = "id_list";
+    
  // url to add a reservation
     private static String url_add_reservation = "http://wedapp.altervista.org/add_reservation.php";
 
@@ -108,6 +111,9 @@ public class ReservationActivity extends Activity {
     }
 
     public void onBuyPressed(View pressed) {
+    	DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+		String lid = db.getListId();
+		System.out.println(lid);
         PayPalPayment thingToBuy = new PayPalPayment(new BigDecimal("1.00"), "USD", "Gift Reservation");
         
         Intent intent = new Intent(this, PaymentActivity.class);
@@ -221,7 +227,7 @@ public class ReservationActivity extends Activity {
                 if (success == 1) {
                 	//Toast.makeText(getApplicationContext(), "Reservation Confirmed", Toast.LENGTH_LONG).show();
                     // closing this screen
-                    finish();
+                    //finish();
                 } else {
                 	//Toast.makeText(getApplicationContext(), "Reservation Failed", Toast.LENGTH_LONG).show();
                     // failed to add reservation
@@ -229,7 +235,7 @@ public class ReservationActivity extends Activity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
- 
+            finish();
             return null;
         }
 
@@ -238,7 +244,17 @@ public class ReservationActivity extends Activity {
 		 * After completing background task Dismiss the progress dialog
 		 * **/
 		protected void onPostExecute(String file_url) {
-			pDialog.dismiss();
+			DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+			String lid = db.getListId();
+//			if (pDialog!=null) {
+//	            if (pDialog.isShowing()) {
+//	                pDialog.dismiss();       
+//	            }
+//	        }
+			//Lancio activity ListActivity con lid preso da database
+//			Intent intent = new Intent(ReservationActivity.this, ListActivity.class);
+//			intent.putExtra(TAG_LID, lid);
+//        	startActivity(intent);
 		}
 	}
 

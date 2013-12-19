@@ -14,7 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="50dp"
-        android:src="@drawable/cover_wedding_pin_words" />
+        android:layout_marginTop="5dp"
+        android:src="@drawable/cover_wedding_pin_wordsw" />
     <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"

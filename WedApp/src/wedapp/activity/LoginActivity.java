@@ -14,17 +14,22 @@ import dima.wedapp.R;
 import wedapp.library.DatabaseHandler;
 import wedapp.library.JSONParser;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class LoginActivity extends Activity {
 	Button btnLogin;
 	Button btnLinkToRegister;
@@ -50,6 +55,10 @@ public class LoginActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
+		
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+        	   getActionBar().setDisplayHomeAsUpEnabled(true);
+        	}
 
 		// Importing all assets like buttons, text fields
 		inputEmail = (EditText) findViewById(R.id.loginEmail);
@@ -73,6 +82,17 @@ public class LoginActivity extends Activity {
 				finish();
 			}
 		});
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	   switch (item.getItemId()) {
+	      case android.R.id.home:
+	         NavUtils.navigateUpTo(this,
+	               new Intent(this, WedApp.class));
+	         return true;
+	   }
+	   return super.onOptionsItemSelected(item);
 	}
 			
 	class loginMerchant extends AsyncTask<String, String, String> {

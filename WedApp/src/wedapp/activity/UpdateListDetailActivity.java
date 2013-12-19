@@ -13,10 +13,13 @@ import wedapp.library.JSONParser;
 import wedapp.library.UserFunctions;
 import dima.wedapp.R;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,6 +28,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class UpdateListDetailActivity extends Activity {
 
 	Button btnAddList;
@@ -65,6 +69,9 @@ public class UpdateListDetailActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_update_list_detail);
+		 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+         	   getActionBar().setDisplayHomeAsUpEnabled(true);
+         	}
 		
 		Intent i = getIntent();
 		pid = i.getStringExtra("pid");
@@ -254,6 +261,10 @@ public class UpdateListDetailActivity extends Activity {
 	        	startActivity(choose);
 	        	finish();
                 return true;
+            case android.R.id.home:
+		         NavUtils.navigateUpTo(this,
+		               new Intent(this, WedApp.class));
+		         return true;
 	        	
             default:
                 return super.onOptionsItemSelected(item);

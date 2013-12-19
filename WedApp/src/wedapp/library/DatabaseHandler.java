@@ -28,7 +28,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	private static final String KEY_ADDRESS = "address";
 	private static final String KEY_BUILD = "build_number";
 	private static final String KEY_PHONE = "phone";
-	private static final String KEY_ID = "id";
+	private static final String KEY_ID = "_id";
 
 	public DatabaseHandler(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -37,17 +37,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	// Creating Tables
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		String CREATE_LOGIN_TABLE = "CREATE TABLE " + TABLE_LOGIN + "("
-				+ KEY_EMAIL + " TEXT PRIMARY KEY," 
-				+ KEY_NAME + " TEXT,"
-				+ KEY_CITY + " TEXT,"
-				+ KEY_ADDRESS + " TEXT,"
-				+ KEY_BUILD + " TEXT,"
-				+ KEY_PHONE + " TEXT" + ")";
-		db.execSQL(CREATE_LOGIN_TABLE);
-		
+//		String CREATE_LOGIN_TABLE = "CREATE TABLE " + TABLE_LOGIN + "("
+//				+ KEY_EMAIL + " TEXT PRIMARY KEY," 
+//				+ KEY_NAME + " TEXT,"
+//				+ KEY_CITY + " TEXT,"
+//				+ KEY_ADDRESS + " TEXT,"
+//				+ KEY_BUILD + " TEXT,"
+//				+ KEY_PHONE + " TEXT" + ")";
+//		db.execSQL(CREATE_LOGIN_TABLE);
+	}
+	
+	public void createList(){
 		String CREATE_LIST_TABLE = "CREATE TABLE " + TABLE_LIST + "("
 				+ KEY_ID + " TEXT PRIMARY KEY" + ")";
+		SQLiteDatabase db = this.getWritableDatabase();
 		db.execSQL(CREATE_LIST_TABLE);
 	}
 
@@ -64,8 +67,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	
 	public void upgradeDatabase() {
 		SQLiteDatabase db = this.getWritableDatabase();
-		db.delete(TABLE_LOGIN, null, null);
-		onCreate(db);
+		//db.delete(TABLE_LOGIN, null, null);
+		db.execSQL("DROP TABLE IF EXISTS " + TABLE_LIST);
+		//onCreate(db);
 	}
 
 	/**
@@ -150,6 +154,22 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	}
 	
 	/**
+	 * Getting user login status
+	 * return true if rows are there in table
+	 * */
+	public int getRowListCount() {
+		String countQuery = "SELECT  * FROM " + TABLE_LIST;
+		SQLiteDatabase db = this.getReadableDatabase();
+		Cursor cursor = db.rawQuery(countQuery, null);
+		int rowCount = cursor.getCount();
+		db.close();
+		cursor.close();
+		
+		// return row count
+		return rowCount;
+	}
+	
+	/**
 	 * Re crate database
 	 * Delete all tables and create them again
 	 * */
@@ -157,6 +177,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		SQLiteDatabase db = this.getWritableDatabase();
 		// Delete All Rows
 		db.delete(TABLE_LOGIN, null, null);
+		db.close();
+	}
+	
+	public void resetListTable(){
+		SQLiteDatabase db = this.getWritableDatabase();
+		// Delete All Rows
 		db.delete(TABLE_LIST, null, null);
 		db.close();
 	}

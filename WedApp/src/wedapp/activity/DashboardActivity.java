@@ -49,6 +49,12 @@ public class DashboardActivity extends Activity {
 	private static String deleteURL = "http://wedapp.altervista.org/delete_list.php";
 	//private static String updateURL = "http://wedapp.altervista.org/update_list.php";
 	
+	@Override
+	public void onBackPressed()
+	{
+	     return;
+	}
+	
 	private boolean isMerchantLogged(Context context) {
 		DatabaseHandler db = new DatabaseHandler(context);
 		int count = db.getRowCount();
