@@ -47,6 +47,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 //		db.execSQL(CREATE_LOGIN_TABLE);
 	}
 	
+	public void createLogin() {
+		String CREATE_LOGIN_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_LOGIN + "("
+				+ KEY_EMAIL + " TEXT PRIMARY KEY," 
+				+ KEY_NAME + " TEXT,"
+				+ KEY_CITY + " TEXT,"
+				+ KEY_ADDRESS + " TEXT,"
+				+ KEY_BUILD + " TEXT,"
+				+ KEY_PHONE + " TEXT" + ")";
+		SQLiteDatabase db = this.getWritableDatabase();
+		db.execSQL(CREATE_LOGIN_TABLE);
+	}
+	
 	public void createList(){
 		String CREATE_LIST_TABLE = "CREATE TABLE " + TABLE_LIST + "("
 				+ KEY_ID + " TEXT PRIMARY KEY" + ")";
@@ -68,6 +80,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	public void upgradeDatabase() {
 		SQLiteDatabase db = this.getWritableDatabase();
 		//db.delete(TABLE_LOGIN, null, null);
+		db.execSQL("DROP TABLE IF EXISTS " + TABLE_LOGIN);
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_LIST);
 		//onCreate(db);
 	}
@@ -141,7 +154,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	 * Getting user login status
 	 * return true if rows are there in table
 	 * */
-	public int getRowCount() {
+	public int getRowLoginCount() {
 		String countQuery = "SELECT  * FROM " + TABLE_LOGIN;
 		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor cursor = db.rawQuery(countQuery, null);
@@ -173,7 +186,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	 * Re crate database
 	 * Delete all tables and create them again
 	 * */
-	public void resetTables(){
+	public void resetLoginTables(){
 		SQLiteDatabase db = this.getWritableDatabase();
 		// Delete All Rows
 		db.delete(TABLE_LOGIN, null, null);

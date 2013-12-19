@@ -68,7 +68,7 @@ public class UserFunctions {
 	
 	public boolean logoutMerchant(Context context){
 		DatabaseHandler db = new DatabaseHandler(context);
-		db.resetTables();
+		db.resetLoginTables();
 		return true;
 	}
 	

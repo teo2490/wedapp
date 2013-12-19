@@ -10,6 +10,7 @@ import org.json.JSONObject;
 
 import wedapp.library.DatabaseHandler;
 import wedapp.library.JSONParser;
+import wedapp.library.UserFunctions;
 import dima.wedapp.R;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -57,16 +58,12 @@ public class DashboardActivity extends Activity {
 	
 	private boolean isMerchantLogged(Context context) {
 		DatabaseHandler db = new DatabaseHandler(context);
-		int count = db.getRowCount();
+		db.createLogin();
+		int count = db.getRowLoginCount();
 		if(count > 0){
 			return true;
 		}
 		return false;
-	}
-	
-	public void logoutMerchant(Context context){
-		DatabaseHandler db = new DatabaseHandler(context);
-		db.resetTables();
 	}
 
 	@Override
@@ -179,10 +176,11 @@ public class DashboardActivity extends Activity {
 	
 	@Override
     public boolean onOptionsItemSelected(MenuItem item) {
+		UserFunctions us = new UserFunctions();
         switch (item.getItemId()) {
         
             case R.id.actLogout:
-				logoutMerchant(getApplicationContext());
+				us.logoutMerchant(getApplicationContext());
 				Intent choose = new Intent(getApplicationContext(), WedApp.class);
 	        	choose.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 	        	startActivity(choose);

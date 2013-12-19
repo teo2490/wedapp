@@ -121,7 +121,7 @@ public class UpdateProfileActivity extends Activity {
 					String res = json.getString(KEY_SUCCESS); 
 					if(Integer.parseInt(res) == 1){
 						String name = db.getUserDetails().get("name");
-						db.resetTables();
+						db.resetLoginTables();
 						/*json = jsonParser.makeHttpRequest(detailsURL, "POST", params);
 						JSONArray merchantObj = json.getJSONArray("merchant");
 						JSONObject json_user = merchantObj.getJSONObject(0);*/
