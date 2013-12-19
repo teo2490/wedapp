@@ -12,6 +12,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import wedapp.library.DatabaseHandler;
+import wedapp.library.JSONParser;
+import wedapp.library.UserFunctions;
 
 import dima.wedapp.R;
 
@@ -20,6 +22,8 @@ import android.annotation.TargetApi;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.pm.ResolveInfo;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -31,10 +35,12 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NavUtils;
 import android.text.util.Linkify;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Activity principale.
@@ -43,8 +49,19 @@ import android.widget.TextView;
  */
 public class ListActivity extends FragmentActivity implements MyListFragment.OnMyListFragmentItemClick {
 
+	private ProgressDialog pDialog;
 	private static final String TAG_LID = "id_list";
 	private String lid;
+	JSONParser jsonParser = new JSONParser();
+	private static String URL = "http://wedapp.altervista.org/get_list_details.php";
+	private static final String TAG_PID = "pid";
+	private static final String TAG_NGROOM = "n_groom";
+	private static final String TAG_NBRIDE = "n_bride";
+	private static final String TAG_SUCCESS = "success";
+	private static final String TAG_PRODUCT = "list";
+	
+	String ng;
+	String nb;
 	
 	public String getLid(){
 		return lid;
@@ -64,7 +81,7 @@ public class ListActivity extends FragmentActivity implements MyListFragment.OnM
                 db.createList();
                 db.addList(lid);
                 System.out.println("QUA "+lid);
-                // Mi limito a caricare il layout, è android che inserirà in modo opportuno quello portrait o landscape (o altri!).
+                // Mi limito a caricare il layout, ï¿½ android che inserirï¿½ in modo opportuno quello portrait o landscape (o altri!).
                 setContentView(R.layout.activity_list);
                 
                 
@@ -73,6 +90,7 @@ public class ListActivity extends FragmentActivity implements MyListFragment.OnM
                 if(getResources().getBoolean(R.bool.portrait_only)){
                     setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
                 }
+		    	new GetListDetails().execute();
                 
 
         }
@@ -85,14 +103,32 @@ public class ListActivity extends FragmentActivity implements MyListFragment.OnM
 		}
 		
 		@Override
+		public boolean onCreateOptionsMenu(Menu menu) {
+			// Inflate the menu; this adds items to the action bar if it is present.
+			getMenuInflater().inflate(R.menu.list, menu);
+	        /*MenuItem item = menu.findItem(R.id.actShare);
+	        ShareActionProvider mShareActionProvider = (ShareActionProvider) item.getActionProvider();*/
+			return true;
+		}
+		
+		@Override
 		public boolean onOptionsItemSelected(MenuItem item) {
 		   switch (item.getItemId()) {
 		      case android.R.id.home:
-		         NavUtils.navigateUpTo(this,
-		               new Intent(this, WedApp.class));
-		         return true;
+		          NavUtils.navigateUpTo(this,
+		                new Intent(this, WedApp.class));
+		          return true;
+		         
+		      case R.id.actFacebook:
+		    	  return true;
+		    	  
+		      case R.id.actTwitter:
+		    	  shareTwitter("twi", nb, ng);
+		    	  return true;
+		         
+		      default:
+		    	  return super.onOptionsItemSelected(item);
 		   }
-		   return super.onOptionsItemSelected(item);
 		}
 
         @Override
@@ -105,7 +141,7 @@ public class ListActivity extends FragmentActivity implements MyListFragment.OnM
                 // Recupero la vista detailContainer
                 View detailView = findViewById(R.id.detailContainer);
                 if(detailView==null) {
-                        // Non esiste spazio per la visualizzazione del dattagli, quindi ho necessità di lanciare una nuova activity.
+                        // Non esiste spazio per la visualizzazione del dattagli, quindi ho necessitï¿½ di lanciare una nuova activity.
                         // Carico gli arguments nell'intent di chiamata.
                         Intent intent = new Intent(this, DetailActivity.class);
                         intent.putExtras(arguments);
@@ -125,5 +161,86 @@ public class ListActivity extends FragmentActivity implements MyListFragment.OnM
                         .commit();
                 }
         }
+        
+        private void shareTwitter(String nameApp, String nameGroom, String nameBride) {
+               List<Intent> targetedShareIntents = new ArrayList<Intent>();
+               Intent share = new Intent(android.content.Intent.ACTION_SEND);
+               share.setType("image/jpeg");
+               List<ResolveInfo> resInfo = getPackageManager().queryIntentActivities(share, 0);
+               if (!resInfo.isEmpty()){
+                   for (ResolveInfo info : resInfo) {
+                       Intent targetedShare = new Intent(android.content.Intent.ACTION_SEND);
+                       targetedShare.setType("image/jpeg"); // put here your mime type
+
+                       if (info.activityInfo.packageName.toLowerCase().contains(nameApp) || 
+                               info.activityInfo.name.toLowerCase().contains(nameApp)) {
+                           targetedShare.putExtra(Intent.EXTRA_TEXT, "Ho guardato la lista di "+ nameBride +" e "+ nameGroom +"!\nhttp://goo.gl/FsCCjH\n");
+                           //targetedShare.putExtra(Intent.EXTRA_STREAM, "http://wedapp.altervista.org/Images/wedding_pink.png" );
+                           targetedShare.setPackage(info.activityInfo.packageName);
+                           targetedShareIntents.add(targetedShare);
+                       }
+                   }
+                   try{
+                   Intent chooserIntent = Intent.createChooser(targetedShareIntents.remove(0), "Select app to share");
+                   chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, targetedShareIntents.toArray(new Parcelable[]{}));
+                   startActivity(chooserIntent);
+                   }catch(IndexOutOfBoundsException e){
+                    Toast.makeText(getApplicationContext(), "Devi installare l'applicazione Twitter!", Toast.LENGTH_LONG).show();
+                   	final String appName = "com.twitter.android";
+                   	try {
+                   	    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id="+appName)));
+                   	} catch (android.content.ActivityNotFoundException anfe) {
+                   	    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id="+appName)));
+                   	}
+                   }
+               }
+           }
+        
+        class GetListDetails extends AsyncTask<String, String, String> {
+
+    		@Override
+    		protected void onPreExecute() {
+    			super.onPreExecute();
+    			pDialog = ProgressDialog.show(ListActivity.this, "Loading",
+    					"Please wait...", true);
+    		}
+    		
+    		protected String doInBackground(String... params) {
+    			
+    					int success;
+    					try {
+    						List<NameValuePair> params1 = new ArrayList<NameValuePair>();
+    						params1.add(new BasicNameValuePair(TAG_PID, lid));
+    						JSONObject json = jsonParser.makeHttpRequest(URL, "POST", params1);
+
+    						// check your log for json response
+    						Log.d("Single Product Details", json.toString());
+    						
+    						// json success tag
+    						success = json.getInt(TAG_SUCCESS);
+    						if (success == 1) {
+    							// successfully received product details
+    							JSONArray productObj = json.getJSONArray(TAG_PRODUCT); // JSON Array
+    							
+    							// get first product object from JSON Array
+    							JSONObject product = productObj.getJSONObject(0);
+
+    							ng = product.getString(TAG_NGROOM);
+    							nb = product.getString(TAG_NBRIDE);
+    						}else{
+    							// product with pid not found
+    						}
+    					} catch (JSONException e) {
+    						e.printStackTrace();
+    					}
+    			return null;
+    		}
+    		/**
+    		 * After completing background task Dismiss the progress dialog
+    		 * **/
+    		protected void onPostExecute(String file_url) {
+    			pDialog.dismiss();
+    		}
+    	}
         
 }

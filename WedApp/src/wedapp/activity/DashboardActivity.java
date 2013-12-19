@@ -193,12 +193,6 @@ public class DashboardActivity extends Activity {
 	        	startActivity(newList);
 	        	finish();
 	        	
-            case R.id.actShare:
-            	Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                shareIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
-                shareIntent.setType("text/plain");
-            	
-	        	
             default:
                 return super.onOptionsItemSelected(item);
         }

@@ -119,12 +119,6 @@ public class UpdateListDetailActivity extends Activity {
 			String bName = nBride.getText().toString();
 			String bSurname = sBride.getText().toString();
 			String date = wDate.getText().toString();
-			/*System.out.println(gName);
-			System.out.println(gSurname);
-			System.out.println(bName);
-			System.out.println(bSurname);
-			System.out.println(date);
-			System.out.println(mEmail);*/
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
 			params.add(new BasicNameValuePair("pid", pid));
 			params.add(new BasicNameValuePair("n_groom", gName));
