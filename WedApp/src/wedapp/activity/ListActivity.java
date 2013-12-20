@@ -120,6 +120,11 @@ public class ListActivity extends FragmentActivity implements MyListFragment.OnM
 		          return true;
 		         
 		      case R.id.actFacebook:
+		    	  Intent i = new Intent(getApplicationContext(), FacebookActivity.class);
+		    	  i.putExtra(TAG_NGROOM, ng);
+		    	  i.putExtra(TAG_NBRIDE, nb);
+		    	  i.putExtra(TAG_LID, lid);
+		    	  startActivity(i);
 		    	  return true;
 		    	  
 		      case R.id.actTwitter:

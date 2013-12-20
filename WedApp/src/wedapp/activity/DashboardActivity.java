@@ -112,10 +112,15 @@ public class DashboardActivity extends Activity {
 					
 					String pid = listToUpdate.getText().toString();
 					
-					Intent i = new Intent(getApplicationContext(), MerListActivity.class);
-					i.putExtra("pid", pid);
-					startActivity(i);
-					finish();
+					if(pid.equals("")){
+						Toast.makeText(getApplicationContext(), "Please, insert a list code", Toast.LENGTH_SHORT).show();
+					}
+					else{
+						Intent i = new Intent(getApplicationContext(), MerListActivity.class);
+						i.putExtra("pid", pid);
+						startActivity(i);
+						finish();
+					}
 				}
 			});
         	

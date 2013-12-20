@@ -59,5 +59,8 @@
     <string name="title_activity_mer_list_fragment">MerListFragment</string>
     <string name="title_activity_mer_detail_fragment">MerDetailFragment</string>
     <string name="title_activity_mer_detail">MerDetailActivity</string>
+    <string name="title_activity_facebook">Facebook Activity</string>
+    <string name="app_id">1382212392001160</string>
+    <string name="publish">Publish</string>
 
 </resources>
