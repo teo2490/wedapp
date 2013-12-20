@@ -112,7 +112,7 @@ public class DashboardActivity extends Activity {
 					
 					String pid = listToUpdate.getText().toString();
 					
-					Intent i = new Intent(getApplicationContext(), UpdateListDetailActivity.class);
+					Intent i = new Intent(getApplicationContext(), MerListActivity.class);
 					i.putExtra("pid", pid);
 					startActivity(i);
 					finish();

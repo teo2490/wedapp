@@ -114,6 +114,22 @@
             android:name="wedapp.activity.MyDetailFragment"
             android:label="@string/title_activity_my_detail_fragment" >
         </activity>
+        <activity
+            android:name="wedapp.activity.MerListActivity"
+            android:label="@string/title_activity_mer_list" >
+        </activity>
+        <activity
+            android:name="wedapp.activity.MerListFragment"
+            android:label="@string/title_activity_mer_list_fragment" >
+        </activity>
+        <activity
+            android:name="wedapp.activity.MerDetailFragment"
+            android:label="@string/title_activity_mer_detail_fragment" >
+        </activity>
+        <activity
+            android:name="wedapp.activity.MerDetailActivity"
+            android:label="@string/title_activity_mer_detail" >
+        </activity>
     </application>
 
 </manifest>

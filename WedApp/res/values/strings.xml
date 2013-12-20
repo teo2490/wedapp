@@ -55,5 +55,9 @@
     <string name="title_activity_detail">Detail Activity</string>
     <string name="title_activity_my_list_fragment">MyListFragment</string>
     <string name="title_activity_my_detail_fragment">MyDetailFragment</string>
+    <string name="title_activity_mer_list">MerListActivity</string>
+    <string name="title_activity_mer_list_fragment">MerListFragment</string>
+    <string name="title_activity_mer_detail_fragment">MerDetailFragment</string>
+    <string name="title_activity_mer_detail">MerDetailActivity</string>
 
 </resources>
