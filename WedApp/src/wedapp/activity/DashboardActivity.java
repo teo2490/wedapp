@@ -115,6 +115,7 @@ public class DashboardActivity extends Activity {
 					db.resetListTable();
 					
 					String lid = listToUpdate.getText().toString();
+					db.addList(lid);
 					
 					if(lid.equals("")){
 						Toast.makeText(getApplicationContext(), "Please, insert a list code", Toast.LENGTH_SHORT).show();

@@ -19,6 +19,7 @@ import org.json.JSONObject;
 
 import dima.wedapp.R;
 
+import wedapp.library.DatabaseHandler;
 import wedapp.library.JSONParser;
 import wedapp.library.Base64;
 import wedapp.library.UserFunctions;
@@ -63,7 +64,11 @@ public class NewProductActivity extends Activity {
 	private String photoName;
 	Uri imageUri;
 	private static final int PICK_Camera_IMAGE = 2;
+	private static final String TAG_LID = "id_list";
 	private boolean isLastThread = true;
+	
+	private String memail;
+	private String lid;
 	//private ProgressDialog dialog;
  
     // url to create new product
@@ -80,6 +85,11 @@ public class NewProductActivity extends Activity {
         	   getActionBar().setDisplayHomeAsUpEnabled(true);
         	}
  
+        DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+        db.createList();
+        db.createLogin();
+        memail = db.getUserDetails().get("email");
+        lid = db.getListId();
         // Edit Text
         inputName = (EditText) findViewById(R.id.inputName);
         inputPrice = (EditText) findViewById(R.id.inputPrice);
@@ -210,8 +220,8 @@ public class NewProductActivity extends Activity {
             params.add(new BasicNameValuePair("name", name));
             params.add(new BasicNameValuePair("price", price));
             params.add(new BasicNameValuePair("photo", phName));
-            params.add(new BasicNameValuePair("id_list", "1"));
-            params.add(new BasicNameValuePair("m_email", "prova"));
+            params.add(new BasicNameValuePair("id_list", lid));
+            params.add(new BasicNameValuePair("m_email", memail));
              
             // getting JSON Object
             // Note that create product url accepts POST method
@@ -227,8 +237,9 @@ public class NewProductActivity extends Activity {
  
                 if (success == 1) {
                     // successfully created product MANCA!!
-                    //Intent i = new Intent(getApplicationContext(), AllProductsActivity.class);
-                    //startActivity(i);
+                    Intent i = new Intent(getApplicationContext(), MerListActivity.class);
+                    //i.putExtra(TAG_LID, lid);
+                    startActivity(i);
  
                     // closing this screen
                     finish();

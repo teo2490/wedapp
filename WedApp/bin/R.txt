@@ -84,6 +84,7 @@ int drawable ic_action_twitter 0x7f020025
 int drawable ic_header 0x7f020026
 int drawable ic_launcher 0x7f020027
 int id ImageView 0x7f040029
+int id actAddGift 0x7f04005f
 int id actAddList 0x7f04005a
 int id actFacebook 0x7f04005d
 int id actLogout 0x7f04005b

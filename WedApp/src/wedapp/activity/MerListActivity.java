@@ -82,11 +82,12 @@ public class MerListActivity extends FragmentActivity implements MerListFragment
                 DatabaseHandler db = new DatabaseHandler(getApplicationContext());
                 //db.upgradeDatabase();
                 //db.resetListTable();
-                Intent i = getIntent();
-                lid = i.getStringExtra(TAG_LID);
+                //Intent i = getIntent();
+                lid = db.getListId();
+                //lid = i.getStringExtra(TAG_LID);
                 db.createLogin();
                 db.createList();
-                db.addList(lid);
+                //db.addList(lid);
                 System.out.println("QUA "+lid);
                 // Mi limito a caricare il layout, � android che inserir� in modo opportuno quello portrait o landscape (o altri!).
                 setContentView(R.layout.activity_mer_list);
@@ -114,7 +115,7 @@ public class MerListActivity extends FragmentActivity implements MerListFragment
 		@Override
 		public boolean onCreateOptionsMenu(Menu menu) {
 			// Inflate the menu; this adds items to the action bar if it is present.
-			getMenuInflater().inflate(R.menu.list, menu);
+			getMenuInflater().inflate(R.menu.mer_list, menu);
 	        /*MenuItem item = menu.findItem(R.id.actShare);
 	        ShareActionProvider mShareActionProvider = (ShareActionProvider) item.getActionProvider();*/
 			return true;
@@ -127,6 +128,12 @@ public class MerListActivity extends FragmentActivity implements MerListFragment
 		          NavUtils.navigateUpTo(this,
 		                new Intent(this, DashboardActivity.class));
 		          return true;
+		      
+		      case R.id.actAddGift:
+					Intent newProduct = new Intent(getApplicationContext(), NewProductActivity.class);
+		        	newProduct.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		        	startActivity(newProduct);
+		        	finish();
 
 		      default:
 		    	  return super.onOptionsItemSelected(item);
