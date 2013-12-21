@@ -42,6 +42,7 @@ public class DashboardActivity extends Activity {
 	TextView txtMessage;
 	
 	private static String KEY_SUCCESS = "success";
+	private static final String TAG_LID = "id_list";
 	
 	private ProgressDialog pDialog;
 	private String message;
@@ -83,6 +84,7 @@ public class DashboardActivity extends Activity {
 			setContentView(R.layout.activity_dashboard);
 			
 			DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+			db.createLogin();
         	//btnLogout = (Button) findViewById(R.id.btnLogout);
         	//btnNewList = (Button) findViewById(R.id.btnNewList);
         	btnDeleteList = (Button) findViewById(R.id.btnDeleteList);
@@ -108,16 +110,18 @@ public class DashboardActivity extends Activity {
         	
         	btnUpList.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View view) {
-					//DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+					DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+					db.createList();
+					db.resetListTable();
 					
-					String pid = listToUpdate.getText().toString();
+					String lid = listToUpdate.getText().toString();
 					
-					if(pid.equals("")){
+					if(lid.equals("")){
 						Toast.makeText(getApplicationContext(), "Please, insert a list code", Toast.LENGTH_SHORT).show();
 					}
 					else{
 						Intent i = new Intent(getApplicationContext(), MerListActivity.class);
-						i.putExtra("pid", pid);
+						i.putExtra(TAG_LID, lid);
 						startActivity(i);
 						finish();
 					}
@@ -235,6 +239,7 @@ public class DashboardActivity extends Activity {
 		@Override
 		protected String doInBackground(String... args) {
 			DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+			db.createLogin();
 			String code = listToDelete.getText().toString();
 			String email = db.getUserDetails().get("email");
 			List<NameValuePair> params = new ArrayList<NameValuePair>();

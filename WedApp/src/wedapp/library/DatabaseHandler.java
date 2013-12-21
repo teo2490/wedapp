@@ -37,7 +37,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	// Creating Tables
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-//		String CREATE_LOGIN_TABLE = "CREATE TABLE " + TABLE_LOGIN + "("
+//		String CREATE_LOGIN_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_LOGIN + "("
 //				+ KEY_EMAIL + " TEXT PRIMARY KEY," 
 //				+ KEY_NAME + " TEXT,"
 //				+ KEY_CITY + " TEXT,"
@@ -60,7 +60,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	}
 	
 	public void createList(){
-		String CREATE_LIST_TABLE = "CREATE TABLE " + TABLE_LIST + "("
+		String CREATE_LIST_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_LIST + "("
 				+ KEY_ID + " TEXT PRIMARY KEY" + ")";
 		SQLiteDatabase db = this.getWritableDatabase();
 		db.execSQL(CREATE_LIST_TABLE);

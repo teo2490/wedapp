@@ -134,6 +134,7 @@ public class RegisterActivity extends Activity {
 						// user successfully registred
 						// Store user details in SQLite DatabaseJSONObject
 						DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+						db.createLogin();
 						db.addUser(email, name, city, address, build_number, phone);						
 						// Launch Dashboard Screen
 						Intent dashboard = new Intent(getApplicationContext(), DashboardActivity.class);

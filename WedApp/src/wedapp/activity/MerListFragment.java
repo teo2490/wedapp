@@ -22,6 +22,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 /**
  * Fragment che si occupa della visualizzazione di una lista di String.
@@ -93,7 +94,8 @@ public class MerListFragment extends ListFragment {
                 //lid = bundle.getString(TAG_LID);
                 lid = ((MerListActivity)getActivity()).getLid();
                 memail = ((MerListActivity)getActivity()).getMemail();
-                System.out.println("QUI "+lid);
+                System.out.println("OGGI: "+lid);
+                System.out.println("OGGI: "+memail);
   				new GetProductList().execute();
 
                 
@@ -189,7 +191,12 @@ public class MerListFragment extends ListFragment {
     		 * After completing background task Dismiss the progress dialog
     		 * **/
     		protected void onPostExecute(String file_url) {
-    			setListAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, name));
+    			if(name != null){
+    				setListAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, name));
+    			}
+    			else{
+    				Toast.makeText(getActivity().getApplicationContext(), "Nessun tuo regalo nella lista", Toast.LENGTH_LONG).show();
+    			}
     			pDialog.dismiss();    			
     		}
     	}

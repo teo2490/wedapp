@@ -49,6 +49,7 @@ public class UpdateProfileActivity extends Activity {
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+		db.createLogin();
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_update_profile);
 		 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
@@ -89,7 +90,7 @@ public class UpdateProfileActivity extends Activity {
 	
 	class updateMerchant extends AsyncTask<String, String, String> {
 		
-		DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+		
 		
 		@Override
         protected void onPreExecute() {
@@ -99,6 +100,8 @@ public class UpdateProfileActivity extends Activity {
         }
 		
 		protected String doInBackground(String... args) {
+			DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+			db.createLogin();
 			String newEmail = inputEmail.getText().toString();
 			String password = inputPassword.getText().toString();
 			String city = inputCity.getText().toString();
@@ -179,8 +182,12 @@ public class UpdateProfileActivity extends Activity {
 	        	finish();
                 return true;
             case android.R.id.home:
-		         NavUtils.navigateUpTo(this,
-		               new Intent(this, DashboardActivity.class));
+//		         NavUtils.navigateUpTo(this,
+//		               new Intent(this, DashboardActivity.class));
+            	Intent i = new Intent(getApplicationContext(), DashboardActivity.class);
+            	i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	        	startActivity(i);
+	        	finish();
 		         return true;
             
 	        	

@@ -97,6 +97,7 @@ public class NewListActivity extends Activity {
 		
 		protected String doInBackground(String... args) {
 			DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+			db.createLogin();
 			String gName = nGroom.getText().toString();
 			String gSurname = sGroom.getText().toString();
 			String bName = nBride.getText().toString();

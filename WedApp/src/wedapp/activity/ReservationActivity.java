@@ -112,6 +112,7 @@ public class ReservationActivity extends Activity {
 
     public void onBuyPressed(View pressed) {
     	DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+    	db.createList();
 		String lid = db.getListId();
 		System.out.println(lid);
         PayPalPayment thingToBuy = new PayPalPayment(new BigDecimal("1.00"), "USD", "Gift Reservation");
@@ -245,6 +246,7 @@ public class ReservationActivity extends Activity {
 		 * **/
 		protected void onPostExecute(String file_url) {
 			DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+			db.createList();
 			String lid = db.getListId();
 //			if (pDialog!=null) {
 //	            if (pDialog.isShowing()) {

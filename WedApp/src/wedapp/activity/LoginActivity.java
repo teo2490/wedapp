@@ -122,6 +122,7 @@ public class LoginActivity extends Activity {
 						// user successfully logged in
 						// Store user details in SQLite Database
 						DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+						db.createLogin();
 						JSONArray merchantObj = json.getJSONArray("merchant");
 						JSONObject json_user = merchantObj.getJSONObject(0);
 						

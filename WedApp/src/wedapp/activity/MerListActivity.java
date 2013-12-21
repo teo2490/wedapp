@@ -80,10 +80,11 @@ public class MerListActivity extends FragmentActivity implements MerListFragment
                	   getActionBar().setDisplayHomeAsUpEnabled(true);
                	}
                 DatabaseHandler db = new DatabaseHandler(getApplicationContext());
-                db.upgradeDatabase();
+                //db.upgradeDatabase();
                 //db.resetListTable();
                 Intent i = getIntent();
                 lid = i.getStringExtra(TAG_LID);
+                db.createLogin();
                 db.createList();
                 db.addList(lid);
                 System.out.println("QUA "+lid);
@@ -124,7 +125,7 @@ public class MerListActivity extends FragmentActivity implements MerListFragment
 		   switch (item.getItemId()) {
 		      case android.R.id.home:
 		          NavUtils.navigateUpTo(this,
-		                new Intent(this, WedApp.class));
+		                new Intent(this, DashboardActivity.class));
 		          return true;
 
 		      default:
