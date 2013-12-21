@@ -28,6 +28,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.text.util.Linkify;
 import android.util.Log;
 import android.view.Menu;
@@ -74,6 +75,10 @@ public class ReservationActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reservation);
         
+        if(getResources().getBoolean(R.bool.portrait_only)){
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
+        
         Intent i = getIntent();
         gid = i.getStringExtra(TAG_PID);
         System.out.println(gid);
@@ -95,7 +100,7 @@ public class ReservationActivity extends Activity {
 					onBuyPressed(getCurrentFocus());
 				}
 				else{
-					Toast.makeText(getApplicationContext(), "Please, fill all the field", Toast.LENGTH_LONG).show();
+					Toast.makeText(getApplicationContext(), getString(R.string.emptyField), Toast.LENGTH_LONG).show();
 				}
 			}
 		});
@@ -115,7 +120,7 @@ public class ReservationActivity extends Activity {
     	db.createList();
 		String lid = db.getListId();
 		System.out.println(lid);
-        PayPalPayment thingToBuy = new PayPalPayment(new BigDecimal("1.00"), "USD", "Gift Reservation");
+        PayPalPayment thingToBuy = new PayPalPayment(new BigDecimal("1.00"), "USD", getString(R.string.giftReservation));
         
         Intent intent = new Intent(this, PaymentActivity.class);
         
@@ -145,7 +150,7 @@ public class ReservationActivity extends Activity {
                 try {
                     Log.i("paymentExample", confirm.toJSONObject().toString(4));
                     System.out.println(confirm.toJSONObject().toString(4));
-                    Toast.makeText(getApplicationContext(), "Pagamento completato", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.paymentCompleted), Toast.LENGTH_LONG).show();
 
                     // TODO: send 'confirm' to your server for verification.
                     // see https://developer.paypal.com/webapps/developer/docs/integration/mobile/verify-mobile-payment/
@@ -156,17 +161,18 @@ public class ReservationActivity extends Activity {
 
                 } catch (JSONException e) {
                     Log.e("paymentExample", "an extremely unlikely failure occurred: ", e);
-                    Toast.makeText(getApplicationContext(), "ERRORE!", Toast.LENGTH_LONG).show();
+                    //va bene internal error o è meglio errore?
+                    Toast.makeText(getApplicationContext(), getString(R.string.internalError), Toast.LENGTH_LONG).show();
                 }
             }
         }
         else if (resultCode == Activity.RESULT_CANCELED) {
             Log.i("paymentExample", "The user canceled.");
-            Toast.makeText(getApplicationContext(), "Pagamento cancellato", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), getString(R.string.paymentCancelled), Toast.LENGTH_LONG).show();
         }
         else if (resultCode == PaymentActivity.RESULT_PAYMENT_INVALID) {
             Log.i("paymentExample", "An invalid payment was submitted. Please see the docs.");
-            Toast.makeText(getApplicationContext(), "ERRORE!", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), getString(R.string.internalError), Toast.LENGTH_LONG).show();
         }
     }
     
@@ -193,8 +199,8 @@ public class ReservationActivity extends Activity {
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
-			pDialog = ProgressDialog.show(ReservationActivity.this, "Loading",
-					"Please wait...", true);
+			pDialog = ProgressDialog.show(ReservationActivity.this, getString(R.string.Loading),
+					getString(R.string.PleaseWait), true);
 		}
 
 		/**

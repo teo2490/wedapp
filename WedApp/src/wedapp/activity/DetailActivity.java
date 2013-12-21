@@ -84,9 +84,11 @@ public class DetailActivity extends FragmentActivity {
 		public boolean onOptionsItemSelected(MenuItem item) {
 		   switch (item.getItemId()) {
 		      case android.R.id.home:
-		         NavUtils.navigateUpTo(this,
-		               new Intent(this, ListActivity.class).putExtra(TAG_LID, lid));
-		         return true;
+					Intent back = new Intent(getApplicationContext(), ListActivity.class);
+		        	back.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		        	startActivity(back);
+		        	finish();
+	                return true;
 		   }
 		   return super.onOptionsItemSelected(item);
 		}

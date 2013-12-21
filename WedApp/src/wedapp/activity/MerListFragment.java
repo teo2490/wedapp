@@ -10,6 +10,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import dima.wedapp.R;
+
 import wedapp.library.JSONParser;
 
 import android.app.Activity;
@@ -75,11 +77,11 @@ public class MerListFragment extends ListFragment {
                 super.onAttach(activity);
 
                 if(activity instanceof OnMerListFragmentItemClick) {
-                        // L'activity che contiene il fragment è compatibile con l'interfacci di Callback, mi memorizzo il riferimento.
+                        // L'activity che contiene il fragment ï¿½ compatibile con l'interfacci di Callback, mi memorizzo il riferimento.
                         mActivityAttached = (OnMerListFragmentItemClick)activity;
                 }
                 else {
-                        // L'activity non è compatibile, creo un riferimento fittizio. 
+                        // L'activity non ï¿½ compatibile, creo un riferimento fittizio. 
                         mActivityAttached = new OnMerListFragmentItemClick() {
                                 public void onClick(String item) {}
                         };
@@ -122,8 +124,8 @@ public class MerListFragment extends ListFragment {
     		@Override
     		protected void onPreExecute() {
     			super.onPreExecute();
-    			pDialog = ProgressDialog.show(getActivity(), "Loading",
-    					"Please wait...", true);
+    			pDialog = ProgressDialog.show(getActivity(), getString(R.string.Loading),
+    					getString(R.string.PleaseWait), true);
     		}
 
     		/**
@@ -195,7 +197,7 @@ public class MerListFragment extends ListFragment {
     				setListAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, name));
     			}
     			else{
-    				Toast.makeText(getActivity().getApplicationContext(), "Nessun tuo regalo nella lista", Toast.LENGTH_LONG).show();
+    				Toast.makeText(getActivity().getApplicationContext(), getString(R.string.noGiftMerListFragment), Toast.LENGTH_LONG).show();
     			}
     			pDialog.dismiss();    			
     		}

@@ -29,6 +29,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -81,9 +82,12 @@ public class NewProductActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_product);
+        if(getResources().getBoolean(R.bool.portrait_only)){
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-        	   getActionBar().setDisplayHomeAsUpEnabled(true);
-        	}
+            getActionBar().setDisplayHomeAsUpEnabled(true);
+        }
  
         DatabaseHandler db = new DatabaseHandler(getApplicationContext());
         db.createList();
@@ -125,10 +129,10 @@ public class NewProductActivity extends Activity {
             public void onClick(View view) {
             	if (bitmap == null) {
 					Toast.makeText(getApplicationContext(),
-							"Please select image", Toast.LENGTH_SHORT).show();
+							getString(R.string.noImage), Toast.LENGTH_SHORT).show();
 				} else {
-					pDialog = ProgressDialog.show(NewProductActivity.this, "Uploading",
-							"Please wait...", true);
+					pDialog = ProgressDialog.show(NewProductActivity.this, getString(R.string.Loading),
+							getString(R.string.PleaseWait), true);
 					//Create the name of the photo by the timestamp MANCA LA CONCATENAZIONE CON ID COMMERCIANTE!
 					Long tsLong = System.currentTimeMillis()/1000;
 					photoName = tsLong.toString();
@@ -150,9 +154,9 @@ public class NewProductActivity extends Activity {
 		 		    	/*Bitmap mPic = (Bitmap) data.getExtras().get("data");
 						selectedImageUri = Uri.parse(MediaStore.Images.Media.insertImage(getContentResolver(), mPic, getResources().getString(R.string.app_name), Long.toString(System.currentTimeMillis())));*/
 				    } else if (resultCode == RESULT_CANCELED) {
-		 		        Toast.makeText(this, "Picture was not taken", Toast.LENGTH_SHORT).show();
+		 		        Toast.makeText(this, getString(R.string.noImage), Toast.LENGTH_SHORT).show();
 		 		    } else {
-		 		    	Toast.makeText(this, "Picture was not taken", Toast.LENGTH_SHORT).show();
+		 		    	Toast.makeText(this, getString(R.string.noImage), Toast.LENGTH_SHORT).show();
 			}
 		
 			if(selectedImageUri != null){
@@ -168,7 +172,7 @@ public class NewProductActivity extends Activity {
 						} else if (filemanagerstring != null) {
 							filePath = filemanagerstring;
 						} else {
-							Toast.makeText(getApplicationContext(), "Unknown path",
+							Toast.makeText(getApplicationContext(), getString(R.string.unknownPath),
 									Toast.LENGTH_LONG).show();
 							Log.e("Bitmap", "Unknown path");
 						}
@@ -179,7 +183,7 @@ public class NewProductActivity extends Activity {
 							bitmap = null;
 						}
 					} catch (Exception e) {
-						Toast.makeText(getApplicationContext(), "Internal error",
+						Toast.makeText(getApplicationContext(), getString(R.string.internalError),
 								Toast.LENGTH_LONG).show();
 						Log.e(e.getClass().getName(), e.getMessage(), e);
 					}
@@ -387,9 +391,11 @@ public class NewProductActivity extends Activity {
 	        	finish();
                 return true;
             case android.R.id.home:
-		         NavUtils.navigateUpTo(this,
-		               new Intent(this, WedApp.class));
-		         return true;
+				Intent back = new Intent(getApplicationContext(), MerListActivity.class);
+	        	back.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	        	startActivity(back);
+	        	finish();
+                return true;
 	        	
             default:
                 return super.onOptionsItemSelected(item);

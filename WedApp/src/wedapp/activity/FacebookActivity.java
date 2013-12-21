@@ -7,6 +7,7 @@ import dima.wedapp.R;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
@@ -30,7 +31,9 @@ public class FacebookActivity extends FragmentActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+        if(getResources().getBoolean(R.bool.portrait_only)){
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
      	   getActionBar().setDisplayHomeAsUpEnabled(true);
      	}
@@ -54,7 +57,7 @@ public class FacebookActivity extends FragmentActivity {
 
         try {
             PackageInfo info = getPackageManager().getPackageInfo(
-                    "teo2490.fbprova", 
+                    "teo2490.fbprova", //E' giusto questo?? o va cambiato?????????
                     PackageManager.GET_SIGNATURES);
             for (Signature signature : info.signatures) {
                 MessageDigest md = MessageDigest.getInstance("SHA");
@@ -78,9 +81,11 @@ public class FacebookActivity extends FragmentActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 	   switch (item.getItemId()) {
 	      case android.R.id.home:
-	         NavUtils.navigateUpTo(this,
-	               new Intent(this, ListActivity.class).putExtra(TAG_LID, lid));
-	         return true;
+				Intent back = new Intent(getApplicationContext(), ListActivity.class)/*.putExtra(TAG_LID, lid)*/;
+	        	back.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	        	startActivity(back);
+	        	finish();
+                return true;
 	   }
 	   return super.onOptionsItemSelected(item);
 	}

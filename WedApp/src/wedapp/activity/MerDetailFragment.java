@@ -142,8 +142,8 @@ public class MerDetailFragment extends Fragment {
     		@Override
     		protected void onPreExecute() {
     			super.onPreExecute();
-    			pDialog = ProgressDialog.show(getActivity(), "Loading",
-    					"Please wait...", true);    			
+    			pDialog = ProgressDialog.show(getActivity(), getString(R.string.Loading),
+    					getString(R.string.PleaseWait), true);    			
     		}
 
     		/**
@@ -326,8 +326,8 @@ public class MerDetailFragment extends Fragment {
      		@Override
      		protected void onPreExecute() {
      			super.onPreExecute();
-     			pDialog = ProgressDialog.show(getActivity(), "Loading",
-     					"Please wait...", true);    			
+     			pDialog = ProgressDialog.show(getActivity(), getString(R.string.Loading),
+     					getString(R.string.PleaseWait), true);    			
      		}
 
      		/**

@@ -18,6 +18,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -55,10 +56,12 @@ public class LoginActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
-		
+		if(getResources().getBoolean(R.bool.portrait_only)){
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-        	   getActionBar().setDisplayHomeAsUpEnabled(true);
-        	}
+        	getActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
 		// Importing all assets like buttons, text fields
 		inputEmail = (EditText) findViewById(R.id.loginEmail);
@@ -88,9 +91,11 @@ public class LoginActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 	   switch (item.getItemId()) {
 	      case android.R.id.home:
-	         NavUtils.navigateUpTo(this,
-	               new Intent(this, WedApp.class));
-	         return true;
+				Intent back = new Intent(getApplicationContext(), WedApp.class);
+	        	back.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	        	startActivity(back);
+	        	finish();
+                return true;
 	   }
 	   return super.onOptionsItemSelected(item);
 	}
@@ -100,8 +105,8 @@ public class LoginActivity extends Activity {
 		@Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = ProgressDialog.show(LoginActivity.this, "Loading",
-					"Please wait...", true);
+            pDialog = ProgressDialog.show(LoginActivity.this, getString(R.string.Loading),
+					getString(R.string.PleaseWait), true);
         }
 		
 		protected String doInBackground(String... args) {
@@ -142,7 +147,7 @@ public class LoginActivity extends Activity {
 						finish();
 					}else{
 						// Error in login
-						errMsg = "Incorrect username/password";
+						errMsg = getString(R.string.errorLogin);
 					}
 				}
 			} catch (JSONException e) {

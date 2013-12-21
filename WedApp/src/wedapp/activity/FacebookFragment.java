@@ -112,11 +112,11 @@ public class FacebookFragment extends Fragment {
     }
     
 	private void publishFeedDialog() {
-		String message = "Ho guardato la lista di "+groom+" e "+bride;
+		String message = getString(R.string.messageFacebook)+" "+groom+" "+getString(R.string.and)+" "+bride;
         Bundle params = new Bundle();
         params.putString("name", message);
         params.putString("caption", "");
-        params.putString("description", "Fai anche tu un regalo con WedApp!");
+        params.putString("description", getString(R.string.descriptionFacebook));
         params.putString("link", "https://play.google.com/store/apps/details?id=com.anjokes.apps.jokes.it");
         params.putString("picture", "http://wedapp.altervista.org/Images/128wedding_pinkw.png");
         
@@ -136,23 +136,23 @@ public class FacebookFragment extends Fragment {
     								final String postId = values.getString("post_id");
         							if (postId != null) {
         								Toast.makeText(getActivity(),
-        										"Posted story, id: "+postId,
+        										getString(R.string.postedFacebook)+" "+postId,
         										Toast.LENGTH_SHORT).show();
         							} else {
         								// User clicked the Cancel button
         								Toast.makeText(getActivity().getApplicationContext(), 
-        		                                "Publish cancelled", 
+        		                                getString(R.string.cancelFacebook), 
         		                                Toast.LENGTH_SHORT).show();
         							}
     							} else if (error instanceof FacebookOperationCanceledException) {
     								// User clicked the "x" button
     								Toast.makeText(getActivity().getApplicationContext(), 
-    		                                "Publish cancelled", 
+    										getString(R.string.cancelFacebook), 
     		                                Toast.LENGTH_SHORT).show();
     							} else {
     								// Generic, ex: network error
     								Toast.makeText(getActivity().getApplicationContext(), 
-    		                                "Error posting story", 
+    										getString(R.string.errorPostingFacebook), 
     		                                Toast.LENGTH_SHORT).show();
     							}
     						}

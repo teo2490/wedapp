@@ -2,9 +2,11 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
-	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
-	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
+	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
-	<classpathentry kind="lib" path="C:/eclipse_android/workspace/WedApp/libs/PayPalAndroidSDK.jar"/>
+	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
+	<classpathentry exported="true" kind="lib" path="/home/riccardo/workspace/Android/WedApp/libs/PayPalAndroidSDK.jar"/>
+	<classpathentry exported="true" kind="lib" path="/home/riccardo/Dropbox/Progetto Ricky-Teo/WedApp/Varie/facebook-android-sdk-3.5/facebook/libs/android-support-v4.jar"/>
+	<classpathentry exported="true" kind="lib" path="/home/riccardo/Dropbox/Progetto Ricky-Teo/WedApp/Varie/facebook-android-sdk-3.5/facebook/bin/facebooksdk.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

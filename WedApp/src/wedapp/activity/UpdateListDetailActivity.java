@@ -19,6 +19,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.view.Menu;
@@ -69,9 +70,12 @@ public class UpdateListDetailActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_update_list_detail);
-		 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-         	   getActionBar().setDisplayHomeAsUpEnabled(true);
-         	}
+		if(getResources().getBoolean(R.bool.portrait_only)){
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            getActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 		
 		Intent i = getIntent();
 		pid = i.getStringExtra("pid");
@@ -109,8 +113,8 @@ public class UpdateListDetailActivity extends Activity {
 		@Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = ProgressDialog.show(UpdateListDetailActivity.this, "Loading",
-					"Please wait...", true);
+            pDialog = ProgressDialog.show(UpdateListDetailActivity.this, getString(R.string.Loading),
+					getString(R.string.PleaseWait), true);
         }
 		
 		protected String doInBackground(String... args) {
@@ -131,11 +135,11 @@ public class UpdateListDetailActivity extends Activity {
 				if (json.getString(KEY_SUCCESS) != null) {
 					String res = json.getString(KEY_SUCCESS); 
 					if(Integer.parseInt(res) == 1){
-						errMsg = "List correctly updated!";
+						errMsg = getString(R.string.successUpdateList);
 						pDialog.dismiss();
 					}else{
 						// Error
-						errMsg = "Error occured in updating list";
+						errMsg = getString(R.string.errorUpdateList);
 					}
 				}
 			} catch (JSONException e) {
@@ -167,8 +171,8 @@ public class UpdateListDetailActivity extends Activity {
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
-			pDialog = ProgressDialog.show(UpdateListDetailActivity.this, "Loading",
-					"Please wait...", true);
+			pDialog = ProgressDialog.show(UpdateListDetailActivity.this, getString(R.string.Loading),
+					getString(R.string.PleaseWait), true);
 		}
 
 		/**
@@ -256,9 +260,11 @@ public class UpdateListDetailActivity extends Activity {
 	        	finish();
                 return true;
             case android.R.id.home:
-		         NavUtils.navigateUpTo(this,
-		               new Intent(this, WedApp.class));
-		         return true;
+				Intent back = new Intent(getApplicationContext(), MerListActivity.class);
+	        	back.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	        	startActivity(back);
+	        	finish();
+                return true;
 	        	
             default:
                 return super.onOptionsItemSelected(item);

@@ -70,16 +70,21 @@ public class ListActivity extends FragmentActivity implements MyListFragment.OnM
 		@Override
         protected void onCreate(Bundle savedInstanceState) {
                 super.onCreate(savedInstanceState);
+                if(getResources().getBoolean(R.bool.portrait_only)){
+                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+                }
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
                	   getActionBar().setDisplayHomeAsUpEnabled(true);
                	}
                 DatabaseHandler db = new DatabaseHandler(getApplicationContext());
-                db.upgradeDatabase();
-                //db.resetListTable();
-                Intent i = getIntent();
-                lid = i.getStringExtra(TAG_LID);
                 db.createList();
-                db.addList(lid);
+                //db.upgradeDatabase();
+                //db.resetListTable();
+                //Intent i = getIntent();
+                //lid = i.getStringExtra(TAG_LID);
+                lid = db.getListId();
+                //db.createList();
+                //db.addList(lid);
                 System.out.println("QUA "+lid);
                 // Mi limito a caricare il layout, � android che inserir� in modo opportuno quello portrait o landscape (o altri!).
                 setContentView(R.layout.activity_list);
@@ -115,9 +120,11 @@ public class ListActivity extends FragmentActivity implements MyListFragment.OnM
 		public boolean onOptionsItemSelected(MenuItem item) {
 		   switch (item.getItemId()) {
 		      case android.R.id.home:
-		          NavUtils.navigateUpTo(this,
-		                new Intent(this, WedApp.class));
-		          return true;
+					Intent back = new Intent(getApplicationContext(), WedApp.class);
+		        	back.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		        	startActivity(back);
+		        	finish();
+	                return true;
 		         
 		      case R.id.actFacebook:
 		    	  Intent i = new Intent(getApplicationContext(), FacebookActivity.class);
@@ -179,18 +186,18 @@ public class ListActivity extends FragmentActivity implements MyListFragment.OnM
 
                        if (info.activityInfo.packageName.toLowerCase().contains(nameApp) || 
                                info.activityInfo.name.toLowerCase().contains(nameApp)) {
-                           targetedShare.putExtra(Intent.EXTRA_TEXT, "Ho guardato la lista di "+ nameBride +" e "+ nameGroom +"!\nhttp://goo.gl/FsCCjH\n");
+                           targetedShare.putExtra(Intent.EXTRA_TEXT, getString(R.string.messageFacebook)+" "+nameBride+getString(R.string.and)+" "+nameGroom+"!\nhttp://goo.gl/FsCCjH\n");
                            //targetedShare.putExtra(Intent.EXTRA_STREAM, "http://wedapp.altervista.org/Images/wedding_pink.png" );
                            targetedShare.setPackage(info.activityInfo.packageName);
                            targetedShareIntents.add(targetedShare);
                        }
                    }
                    try{
-                   Intent chooserIntent = Intent.createChooser(targetedShareIntents.remove(0), "Select app to share");
+                   Intent chooserIntent = Intent.createChooser(targetedShareIntents.remove(0), getString(R.string.selectApp));
                    chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, targetedShareIntents.toArray(new Parcelable[]{}));
                    startActivity(chooserIntent);
                    }catch(IndexOutOfBoundsException e){
-                    Toast.makeText(getApplicationContext(), "Devi installare l'applicazione Twitter!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.noTwitter), Toast.LENGTH_LONG).show();
                    	final String appName = "com.twitter.android";
                    	try {
                    	    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id="+appName)));
@@ -206,8 +213,8 @@ public class ListActivity extends FragmentActivity implements MyListFragment.OnM
     		@Override
     		protected void onPreExecute() {
     			super.onPreExecute();
-    			pDialog = ProgressDialog.show(ListActivity.this, "Loading",
-    					"Please wait...", true);
+    			pDialog = ProgressDialog.show(ListActivity.this, getString(R.string.Loading),
+    					getString(R.string.PleaseWait), true);
     		}
     		
     		protected String doInBackground(String... params) {

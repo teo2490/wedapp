@@ -18,6 +18,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.view.MenuItem;
@@ -52,9 +53,12 @@ public class RegisterActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_register);
-		 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-         	   getActionBar().setDisplayHomeAsUpEnabled(true);
-         	}
+		if(getResources().getBoolean(R.bool.portrait_only)){
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            getActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
 		// Importing all assets like buttons, text fields
 		inputEmail = (EditText) findViewById(R.id.registerEmail);
@@ -90,9 +94,11 @@ public class RegisterActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 	   switch (item.getItemId()) {
 	      case android.R.id.home:
-	         NavUtils.navigateUpTo(this,
-	               new Intent(this, LoginActivity.class));
-	         return true;
+				Intent back = new Intent(getApplicationContext(), LoginActivity.class);
+	        	back.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	        	startActivity(back);
+	        	finish();
+                return true;
 	   }
 	   return super.onOptionsItemSelected(item);
 	}
@@ -102,8 +108,8 @@ public class RegisterActivity extends Activity {
 		@Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = ProgressDialog.show(RegisterActivity.this, "Loading",
-					"Please wait...", true);
+            pDialog = ProgressDialog.show(RegisterActivity.this, getString(R.string.Loading),
+					getString(R.string.PleaseWait), true);
         }
 		
 		protected String doInBackground(String... args) {
@@ -146,7 +152,7 @@ public class RegisterActivity extends Activity {
 						finish();
 					}else{
 						// Error in registration
-						errMsg = "Error occured in registration";
+						errMsg = getString(R.string.errorRegistration);
 					}
 				}
 			} catch (JSONException e) {

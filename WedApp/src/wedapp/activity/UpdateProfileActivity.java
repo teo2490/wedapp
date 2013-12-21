@@ -19,6 +19,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -52,6 +53,9 @@ public class UpdateProfileActivity extends Activity {
 		db.createLogin();
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_update_profile);
+		if(getResources().getBoolean(R.bool.portrait_only)){
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
 		 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
        	   getActionBar().setDisplayHomeAsUpEnabled(true);
        	}
@@ -95,8 +99,8 @@ public class UpdateProfileActivity extends Activity {
 		@Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = ProgressDialog.show(UpdateProfileActivity.this, "Loading",
-					"Please wait...", true);
+            pDialog = ProgressDialog.show(UpdateProfileActivity.this, getString(R.string.Loading),
+					getString(R.string.PleaseWait), true);
         }
 		
 		protected String doInBackground(String... args) {
@@ -120,7 +124,7 @@ public class UpdateProfileActivity extends Activity {
 			JSONObject json = jsonParser.makeHttpRequest(updateURL, "POST", params);
 			try {
 				if (json.getString(KEY_SUCCESS) != null) {
-					errMsg = "";
+					errMsg = getString(R.string.successUpdateProfile);
 					String res = json.getString(KEY_SUCCESS); 
 					if(Integer.parseInt(res) == 1){
 						String name = db.getUserDetails().get("name");
@@ -139,7 +143,7 @@ public class UpdateProfileActivity extends Activity {
 						finish();
 					}else{
 						// Error in registration
-						errMsg = "Error occured during the update";
+						errMsg = getString(R.string.errorUpdateProfile);
 					}
 				}
 			} catch (JSONException e) {
@@ -182,13 +186,11 @@ public class UpdateProfileActivity extends Activity {
 	        	finish();
                 return true;
             case android.R.id.home:
-//		         NavUtils.navigateUpTo(this,
-//		               new Intent(this, DashboardActivity.class));
-            	Intent i = new Intent(getApplicationContext(), DashboardActivity.class);
-            	i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-	        	startActivity(i);
+				Intent back = new Intent(getApplicationContext(), DashboardActivity.class);
+	        	back.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	        	startActivity(back);
 	        	finish();
-		         return true;
+                return true;
             
 	        	
             default:

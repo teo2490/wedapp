@@ -1,11 +1,13 @@
 package wedapp.activity;
 
+import wedapp.library.DatabaseHandler;
 import dima.wedapp.R;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -27,6 +29,10 @@ public class WedApp extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
+		if(getResources().getBoolean(R.bool.portrait_only)){
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
+		
 		btnUser = (Button) findViewById(R.id.button1);
 		btnMerchant = (Button) findViewById(R.id.button2);
 		inputList = (EditText) findViewById(R.id.editText1);
@@ -44,11 +50,15 @@ public class WedApp extends Activity {
 			public void onClick(View v) {
 				lid = inputList.getText().toString();
 				if(lid == null || lid.equals("")){
-					Toast.makeText(getApplicationContext(), "Please, insert a list code", Toast.LENGTH_SHORT).show();
+					Toast.makeText(getApplicationContext(), getString(R.string.insertListCode), Toast.LENGTH_SHORT).show();
 				}else{
 					System.out.println("LID "+lid);
 					Intent intent = new Intent(WedApp.this, ListActivity.class);
-					intent.putExtra(TAG_LID, lid);
+					DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+					db.createList();
+					db.resetListTable();
+					db.addList(lid);
+					//intent.putExtra(TAG_LID, lid);
 		        	startActivity(intent);
 				}
 			}

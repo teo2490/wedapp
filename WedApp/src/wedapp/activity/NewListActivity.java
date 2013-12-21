@@ -19,6 +19,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -51,9 +52,12 @@ public class NewListActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_new_list);
-		 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-         	   getActionBar().setDisplayHomeAsUpEnabled(true);
-         	}
+		if(getResources().getBoolean(R.bool.portrait_only)){
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            getActionBar().setDisplayHomeAsUpEnabled(true);
+		}
 		
 		nGroom = (EditText) findViewById(R.id.registerNameGroom);
 		sGroom = (EditText) findViewById(R.id.registerSurnameGroom);
@@ -91,8 +95,8 @@ public class NewListActivity extends Activity {
 		@Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = ProgressDialog.show(NewListActivity.this, "Loading",
-					"Please wait...", true);
+            pDialog = ProgressDialog.show(NewListActivity.this, getString(R.string.Loading),
+					getString(R.string.PleaseWait), true);
         }
 		
 		protected String doInBackground(String... args) {
@@ -124,12 +128,12 @@ public class NewListActivity extends Activity {
 					if(Integer.parseInt(res) == 1){
 						int codeList = json.getInt("list");
 						flagEmptyFields = true;
-						errMsg = "List correctly created! The list code is: " + codeList;
+						errMsg = getString(R.string.successCreationNewList)+" "+codeList;
 						pDialog.dismiss();
 					}else{
 						// Error in registration
 						flagEmptyFields = false;
-						errMsg = "Error occured in adding list";
+						errMsg = getString(R.string.errorCreationNewList);
 					}
 				}
 			} catch (JSONException e) {
@@ -180,9 +184,11 @@ public class NewListActivity extends Activity {
 	        	finish();
                 return true;
             case android.R.id.home:
-		         NavUtils.navigateUpTo(this,
-		               new Intent(this, DashboardActivity.class));
-		         return true;
+				Intent back = new Intent(getApplicationContext(), DashboardActivity.class);
+	        	back.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	        	startActivity(back);
+	        	finish();
+                return true;
 	        	
             default:
                 return super.onOptionsItemSelected(item);

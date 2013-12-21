@@ -25,6 +25,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -93,6 +94,9 @@ public class ProductDetailActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		if(getResources().getBoolean(R.bool.portrait_only)){
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
 		setContentView(R.layout.activity_product_detail);
 		
 		btnReserve = (Button) findViewById(R.id.buttonReserve);
@@ -128,7 +132,7 @@ public class ProductDetailActivity extends Activity {
         			intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
         			startActivity(intent);
         	    }else{
-        	    	Toast.makeText(getApplicationContext(),"Installa Google Maps, per favore!",Toast.LENGTH_LONG).show();
+        	    	Toast.makeText(getApplicationContext(),getString(R.string.noMaps),Toast.LENGTH_LONG).show();
         	    }
         	}
         	});
@@ -164,8 +168,8 @@ public class ProductDetailActivity extends Activity {
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
-			pDialog = ProgressDialog.show(ProductDetailActivity.this, "Loading",
-					"Please wait...", true);
+			pDialog = ProgressDialog.show(ProductDetailActivity.this, getString(R.string.Loading),
+					getString(R.string.PleaseWait), true);
 		}
 
 		/**

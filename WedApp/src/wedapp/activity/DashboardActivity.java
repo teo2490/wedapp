@@ -20,6 +20,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -73,13 +74,15 @@ public class DashboardActivity extends Activity {
 		//Controllo connessione ON
 		Networking nw = new Networking();
         if(!nw.isNetworkAvailable(getApplicationContext())){
-            Toast.makeText(this, "L'applicazione necessita di una connessione dati!", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.noInternet), Toast.LENGTH_LONG).show();
             finish();
         }
 
         //ActionBar ab = getActionBar();
         //ab.setHomeButtonEnabled(true);
-		
+        if(getResources().getBoolean(R.bool.portrait_only)){
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
 		if(isMerchantLogged(getApplicationContext())){
 			setContentView(R.layout.activity_dashboard);
 			
@@ -96,7 +99,7 @@ public class DashboardActivity extends Activity {
         	txtWelcome = (TextView) findViewById(R.id.txtWelcome);
         	txtMessage = (TextView) findViewById(R.id.txtMessage);
         	
-        	String wlcMsg = "Hi "+db.getUserDetails().get("name")+" "+db.getUserDetails().get("city");
+        	String wlcMsg = getString(R.string.welcomeDashboard)+" "+db.getUserDetails().get("name")+" "+db.getUserDetails().get("city");
         	txtWelcome.setText(wlcMsg);
         	
         	/*btnNewList.setOnClickListener(new View.OnClickListener() {		
@@ -118,7 +121,7 @@ public class DashboardActivity extends Activity {
 					db.addList(lid);
 					
 					if(lid.equals("")){
-						Toast.makeText(getApplicationContext(), "Please, insert a list code", Toast.LENGTH_SHORT).show();
+						Toast.makeText(getApplicationContext(), getString(R.string.noListCodeDashboard), Toast.LENGTH_SHORT).show();
 					}
 					else{
 						Intent i = new Intent(getApplicationContext(), MerListActivity.class);
@@ -233,8 +236,8 @@ public class DashboardActivity extends Activity {
 		@Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = ProgressDialog.show(DashboardActivity.this, "Loading",
-					"Please wait...", true);
+            pDialog = ProgressDialog.show(DashboardActivity.this, getString(R.string.Loading),
+					getString(R.string.PleaseWait), true);
         }
 		
 		@Override
@@ -252,11 +255,11 @@ public class DashboardActivity extends Activity {
 					String res = json.getString(KEY_SUCCESS); 
 					if(Integer.parseInt(res) == 1){
 						flagDelete = true;
-						message = "List deleted!";
+						message = getString(R.string.listDelDashboard);
 						pDialog.dismiss();
 					}else{
 						flagDelete = false;
-						message = "Error occured during the deletion";
+						message = getString(R.string.delErrorDashboard);
 					}
 				}
 			} catch (JSONException e) {

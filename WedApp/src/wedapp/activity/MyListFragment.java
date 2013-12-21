@@ -10,6 +10,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import dima.wedapp.R;
+
 import wedapp.library.JSONParser;
 
 import android.app.Activity;
@@ -72,11 +74,11 @@ public class MyListFragment extends ListFragment {
                 super.onAttach(activity);
 
                 if(activity instanceof OnMyListFragmentItemClick) {
-                        // L'activity che contiene il fragment è compatibile con l'interfacci di Callback, mi memorizzo il riferimento.
+                        // L'activity che contiene il fragment ï¿½ compatibile con l'interfacci di Callback, mi memorizzo il riferimento.
                         mActivityAttached = (OnMyListFragmentItemClick)activity;
                 }
                 else {
-                        // L'activity non è compatibile, creo un riferimento fittizio. 
+                        // L'activity non ï¿½ compatibile, creo un riferimento fittizio. 
                         mActivityAttached = new OnMyListFragmentItemClick() {
                                 public void onClick(String item) {}
                         };
@@ -117,8 +119,8 @@ public class MyListFragment extends ListFragment {
     		@Override
     		protected void onPreExecute() {
     			super.onPreExecute();
-    			pDialog = ProgressDialog.show(getActivity(), "Loading",
-    					"Please wait...", true);
+    			pDialog = ProgressDialog.show(getActivity(), getString(R.string.Loading),
+    					getString(R.string.PleaseWait), true);
     		}
 
     		/**

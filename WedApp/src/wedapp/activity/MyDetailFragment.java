@@ -152,7 +152,7 @@ public class MyDetailFragment extends Fragment {
                 			intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
                 			startActivity(intent);
                 	    }else{
-                	    	Toast.makeText(getActivity().getApplicationContext(),"Installa Google Maps, per favore!",Toast.LENGTH_LONG).show();
+                	    	Toast.makeText(getActivity().getApplicationContext(),getString(R.string.noMaps),Toast.LENGTH_LONG).show();
                 	    }
                 	}
                 	});
@@ -171,8 +171,8 @@ public class MyDetailFragment extends Fragment {
     		@Override
     		protected void onPreExecute() {
     			super.onPreExecute();
-    			pDialog = ProgressDialog.show(getActivity(), "Loading",
-    					"Please wait...", true);    			
+    			pDialog = ProgressDialog.show(getActivity(), getString(R.string.Loading),
+    					getString(R.string.PleaseWait), true);    			
     		}
 
     		/**

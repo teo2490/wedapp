@@ -52,4 +52,39 @@
     <string name="wedding_date">Data Matrimonio</string>
     <string name="app_id">1382212392001160</string>
     <string name="publish">Pubblica</string>
+    
+    <string name="noInternet">L\'applicazione necessita di una connessione dati!</string>
+    <string name="welcomeDashboard">Ciao</string>
+    <string name="noListCodeDashboard">Inserisci il codice di una lista</string>
+    <string name="Loading">Caricamento</string>
+    <string name="PleaseWait">Attendere...</string>
+    <string name="listDelDashboard">Lista cancellata!</string>
+    <string name="delErrorDashboard">Errore durante la cancellazione</string>
+    <string name="messageFacebook">Ho guardato la lista di</string>
+    <string name="and">e</string>
+    <string name="descriptionFacebook">Fai un regalo con WedApp!</string>
+    <string name="postedFacebook">Elemento pubblicato, id:</string>
+    <string name="cancelFacebook">Elemento cancellato</string>
+    <string name="errorPostingFacebook">Errore durante la pubblicazione</string>
+    <string name="selectApp">Seleziona un\'app per la condivisione</string>
+    <string name="noTwitter">Installa Twitter per usare questa funzione!</string>
+    <string name="errorLogin">Username e/o password non corretti!</string>
+    <string name="noGiftMerListFragment">non ci sono tuoi prodotti in questa lista</string>
+    <string name="noMaps">Installa google Maps per usare questa funzione!</string>
+    <string name="successCreationNewList">La lista è stata correttamente creata! Il codice della lista è:</string>
+    <string name="errorCreationNewList">Errore durante la creazione della nuova lista</string>
+    <string name="noImage">Fai una foto</string>
+    <string name="unknownPath">Unknown path</string>
+    <string name="internalError">C\'è stato un errore</string>
+    <string name="errorRegistration">Errore durante la registrazione</string>
+    <string name="emptyField">Riempi tutti i campi!</string>
+    <string name="giftReservation">Prenotazione di un regalo con WedApp</string>
+    <string name="paymentCompleted">Pagamento completato</string>
+    <string name="paymentCancelled">Pagamento cancellato</string>
+    <string name="successUpdateList">Lista correttamente aggiornata!</string>
+    <string name="errorUpdateList">Errore durante l\'aggiornamento della lista</string>
+    <string name="successUpdateProfile">Profilo correttamente aggiornato!</string>
+    <string name="errorUpdateProfile">Errore durante l\'aggiornamento del profilo</string>
+    <string name="insertListCode">Inserisci il codice di una lista</string>
+    
 </resources>

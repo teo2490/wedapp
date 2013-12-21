@@ -76,6 +76,9 @@ public class MerListActivity extends FragmentActivity implements MerListFragment
 		@Override
         protected void onCreate(Bundle savedInstanceState) {
                 super.onCreate(savedInstanceState);
+                if(getResources().getBoolean(R.bool.portrait_only)){
+                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+                }
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
                	   getActionBar().setDisplayHomeAsUpEnabled(true);
                	}
@@ -125,9 +128,11 @@ public class MerListActivity extends FragmentActivity implements MerListFragment
 		public boolean onOptionsItemSelected(MenuItem item) {
 		   switch (item.getItemId()) {
 		      case android.R.id.home:
-		          NavUtils.navigateUpTo(this,
-		                new Intent(this, DashboardActivity.class));
-		          return true;
+					Intent back = new Intent(getApplicationContext(), DashboardActivity.class);
+		        	back.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		        	startActivity(back);
+		        	finish();
+	                return true;
 		      
 		      case R.id.actAddGift:
 					Intent newProduct = new Intent(getApplicationContext(), NewProductActivity.class);
@@ -152,7 +157,7 @@ public class MerListActivity extends FragmentActivity implements MerListFragment
                 if(detailView==null) {
                         // Non esiste spazio per la visualizzazione del dattagli, quindi ho necessit� di lanciare una nuova activity.
                         // Carico gli arguments nell'intent di chiamata.
-                        Intent intent = new Intent(this, DetailActivity.class);
+                        Intent intent = new Intent(this, MerDetailActivity.class);
                         intent.putExtras(arguments);
                         startActivity(intent);
                 }
@@ -177,8 +182,8 @@ public class MerListActivity extends FragmentActivity implements MerListFragment
     		@Override
     		protected void onPreExecute() {
     			super.onPreExecute();
-    			pDialog = ProgressDialog.show(MerListActivity.this, "Loading",
-    					"Please wait...", true);
+    			pDialog = ProgressDialog.show(MerListActivity.this, getString(R.string.Loading),
+    					getString(R.string.PleaseWait), true);
     		}
     		
     		protected String doInBackground(String... params) {
