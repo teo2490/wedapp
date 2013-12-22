@@ -110,7 +110,7 @@ public class NewListActivity extends Activity {
 			String bName = nBride.getText().toString();
 			String bSurname = sBride.getText().toString();
 			int day = wDate.getDayOfMonth();
-			int month = wDate.getMonth();
+			int month = wDate.getMonth() + 1; //Perché i mesi partono da 0!!
 			int year = wDate.getYear();
 			String date = year+"-"+month+"-"+day;
 			String mEmail = db.getUserDetails().get("email");

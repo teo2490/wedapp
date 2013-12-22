@@ -34,8 +34,8 @@ import android.widget.Toast;
  */
 public class MyListFragment extends ListFragment {
 	
-	//boolean flagExistsList; Per capire se la lista esiste o no!!
-	boolean flagExistsProduct; //Per capire se la lista contiene prodotti!!
+	boolean flagListExists; //Per capire se la lista esiste o no!!
+	boolean flagProductExists; //Per capire se la lista contiene prodotti!!
 	private String lid;
 	
 	// Progress Dialog
@@ -150,7 +150,8 @@ public class MyListFragment extends ListFragment {
     						// json success tag
     						success = json.getInt(TAG_SUCCESS);
     						if (success == 1) {
-    							flagExistsProduct = true;
+    							flagProductExists = true;
+    							flagListExists = true;
     							// successfully received product details
     							JSONArray productObj = json
     									.getJSONArray(TAG_GIFTS); // JSON Array
@@ -175,8 +176,12 @@ public class MyListFragment extends ListFragment {
 	    							price[i] = p;
 	    							pid[i] = pi;
     							}
+    						} else if (success == 2){
+    							flagProductExists = false;
+    							flagListExists = true;
     						} else {
-    							flagExistsProduct = false;
+    							flagProductExists = false;
+    							flagListExists = false;
     						}
     				} catch (JSONException e) {
     						e.printStackTrace();
@@ -189,15 +194,18 @@ public class MyListFragment extends ListFragment {
     		 * After completing background task Dismiss the progress dialog
     		 * **/
     		protected void onPostExecute(String file_url) {
-    			if(flagExistsProduct){
+    			if(flagProductExists && flagListExists){
     				setListAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, name));
+    			} else if(!flagProductExists && flagListExists) {
+    				setListAdapter(null);
+    				Toast.makeText(getActivity().getApplicationContext(), getString(R.string.noProductFound), Toast.LENGTH_LONG).show();
     			} else {
-    				Toast.makeText(getActivity().getApplicationContext(), getString(R.string.noListOrProductFound), Toast.LENGTH_LONG).show();
+    				Toast.makeText(getActivity().getApplicationContext(), getString(R.string.noListFound), Toast.LENGTH_LONG).show();
     				Intent main = new Intent(getActivity().getApplicationContext(), WedApp.class);
 					startActivity(main);
     				getActivity().finish();
     			}
-    			pDialog.dismiss();
+    			pDialog.dismiss();    			
     		}
     	}
 }

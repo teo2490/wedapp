@@ -179,7 +179,7 @@ public class ListActivity extends FragmentActivity implements MyListFragment.OnM
 
                        if (info.activityInfo.packageName.toLowerCase().contains(nameApp) || 
                                info.activityInfo.name.toLowerCase().contains(nameApp)) {
-                           targetedShare.putExtra(Intent.EXTRA_TEXT, getString(R.string.messageFacebook)+" "+nameBride+getString(R.string.and)+" "+nameGroom+"!\nhttp://goo.gl/FsCCjH\n");
+                           targetedShare.putExtra(Intent.EXTRA_TEXT, getString(R.string.messageFacebook)+" "+nameBride+" "+getString(R.string.and)+" "+nameGroom+"!\nhttp://goo.gl/FsCCjH\n");
                            //targetedShare.putExtra(Intent.EXTRA_STREAM, "http://wedapp.altervista.org/Images/wedding_pink.png" );
                            targetedShare.setPackage(info.activityInfo.packageName);
                            targetedShareIntents.add(targetedShare);

@@ -27,6 +27,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -39,14 +40,17 @@ public class UpdateListDetailActivity extends Activity {
 	EditText sGroom;
 	EditText nBride;
 	EditText sBride;
-	EditText wDate;
+	DatePicker wDate;
 	TextView errorMsg;
 	
 	private String nG;
 	private String sG;
 	private String nB;
 	private String sB;
-	private String wdate;
+	private String wD;
+	private int oldDay;
+	private int oldMonth;
+	private int oldYear;
 
 	private static String KEY_SUCCESS = "success";
 	private static final String TAG_NGROOM = "n_groom";
@@ -86,7 +90,7 @@ public class UpdateListDetailActivity extends Activity {
 		sGroom = (EditText) findViewById(R.id.registerSurnameGroom);
 		nBride = (EditText) findViewById(R.id.registerNameBride);
 		sBride = (EditText) findViewById(R.id.registerSurnameBride);
-		wDate = (EditText) findViewById(R.id.registerDate);
+		wDate = (DatePicker) findViewById(R.id.registerDate);
 		btnAddList = (Button) findViewById(R.id.btnUpListDetails);
 		btnLinkToHome = (Button) findViewById(R.id.btnLinkToHome);
 		errorMsg = (TextView) findViewById(R.id.addListMessage);
@@ -124,7 +128,10 @@ public class UpdateListDetailActivity extends Activity {
 			String gSurname = sGroom.getText().toString();
 			String bName = nBride.getText().toString();
 			String bSurname = sBride.getText().toString();
-			String date = wDate.getText().toString();
+			int day = wDate.getDayOfMonth();
+			int month = wDate.getMonth() + 1; //Perché i mesi sono contati da 0!
+			int year = wDate.getYear();
+			String date = year+"-"+month+"-"+day;
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
 			params.add(new BasicNameValuePair("pid", pid));
 			params.add(new BasicNameValuePair("n_groom", gName));
@@ -212,7 +219,12 @@ public class UpdateListDetailActivity extends Activity {
 							sG = product.getString(TAG_SGROOM);
 							nB = product.getString(TAG_NBRIDE);
 							sB = product.getString(TAG_SBRIDE);
-							wdate = product.getString(TAG_WDATE);
+							wD = product.getString(TAG_WDATE);
+							String tokens[] = new String[3];
+							tokens = wD.split("-");
+							oldYear = Integer.parseInt(tokens[0]);
+							oldMonth = Integer.parseInt(tokens[1])-1; //Meno 1 perché conta da 0!!!
+							oldDay = Integer.parseInt(tokens[2]);
 						}else{
 							// product with pid not found
 						}
@@ -228,7 +240,7 @@ public class UpdateListDetailActivity extends Activity {
 							sGroom.setText(sG);
 							nBride.setText(nB);
 							sBride.setText(sB);
-							wDate.setText(wdate);
+							wDate.updateDate(oldYear, oldMonth, oldDay);
 				}
 			});
 

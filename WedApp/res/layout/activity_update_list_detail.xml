@@ -66,12 +66,13 @@
             android:layout_height="wrap_content"
             android:text="@string/wedding_date"
 	    	android:textColor="#fc6c85" />
-        <!-- Date TextField -->
-        <EditText
+		<!-- Date Picker -->
+        <DatePicker
             android:id="@+id/registerDate"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="date" />
+            android:layout_gravity="center"
+            android:calendarViewShown="false" />
         
         <!--  Message -->
         <TextView android:id="@+id/addListMessage"

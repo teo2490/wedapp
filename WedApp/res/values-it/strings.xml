@@ -69,7 +69,8 @@
     <string name="selectApp">Seleziona un\'app per la condivisione</string>
     <string name="noTwitter">Installa Twitter per usare questa funzione!</string>
     <string name="errorLogin">Username e/o password non corretti!</string>
-    <string name="noGiftMerListFragment">Non ci sono tuoi prodotti in questa lista oppure la lista non esiste</string>
+    <string name="noGiftMerListFragment">Non ci sono tuoi prodotti in questa lista</string>
+    <string name="noListMerListFragment">La lista non esiste</string>
     <string name="noMaps">Installa google Maps per usare questa funzione!</string>
     <string name="successCreationNewList">La lista è stata correttamente creata! Il codice della lista è:</string>
     <string name="errorCreationNewList">Errore durante la creazione della nuova lista</string>
@@ -86,7 +87,8 @@
     <string name="successUpdateProfile">Profilo correttamente aggiornato!</string>
     <string name="errorUpdateProfile">Errore durante l\'aggiornamento del profilo</string>
     <string name="insertListCode">Inserisci il codice di una lista</string>
-    <string name="noListOrProductFound">Non esistono liste con questo codice o la lista cercata è vuota</string>
+    <string name="noListFound">Non esistono liste con questo codice</string>
+    <string name="noProductFound">La lista cercata non contiene regali attualmente disponibili</string>
 
     <string name="addList">Aggiungi lista</string>
     <string name="shareOnFacebook">Condividi su Facebook</string>

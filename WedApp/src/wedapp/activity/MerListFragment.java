@@ -34,6 +34,9 @@ import android.widget.Toast;
  */
 public class MerListFragment extends ListFragment {
 	
+	private boolean flagProductExists;
+	private boolean flagListExists;
+	
 	private String lid;
 	private String memail;
 	
@@ -155,6 +158,8 @@ public class MerListFragment extends ListFragment {
     						// json success tag
     						success = json.getInt(TAG_SUCCESS);
     						if (success == 1) {
+    							flagProductExists = true;
+    							flagListExists = true;
     							// successfully received product details
     							JSONArray productObj = json
     									.getJSONArray(TAG_GIFTS); // JSON Array
@@ -179,9 +184,12 @@ public class MerListFragment extends ListFragment {
 	    							price[i] = p;
 	    							pid[i] = pi;
     							}
-    						}
-    						else{
-    							// product with pid not found
+    						} else if(success == 2) {
+    							flagProductExists = false;
+    							flagListExists = true;
+    						} else if(success == 3) {
+    							flagProductExists = false;
+    							flagListExists = false;
     						}
     					} catch (JSONException e) {
     						e.printStackTrace();
@@ -194,10 +202,13 @@ public class MerListFragment extends ListFragment {
     		 * After completing background task Dismiss the progress dialog
     		 * **/
     		protected void onPostExecute(String file_url) {
-    			if(name != null){ //Perché usiamo name???
+    			if(flagProductExists && flagListExists){
     				setListAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, name));
-    			} else {
+    			} else if(!flagProductExists && flagListExists) {
+    				setListAdapter(null);
     				Toast.makeText(getActivity().getApplicationContext(), getString(R.string.noGiftMerListFragment), Toast.LENGTH_LONG).show();
+    			} else {
+    				Toast.makeText(getActivity().getApplicationContext(), getString(R.string.noListMerListFragment), Toast.LENGTH_LONG).show();
     				Intent main = new Intent(getActivity().getApplicationContext(), DashboardActivity.class);
 					startActivity(main);
     				getActivity().finish();
