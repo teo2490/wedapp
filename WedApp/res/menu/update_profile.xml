@@ -4,7 +4,7 @@
         android:id="@+id/actLogout"
         android:orderInCategory="100"
         android:showAsAction="ifRoom"
-        android:title="Logout"
+        android:title="@string/logout"
         android:icon="@drawable/ic_action_logout"/>
 
 </menu>

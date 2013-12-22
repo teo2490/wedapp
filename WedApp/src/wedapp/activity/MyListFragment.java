@@ -16,6 +16,7 @@ import wedapp.library.JSONParser;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -24,6 +25,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 /**
  * Fragment che si occupa della visualizzazione di una lista di String.
@@ -32,6 +34,8 @@ import android.widget.ListView;
  */
 public class MyListFragment extends ListFragment {
 	
+	//boolean flagExistsList; Per capire se la lista esiste o no!!
+	boolean flagExistsProduct; //Per capire se la lista contiene prodotti!!
 	private String lid;
 	
 	// Progress Dialog
@@ -127,12 +131,10 @@ public class MyListFragment extends ListFragment {
     		 * Getting product details in background thread
     		 * */
     		protected String doInBackground(String... params) {
-
-    		
     					// Check for success tag
-    					int success;
+    				int success;
     					
-    					try {
+    				try {
     						// Building Parameters
     						List<NameValuePair> params1 = new ArrayList<NameValuePair>();
     						params1.add(new BasicNameValuePair(TAG_LID, lid));
@@ -148,6 +150,7 @@ public class MyListFragment extends ListFragment {
     						// json success tag
     						success = json.getInt(TAG_SUCCESS);
     						if (success == 1) {
+    							flagExistsProduct = true;
     							// successfully received product details
     							JSONArray productObj = json
     									.getJSONArray(TAG_GIFTS); // JSON Array
@@ -172,13 +175,12 @@ public class MyListFragment extends ListFragment {
 	    							price[i] = p;
 	    							pid[i] = pi;
     							}
+    						} else {
+    							flagExistsProduct = false;
     						}
-    						else{
-    							// product with pid not found
-    						}
-    					} catch (JSONException e) {
+    				} catch (JSONException e) {
     						e.printStackTrace();
-    					}
+    				}
     			return null;
     		}
 
@@ -187,8 +189,15 @@ public class MyListFragment extends ListFragment {
     		 * After completing background task Dismiss the progress dialog
     		 * **/
     		protected void onPostExecute(String file_url) {
-    			setListAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, name));
-    			pDialog.dismiss();    			
+    			if(flagExistsProduct){
+    				setListAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, name));
+    			} else {
+    				Toast.makeText(getActivity().getApplicationContext(), getString(R.string.noListOrProductFound), Toast.LENGTH_LONG).show();
+    				Intent main = new Intent(getActivity().getApplicationContext(), WedApp.class);
+					startActivity(main);
+    				getActivity().finish();
+    			}
+    			pDialog.dismiss();
     		}
     	}
 }

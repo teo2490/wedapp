@@ -79,7 +79,7 @@
     <string name="selectApp">Select app to share</string>
     <string name="noTwitter">Please, install Twitter to use this function!</string>
     <string name="errorLogin">Incorrect username/password!</string>
-    <string name="noGiftMerListFragment">There are not your products in this list</string>
+    <string name="noGiftMerListFragment">There are not your products in this list or maybe this list doesn\'t exist</string>
     <string name="noMaps">Please, install Google Maps to use this function!</string>
     <string name="successCreationNewList">List was successfully created! List code is</string>
     <string name="errorCreationNewList">Error occurred creating new list</string>
@@ -96,5 +96,12 @@
     <string name="successUpdateProfile">Profile correctly updated!</string>
     <string name="errorUpdateProfile">Error occurred updating profile</string>
     <string name="insertListCode">Please, insert a list code</string>
+    <string name="noListOrProductFound">No lists exist with these code or list is empty</string>
 
+    <string name="addList">Add list</string>
+    <string name="shareOnFacebook">Share on Facebook</string>
+    <string name="shareOnTwitter">Share on Twitter</string>
+    <string name="upList">Update list</string>
+    <string name="addGift">Add gift</string>
+    
 </resources>

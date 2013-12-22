@@ -4,14 +4,14 @@
         android:id="@+id/actAddList"
         android:orderInCategory="100"
         android:showAsAction="ifRoom"
-        android:title="Add List"
+        android:title="@string/addList"
         android:icon="@drawable/ic_action_add"/>
     
     <item
         android:id="@+id/actLogout"
         android:orderInCategory="100"
         android:showAsAction="ifRoom"
-        android:title="Logout"
+        android:title="@string/logout"
         android:icon="@drawable/ic_action_logout"/>
 
 </menu>

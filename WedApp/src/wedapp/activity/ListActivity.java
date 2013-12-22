@@ -88,13 +88,6 @@ public class ListActivity extends FragmentActivity implements MyListFragment.OnM
                 System.out.println("QUA "+lid);
                 // Mi limito a caricare il layout, � android che inserir� in modo opportuno quello portrait o landscape (o altri!).
                 setContentView(R.layout.activity_list);
-                
-                
-                //lid = "1";
-                
-                if(getResources().getBoolean(R.bool.portrait_only)){
-                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-                }
 		    	new GetListDetails().execute();
                 
 
@@ -240,7 +233,10 @@ public class ListActivity extends FragmentActivity implements MyListFragment.OnM
     							ng = product.getString(TAG_NGROOM);
     							nb = product.getString(TAG_NBRIDE);
     						}else{
-    							// product with pid not found
+    							//Toast.makeText(getApplicationContext(), getString(R.string.noInternet), Toast.LENGTH_LONG).show();
+    							//Intent main = new Intent(getApplicationContext(), WedApp.class);
+    							//startActivity(main);
+    				            //finish();
     						}
     					} catch (JSONException e) {
     						e.printStackTrace();

@@ -4,14 +4,14 @@
         android:id="@+id/actFacebook"
         android:orderInCategory="100"
         android:showAsAction="ifRoom"
-        android:title="Share"
+        android:title="@string/shareOnFacebook"
         android:icon="@drawable/ic_action_facebook" />
     
     <item
         android:id="@+id/actTwitter"
         android:orderInCategory="100"
         android:showAsAction="ifRoom"
-        android:title="Share"
+        android:title="@string/shareOnTwitter"
         android:icon="@drawable/ic_action_twitter" />
 
 </menu>

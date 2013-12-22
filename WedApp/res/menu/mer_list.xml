@@ -1,10 +1,24 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
+        android:id="@+id/actUpList"
+        android:orderInCategory="100"
+        android:showAsAction="ifRoom"
+        android:title="@string/upList"
+        android:icon="@drawable/ic_action_edit"/>
+    
+    <item
         android:id="@+id/actAddGift"
         android:orderInCategory="100"
         android:showAsAction="ifRoom"
-        android:title="Add Gift"
+        android:title="@string/addGift"
         android:icon="@drawable/ic_action_add"/>
+    
+    <item
+        android:id="@+id/actLogout"
+        android:orderInCategory="100"
+        android:showAsAction="ifRoom"
+        android:title="@string/logout"
+        android:icon="@drawable/ic_action_logout"/>
 
 </menu>

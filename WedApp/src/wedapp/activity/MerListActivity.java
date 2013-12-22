@@ -99,10 +99,6 @@ public class MerListActivity extends FragmentActivity implements MerListFragment
                
                 
                 //lid = "1";
-                
-                if(getResources().getBoolean(R.bool.portrait_only)){
-                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-                }
 		    	new GetListDetails().execute();
                 
 
@@ -131,6 +127,22 @@ public class MerListActivity extends FragmentActivity implements MerListFragment
 					Intent back = new Intent(getApplicationContext(), DashboardActivity.class);
 		        	back.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		        	startActivity(back);
+		        	finish();
+	                return true;
+	                
+		      case R.id.actLogout:
+		    	    UserFunctions us = new UserFunctions();
+					us.logoutMerchant(getApplicationContext());
+					Intent choose = new Intent(getApplicationContext(), WedApp.class);
+		        	choose.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		        	startActivity(choose);
+		        	finish();
+	                return true;
+	                
+		      case R.id.actUpList:
+					Intent update = new Intent(getApplicationContext(), UpdateListDetailActivity.class);
+		        	update.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		        	startActivity(update);
 		        	finish();
 	                return true;
 		      

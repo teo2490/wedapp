@@ -20,11 +20,13 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -37,7 +39,7 @@ public class NewListActivity extends Activity {
 	EditText sGroom;
 	EditText nBride;
 	EditText sBride;
-	EditText wDate;
+	DatePicker wDate;
 	TextView errorMsg;
 
 	private static String KEY_SUCCESS = "success";
@@ -45,6 +47,7 @@ public class NewListActivity extends Activity {
 	
 	private ProgressDialog pDialog;
 	private String errMsg;
+	private String color;
 	JSONParser jsonParser = new JSONParser();
 	private static String URL = "http://wedapp.altervista.org/create_list.php";
 
@@ -63,7 +66,7 @@ public class NewListActivity extends Activity {
 		sGroom = (EditText) findViewById(R.id.registerSurnameGroom);
 		nBride = (EditText) findViewById(R.id.registerNameBride);
 		sBride = (EditText) findViewById(R.id.registerSurnameBride);
-		wDate = (EditText) findViewById(R.id.registerDate);
+		wDate = (DatePicker) findViewById(R.id.registerDate);
 		btnAddList = (Button) findViewById(R.id.btnAddList);
 		btnLinkToHome = (Button) findViewById(R.id.btnLinkToHome);
 		errorMsg = (TextView) findViewById(R.id.addListMessage);
@@ -106,7 +109,10 @@ public class NewListActivity extends Activity {
 			String gSurname = sGroom.getText().toString();
 			String bName = nBride.getText().toString();
 			String bSurname = sBride.getText().toString();
-			String date = wDate.getText().toString();
+			int day = wDate.getDayOfMonth();
+			int month = wDate.getMonth();
+			int year = wDate.getYear();
+			String date = year+"-"+month+"-"+day;
 			String mEmail = db.getUserDetails().get("email");
 			/*System.out.println(gName);
 			System.out.println(gSurname);
@@ -129,11 +135,13 @@ public class NewListActivity extends Activity {
 						int codeList = json.getInt("list");
 						flagEmptyFields = true;
 						errMsg = getString(R.string.successCreationNewList)+" "+codeList;
+						color = "#fc6c85";
 						pDialog.dismiss();
 					}else{
 						// Error in registration
 						flagEmptyFields = false;
 						errMsg = getString(R.string.errorCreationNewList);
+						color = "#e52b50";
 					}
 				}
 			} catch (JSONException e) {
@@ -147,10 +155,11 @@ public class NewListActivity extends Activity {
 						sGroom.setText("");
 						nBride.setText("");
 						sBride.setText("");
-						wDate.setText("");
+						//wDate.setText("");
 					}
-					pDialog.dismiss();
 					errorMsg.setText(errMsg);
+					errorMsg.setTextColor(Color.parseColor(color));
+					pDialog.dismiss();
 				}
 			});
 			return null;

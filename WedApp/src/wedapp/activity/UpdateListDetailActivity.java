@@ -9,6 +9,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import wedapp.library.DatabaseHandler;
 import wedapp.library.JSONParser;
 import wedapp.library.UserFunctions;
 import dima.wedapp.R;
@@ -77,8 +78,9 @@ public class UpdateListDetailActivity extends Activity {
             getActionBar().setDisplayHomeAsUpEnabled(true);
         }
 		
-		Intent i = getIntent();
-		pid = i.getStringExtra("pid");
+		DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+		db.createList();
+		pid = db.getListId();
 		
 		nGroom = (EditText) findViewById(R.id.registerNameGroom);
 		sGroom = (EditText) findViewById(R.id.registerSurnameGroom);

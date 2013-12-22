@@ -60,6 +60,7 @@ public class WedApp extends Activity {
 					db.addList(lid);
 					//intent.putExtra(TAG_LID, lid);
 		        	startActivity(intent);
+		        	finish();
 				}
 			}
 		});

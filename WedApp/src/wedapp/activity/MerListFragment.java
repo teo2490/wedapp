@@ -16,6 +16,7 @@ import wedapp.library.JSONParser;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -193,11 +194,13 @@ public class MerListFragment extends ListFragment {
     		 * After completing background task Dismiss the progress dialog
     		 * **/
     		protected void onPostExecute(String file_url) {
-    			if(name != null){
+    			if(name != null){ //Perché usiamo name???
     				setListAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, name));
-    			}
-    			else{
+    			} else {
     				Toast.makeText(getActivity().getApplicationContext(), getString(R.string.noGiftMerListFragment), Toast.LENGTH_LONG).show();
+    				Intent main = new Intent(getActivity().getApplicationContext(), DashboardActivity.class);
+					startActivity(main);
+    				getActivity().finish();
     			}
     			pDialog.dismiss();    			
     		}

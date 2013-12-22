@@ -16,6 +16,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import wedapp.library.UserFunctions;
+
 import dima.wedapp.R;
 import dima.wedapp.R.id;
 import dima.wedapp.R.layout;
@@ -87,6 +89,15 @@ public class MerDetailActivity extends FragmentActivity {
 					Intent back = new Intent(getApplicationContext(), MerListActivity.class);
 		        	back.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		        	startActivity(back);
+		        	finish();
+	                return true;
+	                
+		      case R.id.actLogout:
+		    	    UserFunctions us = new UserFunctions();
+					us.logoutMerchant(getApplicationContext());
+					Intent choose = new Intent(getApplicationContext(), WedApp.class);
+		        	choose.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		        	startActivity(choose);
 		        	finish();
 	                return true;
 		   }
