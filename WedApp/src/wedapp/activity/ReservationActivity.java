@@ -11,7 +11,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import wedapp.activity.LoginActivity.loginMerchant;
-import wedapp.activity.ProductDetailActivity.DownloadImage;
 import wedapp.library.DatabaseHandler;
 import wedapp.library.JSONParser;
 

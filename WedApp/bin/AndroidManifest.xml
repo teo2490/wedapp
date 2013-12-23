@@ -54,10 +54,6 @@
             android:label="@string/title_activity_main" >
         </activity>
         <activity
-            android:name="wedapp.activity.ProductDetailActivity"
-            android:label="@string/title_activity_product_detail" >
-        </activity>
-        <activity
             android:name="wedapp.activity.ReservationActivity"
             android:label="@string/title_activity_reservation" >
         </activity>
