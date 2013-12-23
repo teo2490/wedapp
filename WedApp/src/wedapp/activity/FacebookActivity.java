@@ -57,7 +57,7 @@ public class FacebookActivity extends FragmentActivity {
 
         try {
             PackageInfo info = getPackageManager().getPackageInfo(
-                    "teo2490.fbprova", //E' giusto questo?? o va cambiato?????????
+                    "wedapp.activity", //E' giusto questo?? o va cambiato?????????
                     PackageManager.GET_SIGNATURES);
             for (Signature signature : info.signatures) {
                 MessageDigest md = MessageDigest.getInstance("SHA");

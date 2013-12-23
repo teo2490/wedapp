@@ -30,6 +30,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class UpdateListDetailActivity extends Activity {
@@ -157,7 +158,7 @@ public class UpdateListDetailActivity extends Activity {
 			runOnUiThread(new Runnable() {
 				public void run() {
 					pDialog.dismiss();
-					errorMsg.setText(errMsg);
+					Toast.makeText(getApplicationContext(), errMsg, Toast.LENGTH_LONG).show();
 				}
 			});
 			return null;

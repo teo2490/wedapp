@@ -527,7 +527,7 @@ public class UpdateProduct extends Activity {
                     Intent i = new Intent(getApplicationContext(), MerListActivity.class);
                     runOnUiThread(new Runnable() {
                     	  public void run() {
-                    		  Toast.makeText(getApplicationContext(), "@strings/suc_update", Toast.LENGTH_LONG).show();
+                    		  Toast.makeText(getApplicationContext(), getString(R.string.suc_update), Toast.LENGTH_LONG).show();
                     	  }
                     	});
                     startActivity(i);
@@ -537,7 +537,7 @@ public class UpdateProduct extends Activity {
                     // failed to create product
                 	runOnUiThread(new Runnable() {
                   	  public void run() {
-                  		Toast.makeText(getApplicationContext(), "@strings/fail_update", Toast.LENGTH_LONG).show();
+                  		Toast.makeText(getApplicationContext(), getString(R.string.fail_update), Toast.LENGTH_LONG).show();
                   	  }
                   	});
                 }

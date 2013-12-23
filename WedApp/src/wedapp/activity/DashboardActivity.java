@@ -17,8 +17,10 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.view.Menu;
@@ -40,10 +42,12 @@ public class DashboardActivity extends Activity {
 	EditText listToDelete;
 	EditText listToUpdate;
 	TextView txtWelcome;
-	TextView txtMessage;
+	//TextView txtMessage;
 	
 	private static String KEY_SUCCESS = "success";
 	private static final String TAG_LID = "id_list";
+	
+	final Context context = this;
 	
 	private ProgressDialog pDialog;
 	private String message;
@@ -97,7 +101,7 @@ public class DashboardActivity extends Activity {
         	listToDelete = (EditText) findViewById(R.id.listToDelete);
         	listToUpdate = (EditText) findViewById(R.id.listToUpdate);
         	txtWelcome = (TextView) findViewById(R.id.txtWelcome);
-        	txtMessage = (TextView) findViewById(R.id.txtMessage);
+        	//txtMessage = (TextView) findViewById(R.id.txtMessage);
         	
         	String wlcMsg = getString(R.string.welcomeDashboard)+" "+db.getUserDetails().get("name")+" "+db.getUserDetails().get("city");
         	txtWelcome.setText(wlcMsg);
@@ -134,7 +138,34 @@ public class DashboardActivity extends Activity {
         	
         	btnDeleteList.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View view) {
-					new deleteList().execute();
+					AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+			 
+						// set title
+						alertDialogBuilder.setTitle(getString(R.string.confirm));
+			 
+						// set dialog message
+						alertDialogBuilder
+							.setMessage(getString(R.string.confirmD))
+							.setCancelable(false)
+							.setPositiveButton(getString(R.string.yes),new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,int id) {
+									new deleteList().execute();
+									dialog.cancel();
+								}
+							  })
+							.setNegativeButton(getString(R.string.no),new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,int id) {
+									// if this button is clicked, just close
+									// the dialog box and do nothing
+									dialog.cancel();
+								}
+							});
+			 
+							// create alert dialog
+							AlertDialog alertDialog = alertDialogBuilder.create();
+			 
+							// show it
+							alertDialog.show();
 				}
 			});
         	
@@ -273,7 +304,7 @@ public class DashboardActivity extends Activity {
 					if(flagDelete){
 						listToDelete.setText("");
 					}
-					txtMessage.setText(message);
+					Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
 				}
 			});
 			return null;

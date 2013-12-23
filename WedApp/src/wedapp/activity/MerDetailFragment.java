@@ -61,6 +61,8 @@ public class MerDetailFragment extends Fragment {
 	private String photo;
 	
 	private String pid;
+	
+	private String message;
 
 	// Progress Dialog
 	private ProgressDialog pDialog;
@@ -360,10 +362,12 @@ public class MerDetailFragment extends Fragment {
      						if (success == 1) {
      							Intent i = new Intent(getActivity().getApplicationContext(), MerListActivity.class);
      							i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+     							message =  getString(R.string.suc_delete);
      							startActivity(i);
      							getActivity().finish();
      						}else{
      							// product with pid not found
+     							message =  getString(R.string.fail_delete);
      						}
      					} catch (JSONException e) {
      						e.printStackTrace();
@@ -379,6 +383,8 @@ public class MerDetailFragment extends Fragment {
      		 * **/
      		protected void onPostExecute(String file_url) {
      			pDialog.dismiss();
+     			Toast.makeText(getActivity().getApplicationContext(), message, Toast.LENGTH_LONG).show();
+
      		}
      	}
          

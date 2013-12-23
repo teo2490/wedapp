@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">WedApp</string>
-    <string name="title_activity_new_product">Create New Product</string>
+    <string name="title_activity_new_product">Crea Nuovo Regalo</string>
     <string name="action_settings">Impostazioni</string>
     <string name="title_activity_main">WedApp</string>
     <string name="title_activity_dashboard">WedApp</string>
@@ -47,7 +47,7 @@
     <string name="address">Indirizzo</string>
     <string name="build_number">Numero Civico</string>
     <string name="register_me">Registrami</string>
-    <string name="already_reg">Gia\' registrato. Login in!</string>    
+    <string name="already_reg">Gia\' registrato. Login!</string>    
     <string name="cancel">Cancella</string>
     <string name="update">Aggiorna</string>
     <string name="wedding_date">Data Matrimonio</string>
@@ -101,6 +101,10 @@
     <string name="insertListCode">Inserisci il codice di una lista</string>
     <string name="noListFound">Non esistono liste con questo codice</string>
     <string name="noProductFound">La lista cercata non contiene regali attualmente disponibili</string>
+    <string name="confirm">Conferma</string>
+    <string name="confirmD">Sei sicuro di voler eliminare questa lista?</string>
+    <string name="yes">Si</string>
+    <string name="no">No</string>
 
     <string name="addList">Aggiungi lista</string>
     <string name="shareOnFacebook">Condividi su Facebook</string>
@@ -109,5 +113,7 @@
     <string name="addGift">Aggiungi regalo</string>
     <string name="suc_update">Regalo Aggiornato Correttamente</string>
     <string name="fail_update">Errore nell\'aggiornamento del Regalo</string>
+    <string name="suc_delete">Regalo Cancellato</string>
+    <string name="fail_delete">Errore nella cancellazione del Regalo</string>
     
 </resources>

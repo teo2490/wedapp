@@ -73,13 +73,7 @@
 		        android:textColor="#ffffff" />
 		</LinearLayout>
 		
-        <TextView
-            android:id="@+id/txtMessage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-        	android:textSize="25sp"
-            android:textColor="#fc6c85"
-        	android:textStyle="bold" />
+       
 
         <Button
             android:id="@+id/btnUpProfile"
