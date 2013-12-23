@@ -114,6 +114,10 @@ public class ReservationActivity extends Activity {
         
         startService(intent);
     }
+    
+    public void onBackPressed() {
+    	return;
+	}
 
     public void onBuyPressed(View pressed) {
     	DatabaseHandler db = new DatabaseHandler(getApplicationContext());

@@ -255,6 +255,14 @@ public class UpdateListDetailActivity extends Activity {
 		}
 	}
 	
+	public void onBackPressed() {
+		Intent back = new Intent(getApplicationContext(), MerListActivity.class);
+    	back.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+    	startActivity(back);
+    	finish();
+    	return;
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.

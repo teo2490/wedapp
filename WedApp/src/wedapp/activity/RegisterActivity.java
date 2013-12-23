@@ -90,6 +90,14 @@ public class RegisterActivity extends Activity {
 		});
 	}
 	
+	public void onBackPressed() {
+		Intent back = new Intent(getApplicationContext(), LoginActivity.class);
+    	back.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+    	startActivity(back);
+    	finish();
+    	return;
+	}
+	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 	   switch (item.getItemId()) {

@@ -71,6 +71,14 @@ public class FacebookActivity extends FragmentActivity {
         }
     }
     
+    public void onBackPressed() {
+		Intent back = new Intent(getApplicationContext(), ListActivity.class)/*.putExtra(TAG_LID, lid)*/;
+    	back.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+    	startActivity(back);
+    	finish();
+    	return;
+	}
+    
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.facebook, menu);

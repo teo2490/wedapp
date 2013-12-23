@@ -171,7 +171,13 @@ public class NewListActivity extends Activity {
 		}
 	}
 	
-
+	public void onBackPressed() {
+		Intent back = new Intent(getApplicationContext(), DashboardActivity.class);
+    	back.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+    	startActivity(back);
+    	finish();
+    	return;
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

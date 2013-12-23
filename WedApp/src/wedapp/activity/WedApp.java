@@ -42,6 +42,7 @@ public class WedApp extends Activity {
 			public void onClick(View v) {
 				Intent intent = new Intent(WedApp.this, LoginActivity.class);
 	        	startActivity(intent);
+	        	finish();
 			}
 		});
 		
@@ -64,6 +65,10 @@ public class WedApp extends Activity {
 				}
 			}
 		});
+	}
+	
+	public void onBackPressed() {
+    	return;
 	}
 
 }

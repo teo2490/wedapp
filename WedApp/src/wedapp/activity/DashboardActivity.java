@@ -59,7 +59,7 @@ public class DashboardActivity extends Activity {
 	@Override
 	public void onBackPressed()
 	{
-	     return;
+		return;
 	}
 	
 	private boolean isMerchantLogged(Context context) {

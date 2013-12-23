@@ -80,6 +80,14 @@ public class DetailActivity extends FragmentActivity {
                 .commit();
         }
         
+        public void onBackPressed() {
+			Intent back = new Intent(getApplicationContext(), ListActivity.class);
+        	back.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        	startActivity(back);
+        	finish();
+        	return;
+    	}
+        
         @Override
 		public boolean onOptionsItemSelected(MenuItem item) {
 		   switch (item.getItemId()) {
