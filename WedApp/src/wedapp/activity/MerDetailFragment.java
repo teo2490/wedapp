@@ -82,6 +82,7 @@ public class MerDetailFragment extends Fragment {
 	private static final String TAG_NAME = "name";
 	private static final String TAG_PRICE = "price";
 	private static final String TAG_PHOTO = "photo";
+	private static final String TAG_ID = "id";
         /**
          * Chiave per l'argomento che viene passato.
          */
@@ -117,7 +118,9 @@ public class MerDetailFragment extends Fragment {
         		btnEdit.setOnClickListener(new View.OnClickListener() {
                 	@Override
         			public void onClick(View v) {	
-                			//CHE FACCIO??
+                		Intent i = new Intent(getActivity().getApplicationContext(), UpdateProduct.class);
+                		i.putExtra(TAG_PID, pid);
+                		startActivity(i);
                 	}
                 	});
         		
@@ -342,7 +345,7 @@ public class MerDetailFragment extends Fragment {
      					try {
      						// Building Parameters
      						List<NameValuePair> params1 = new ArrayList<NameValuePair>();
-     						params1.add(new BasicNameValuePair(TAG_PID, pid));
+     						params1.add(new BasicNameValuePair(TAG_ID, pid));
 
      						// getting product details by making HTTP request
      						// Note that product details url will use GET request
@@ -355,9 +358,10 @@ public class MerDetailFragment extends Fragment {
      						// json success tag
      						success = json.getInt(TAG_SUCCESS);
      						if (success == 1) {
-     							
-     							//REFRESH FRAGMENT ??
-     							
+     							Intent i = new Intent(getActivity().getApplicationContext(), MerListActivity.class);
+     							i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+     							startActivity(i);
+     							getActivity().finish();
      						}else{
      							// product with pid not found
      						}

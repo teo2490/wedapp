@@ -524,13 +524,22 @@ public class UpdateProduct extends Activity {
  
                 if (success == 1) {
                     // successfully created product MANCA!!
-                    //Intent i = new Intent(getApplicationContext(), AllProductsActivity.class);
-                    //startActivity(i);
- 
+                    Intent i = new Intent(getApplicationContext(), MerListActivity.class);
+                    runOnUiThread(new Runnable() {
+                    	  public void run() {
+                    		  Toast.makeText(getApplicationContext(), "@strings/suc_update", Toast.LENGTH_LONG).show();
+                    	  }
+                    	});
+                    startActivity(i);
                     // closing this screen
                     finish();
                 } else {
                     // failed to create product
+                	runOnUiThread(new Runnable() {
+                  	  public void run() {
+                  		Toast.makeText(getApplicationContext(), "@strings/fail_update", Toast.LENGTH_LONG).show();
+                  	  }
+                  	});
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

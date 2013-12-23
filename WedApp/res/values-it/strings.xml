@@ -35,6 +35,7 @@
     <string name="surname">Cognome</string>
     <string name="price">Prezzo</string>
     <string name="photo">Aggiungi Foto</string>
+    <string name="up_photo">Cambia Foto</string>
     <string name="create_product">Crea Prodotto</string>
     <string name="update_product">Aggiorna Prodotto</string>
     <string name="merchant_name">Commerciante</string>
@@ -52,6 +53,18 @@
     <string name="wedding_date">Data Matrimonio</string>
     <string name="app_id">1382212392001160</string>
     <string name="publish">Pubblica</string>
+    <string name="title_activity_list">Lista Regali</string>
+    <string name="title_activity_detail">Dettagli Regalo</string>
+    <string name="title_activity_my_list_fragment">Lista Regali</string>
+    <string name="title_activity_my_detail_fragment">Dettagli Regalo</string>
+    <string name="title_activity_mer_list">Lista Regali</string>
+    <string name="title_activity_mer_list_fragment">Lista Regali</string>
+    <string name="title_activity_mer_detail_fragment">Dettagli Regalo</string>
+    <string name="title_activity_mer_detail">Dettagli Regalo</string>
+    <string name="title_activity_facebook">Condividi su Facebook</string>
+    <string name="title_activity_detail">Dettagli Regalo</string>
+    <string name="edit">Modifica</string>
+    <string name="delete">Cancella</string>
     
     <string name="noInternet">L\'applicazione necessita di una connessione dati!</string>
     <string name="welcomeDashboard">Ciao</string>
@@ -95,5 +108,7 @@
     <string name="shareOnTwitter">Condividi su Twitter</string>
     <string name="upList">Aggiorna lista</string>
     <string name="addGift">Aggiungi regalo</string>
+    <string name="suc_update">Regalo Aggiornato Correttamente</string>
+    <string name="fail_update">Errore nell\'aggiornamento del Regalo</string>
     
 </resources>

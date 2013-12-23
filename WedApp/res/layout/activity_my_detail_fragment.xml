@@ -88,7 +88,7 @@
         	android:layout_margin="5dip"
         	android:background="@drawable/button_color"
     		android:textColor="#ffffff"
-        	android:text="Drive me" />
+        	android:text="@string/drive" />
         
         <Button
             android:id="@+id/buttonReserve"
@@ -98,7 +98,7 @@
             android:layout_margin="5dip"
             android:background="@drawable/button_color"
     		android:textColor="#ffffff"
-            android:text="Reserve" />
+            android:text="@string/reserve" />
 
     </LinearLayout>
  

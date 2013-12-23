@@ -35,6 +35,7 @@
     <string name="surname">Surname</string>
     <string name="price">Price</string>
     <string name="photo">Take a Photo</string>
+    <string name="up_photo">Change Photo</string>
     <string name="create_product">Create Product</string>
     <string name="update_product">Update Product</string>
     <string name="merchant_name">Merchant</string>
@@ -50,18 +51,20 @@
     <string name="cancel">Cancel</string>
     <string name="wedding_date">Wedding Date</string>
     <string name="update">Update</string>
-    <string name="title_activity_list">ListActivity</string>
+    <string name="title_activity_list">Gift List</string>
     <string name="hello_world">Hello world!</string>
-    <string name="title_activity_detail">Detail Activity</string>
-    <string name="title_activity_my_list_fragment">MyListFragment</string>
-    <string name="title_activity_my_detail_fragment">MyDetailFragment</string>
-    <string name="title_activity_mer_list">MerListActivity</string>
-    <string name="title_activity_mer_list_fragment">MerListFragment</string>
-    <string name="title_activity_mer_detail_fragment">MerDetailFragment</string>
-    <string name="title_activity_mer_detail">MerDetailActivity</string>
-    <string name="title_activity_facebook">Facebook Activity</string>
+    <string name="title_activity_detail">Gift Details</string>
+    <string name="title_activity_my_list_fragment">Gift List</string>
+    <string name="title_activity_my_detail_fragment">Gift Details</string>
+    <string name="title_activity_mer_list">Gift List</string>
+    <string name="title_activity_mer_list_fragment">Gift List</string>
+    <string name="title_activity_mer_detail_fragment">Gift Details</string>
+    <string name="title_activity_mer_detail">Gift Details</string>
+    <string name="title_activity_facebook">Share on Facebook</string>
     <string name="app_id">1382212392001160</string>
     <string name="publish">Publish</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
     
     <string name="noInternet">Application need data connection!</string>
     <string name="welcomeDashboard">Hi</string>
@@ -105,5 +108,7 @@
     <string name="shareOnTwitter">Share on Twitter</string>
     <string name="upList">Update list</string>
     <string name="addGift">Add gift</string>
+    <string name="suc_update">Gift Updated</string>
+    <string name="fai_update">Error Updating Gift</string>
     
 </resources>

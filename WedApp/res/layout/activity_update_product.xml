@@ -69,7 +69,7 @@
         	android:layout_margin="5dip"
         	android:background="@drawable/button_color"
     		android:textColor="#ffffff"
-        	android:text="@string/photo" />
+        	android:text="@string/up_photo" />
         
         <Button
             android:id="@+id/btnCreateProduct"

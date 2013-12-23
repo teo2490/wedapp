@@ -96,9 +96,7 @@ public class MerListActivity extends FragmentActivity implements MerListFragment
                 setContentView(R.layout.activity_mer_list);
 
                 memail = db.getUserDetails().get("email");
-               
-                
-                //lid = "1";
+
 		    	new GetListDetails().execute();
                 
 
