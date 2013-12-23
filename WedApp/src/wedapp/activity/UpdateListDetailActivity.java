@@ -36,7 +36,6 @@ import android.widget.Toast;
 public class UpdateListDetailActivity extends Activity {
 
 	Button btnAddList;
-	Button btnLinkToHome;
 	EditText nGroom;
 	EditText sGroom;
 	EditText nBride;
@@ -93,22 +92,12 @@ public class UpdateListDetailActivity extends Activity {
 		sBride = (EditText) findViewById(R.id.registerSurnameBride);
 		wDate = (DatePicker) findViewById(R.id.registerDate);
 		btnAddList = (Button) findViewById(R.id.btnUpListDetails);
-		btnLinkToHome = (Button) findViewById(R.id.btnLinkToHome);
 		errorMsg = (TextView) findViewById(R.id.addListMessage);
 		
 		btnAddList.setOnClickListener(new View.OnClickListener() {
 			@SuppressWarnings("deprecation")
 			public void onClick(View view) {
 				new upList().execute();
-			}
-		});
-		
-		btnLinkToHome.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View view) {
-				Intent i = new Intent(getApplicationContext(), DashboardActivity.class);
-				startActivity(i);
-				// Close Registration View
-				finish();
 			}
 		});
 		

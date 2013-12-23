@@ -37,7 +37,6 @@ public class UpdateProfileActivity extends Activity {
 	private static String updateURL = "http://wedapp.altervista.org/update_merchant.php";
 	
 	Button btnUpdate;
-	Button btnLinkToHome2;
 	EditText inputEmail;
 	EditText inputPassword;
 	EditText inputCity;
@@ -67,7 +66,6 @@ public class UpdateProfileActivity extends Activity {
 		inputBuild = (EditText) findViewById(R.id.updateBuild);
 		inputPhone = (EditText) findViewById(R.id.updatePhone);
 		btnUpdate = (Button) findViewById(R.id.btnUpdate);
-		btnLinkToHome2 = (Button) findViewById(R.id.btnLinkToHome2);
 		update_error = (TextView) findViewById(R.id.update_error);
 		
 		/* EditText precompilate */
@@ -80,14 +78,6 @@ public class UpdateProfileActivity extends Activity {
 		btnUpdate.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
 				new updateMerchant().execute();
-			}
-		});
-		
-		btnLinkToHome2.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View view) {
-				Intent i = new Intent(getApplicationContext(), DashboardActivity.class);
-				startActivity(i);
-				finish();
 			}
 		});
 	}

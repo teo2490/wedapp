@@ -36,7 +36,6 @@ public class RegisterActivity extends Activity {
 	private static String registerURL = "http://wedapp.altervista.org/create_merchant.php";
 	
 	Button btnRegister;
-	Button btnLinkToLogin;
 	EditText inputEmail;
 	EditText inputPassword;
 	EditText inputVAT;
@@ -70,22 +69,11 @@ public class RegisterActivity extends Activity {
 		inputBuild = (EditText) findViewById(R.id.registerBuild);
 		inputPhone = (EditText) findViewById(R.id.registerPhone);
 		btnRegister = (Button) findViewById(R.id.btnRegister);
-		btnLinkToLogin = (Button) findViewById(R.id.btnLinkToLoginScreen);
 		registerErrorMsg = (TextView) findViewById(R.id.register_error);
 		
 		btnRegister.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
 				new registerMerchant().execute();
-			}
-		});
-
-		// Link to Login Screen
-		btnLinkToLogin.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View view) {
-				Intent i = new Intent(getApplicationContext(), LoginActivity.class);
-				startActivity(i);
-				// Close Registration View
-				finish();
 			}
 		});
 	}

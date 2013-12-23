@@ -34,7 +34,6 @@ import android.widget.TextView;
 public class NewListActivity extends Activity {
 	
 	Button btnAddList;
-	Button btnLinkToHome;
 	EditText nGroom;
 	EditText sGroom;
 	EditText nBride;
@@ -68,7 +67,6 @@ public class NewListActivity extends Activity {
 		sBride = (EditText) findViewById(R.id.registerSurnameBride);
 		wDate = (DatePicker) findViewById(R.id.registerDate);
 		btnAddList = (Button) findViewById(R.id.btnAddList);
-		btnLinkToHome = (Button) findViewById(R.id.btnLinkToHome);
 		errorMsg = (TextView) findViewById(R.id.addListMessage);
 		
 		btnAddList.setOnClickListener(new View.OnClickListener() {
@@ -80,15 +78,6 @@ public class NewListActivity extends Activity {
 					btnAddList.setEnabled(false);
 					btnAddList.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_color));
 				}
-			}
-		});
-		
-		btnLinkToHome.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View view) {
-				Intent i = new Intent(getApplicationContext(), DashboardActivity.class);
-				startActivity(i);
-				// Close Registration View
-				finish();
 			}
 		});
 	}

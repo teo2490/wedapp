@@ -86,15 +86,6 @@
 	    	android:textColor="#ffffff" />
 
         <!--  Link to Login Screen -->
-        <Button
-            android:id="@+id/btnLinkToHome"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dip"
-            android:background="@null"
-            android:text="@string/home_merchant"
-            android:textColor="#e52b50"
-            android:textStyle="bold" />
     </LinearLayout>
 
 </ScrollView>
