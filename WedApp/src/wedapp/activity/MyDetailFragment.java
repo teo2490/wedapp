@@ -283,6 +283,7 @@ public class MyDetailFragment extends Fragment {
 				txtEmail.setText(email);
 				txtPhone.setText(phone);	
 				Linkify.addLinks(txtPhone, Linkify.PHONE_NUMBERS);
+				Linkify.addLinks(txtEmail, Linkify.EMAIL_ADDRESSES);
 
     		}
     	}
