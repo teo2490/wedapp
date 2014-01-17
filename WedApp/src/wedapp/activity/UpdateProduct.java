@@ -20,8 +20,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import dima.wedapp.R;
-import dima.wedapp.R.id;
-import dima.wedapp.R.layout;
 
 import wedapp.library.Base64;
 import wedapp.library.JSONParser;
@@ -40,8 +38,6 @@ import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.support.v4.app.NavUtils;
-import android.text.util.Linkify;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -49,7 +45,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
@@ -66,7 +61,6 @@ public class UpdateProduct extends Activity {
 	//Strings used to get result from AsyncTask in order to update UI
 	private String name;
 	private String price;
-	private String email;
 	private String photo;
 	
 	private String pid;
@@ -94,9 +88,11 @@ public class UpdateProduct extends Activity {
 	private static final String TAG_NAME = "name";
 	private static final String TAG_PRICE = "price";
 	private static final String TAG_PHOTO = "photo";
-	private static final String TAG_EMAIL = "m_email";
-	private static final String TAG_MERCHANT = "merchant";
 	
+	/**
+	 * On creation kind of device is checked and the orientation is set.
+	 * EditText, Textiew and Button are placed.
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -119,6 +115,9 @@ public class UpdateProduct extends Activity {
 		
 		btnPhoto.setOnClickListener(new View.OnClickListener() {
 
+			/**
+			 * An image is captured by the camera
+			 */
 			public void onClick(View v) {
 				//define the file-name to save photo taken by Camera activity
 	        	String fileName = "new-photo-name.jpg";
@@ -142,6 +141,9 @@ public class UpdateProduct extends Activity {
         // button click event
         btnCreateProduct.setOnClickListener(new View.OnClickListener() {
  
+        	/**
+        	 * Photo is uploaded and a new product is created
+        	 */
             @Override
             public void onClick(View view) {
             	if (bitmap == null) {
@@ -163,7 +165,9 @@ public class UpdateProduct extends Activity {
         
         new GetProductDetails().execute();
     }
-    
+    /**
+     * It retrieves the image
+     */
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		Uri selectedImageUri = null;
 		String filePath = null;
@@ -209,14 +213,12 @@ public class UpdateProduct extends Activity {
 			}
 	
 	}
-	/**
-	 * Background Async Task to Get complete product details
-	 * */
+    
 	class GetProductDetails extends AsyncTask<String, String, String> {
 
 		/**
 		 * Before starting background thread Show Progress Dialog
-		 * */
+		 */
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
@@ -226,13 +228,12 @@ public class UpdateProduct extends Activity {
 
 		/**
 		 * Getting product details in background thread
-		 * */
+		 */
 		protected String doInBackground(String... params) {
 
 		
 					// Check for success tag
 					int success;
-					int msuccess;
 					try {
 						// Building Parameters
 						List<NameValuePair> params1 = new ArrayList<NameValuePair>();
@@ -281,7 +282,7 @@ public class UpdateProduct extends Activity {
 		}
 		/**
 		 * After completing background task Dismiss the progress dialog
-		 * **/
+		 */
 		protected void onPostExecute(String file_url) {
 			
 		}
@@ -290,18 +291,20 @@ public class UpdateProduct extends Activity {
 	//AsyncTask for dowloading photos of a product
     class DownloadImage extends AsyncTask<Void,Void,Void>
     {
-
+    	/**
+		 * Before starting background thread Show Progress Dialog
+		 */
         @Override
         protected void onPreExecute() {
-            // TODO Auto-generated method stub
             super.onPreExecute();
             
         }
 
-
+        /**
+		 * Getting product image in background thread
+		 */
         @Override
         protected Void doInBackground(Void... params) {
-            // TODO Auto-generated method stub
             try
             {
             //URL url = new URL( "http://a3.twimg.com/profile_images/670625317/aam-logo-v3-twitter.png");
@@ -315,9 +318,11 @@ public class UpdateProduct extends Activity {
             return null;
         }
 
+		/**
+		 * After completing background task Dismiss the progress dialog
+		 */
         @Override
         protected void onPostExecute(Void result) {
-            // TODO Auto-generated method stub
             super.onPostExecute(result);
             if(bitmap!=null)
             {
@@ -327,6 +332,12 @@ public class UpdateProduct extends Activity {
          			pDialog.dismiss();
         }   
     }
+    /**
+     * It downloads the bitmap from the given url
+     * 
+     * @param url where image can be found
+     * @return Bitmap what we want to download
+     */
     private Bitmap downloadBitmap(String url) {
          // initilize the default HTTP client object
          final DefaultHttpClient client = new DefaultHttpClient();
@@ -374,8 +385,14 @@ public class UpdateProduct extends Activity {
 
          return bitmap;
      }
-     
-     @SuppressWarnings("deprecation")
+    
+    /**
+     * It retrieves the path of image
+     * 
+     * @param uri current activity attribute
+     * @return String path of images
+     */
+    @SuppressWarnings("deprecation")
  	public String getPath(Uri uri) {
  		String[] projection = { MediaStore.Images.Media.DATA };
  		Cursor cursor = managedQuery(uri, projection, null, null, null);
@@ -389,6 +406,12 @@ public class UpdateProduct extends Activity {
  		} else
  			return null;
  	}
+    
+    /**
+     * It decodes file at given path
+     * 
+     * @param filePath path of the image
+     */
     public void decodeFile(String filePath) {
  		// Decode image size
  		BitmapFactory.Options o = new BitmapFactory.Options();
@@ -421,6 +444,9 @@ public class UpdateProduct extends Activity {
     class ImageGalleryTask extends AsyncTask<Void, Void, String> {
 		@SuppressWarnings("unused")
 		@Override
+		/**
+		 * Image is uploaded in background
+		 */
 		protected String doInBackground(Void... unsued) {
 				InputStream is;
 			    BitmapFactory.Options bfo;
@@ -443,7 +469,7 @@ public class UpdateProduct extends Activity {
 				try{
 				        HttpClient httpclient = new DefaultHttpClient();
 				        HttpPost httppost = new 
-                      //  Here you need to put your server file address - IDcommerciante concatenato a timestamp?
+                      //  Here you need to put your server file address
 				        HttpPost("http://wedapp.altervista.org/upload_photo.php");
 				        httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 				        HttpResponse response = httpclient.execute(httppost);
@@ -462,6 +488,9 @@ public class UpdateProduct extends Activity {
 
 		}
 
+		/**
+		 * Progress dialog is dismissed
+		 */
 		@Override
 		protected void onPostExecute(String sResponse) {
 			if(isLastThread){
@@ -474,14 +503,11 @@ public class UpdateProduct extends Activity {
         }
 	}
     
-    /**
-     * Background Async Task to Create new product
-     * */
     class UpdateProductTask extends AsyncTask<String, String, String> {
  
         /**
          * Before starting background thread Show Progress Dialog
-         * */
+         */
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -495,8 +521,8 @@ public class UpdateProduct extends Activity {
         }
  
         /**
-         * Creating product
-         * */
+         * Updating product
+         */
         protected String doInBackground(String... args) {
             String name = inputName.getText().toString();
             String price = inputPrice.getText().toString();
@@ -550,7 +576,7 @@ public class UpdateProduct extends Activity {
  
         /**
          * After completing background task Dismiss the progress dialog
-         * **/
+         */
         protected void onPostExecute(String file_url) {
         	if(isLastThread){
         		// dismiss the dialog once done
@@ -562,6 +588,9 @@ public class UpdateProduct extends Activity {
         }
     }
     
+    /**
+     * Back button is set to go back to previous activity
+     */
     public void onBackPressed() {
 		Intent back = new Intent(getApplicationContext(), MerListActivity.class);
     	back.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -570,6 +599,9 @@ public class UpdateProduct extends Activity {
     	return;
 	}
     
+    /**
+     * Options menu is created
+     */
     @Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -577,6 +609,9 @@ public class UpdateProduct extends Activity {
 		return true;
 	}
 
+    /**
+     * Logout and Home button are placed in options menu
+     */
 	@Override
     public boolean onOptionsItemSelected(MenuItem item) {      
         UserFunctions us = new UserFunctions();

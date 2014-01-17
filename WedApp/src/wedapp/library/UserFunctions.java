@@ -65,7 +65,12 @@ public class UserFunctions {
 		return false;
 	}*/
 	
-	
+	/**
+	 * Use to logout the user
+	 * 
+	 * @param context
+	 * @return boolean return true when the logout is completed
+	 */
 	public boolean logoutMerchant(Context context){
 		DatabaseHandler db = new DatabaseHandler(context);
 		db.resetLoginTables();

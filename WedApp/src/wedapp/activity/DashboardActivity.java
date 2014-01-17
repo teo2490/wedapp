@@ -28,7 +28,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ShareActionProvider;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,12 +55,20 @@ public class DashboardActivity extends Activity {
 	private static String deleteURL = "http://wedapp.altervista.org/delete_list.php";
 	//private static String updateURL = "http://wedapp.altervista.org/update_list.php";
 	
+	/**
+	 * Back button is disabled
+	 */
 	@Override
 	public void onBackPressed()
 	{
 		return;
 	}
-	
+	/**
+	 * Use this to check if merchant is logged.
+	 * 
+	 * @param context
+	 * @return boolean true if merchant is logged, false otherwise			
+	 */
 	private boolean isMerchantLogged(Context context) {
 		DatabaseHandler db = new DatabaseHandler(context);
 		db.createLogin();
@@ -72,6 +79,11 @@ public class DashboardActivity extends Activity {
 		return false;
 	}
 
+	/**
+	 * On creation the Internet is checked.
+	 * Kind of device is checked and the orientation is set.
+	 * EditText, Textiew and Button are placed.
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -116,6 +128,9 @@ public class DashboardActivity extends Activity {
     		});*/
         	
         	btnUpList.setOnClickListener(new View.OnClickListener() {
+        		/**
+        		 * It starts the "update list" phase
+        		 */
 				public void onClick(View view) {
 					DatabaseHandler db = new DatabaseHandler(getApplicationContext());
 					db.createList();
@@ -137,6 +152,9 @@ public class DashboardActivity extends Activity {
 			});
         	
         	btnDeleteList.setOnClickListener(new View.OnClickListener() {
+        		/**
+        		 * The "delete list" phase is started
+        		 */
 				public void onClick(View view) {
 					AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
 			 
@@ -170,6 +188,9 @@ public class DashboardActivity extends Activity {
 			});
         	
         	btnUpProfile.setOnClickListener(new View.OnClickListener() {
+        		/**
+        		 * It starts the "update profile" phase
+        		 */
 				public void onClick(View view) {
 					Intent upProfile = new Intent(getApplicationContext(), UpdateProfileActivity.class);
 					upProfile.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -209,6 +230,9 @@ public class DashboardActivity extends Activity {
 		}
 	}
 
+	/**
+	 * Options menu is created
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -218,6 +242,9 @@ public class DashboardActivity extends Activity {
 		return true;
 	}
 	
+	/**
+	 * Logout and AddList button are placed in menu bar
+	 */
 	@Override
     public boolean onOptionsItemSelected(MenuItem item) {
 		UserFunctions us = new UserFunctions();
@@ -243,9 +270,12 @@ public class DashboardActivity extends Activity {
     }
 
     public class Networking {
-      	 /*
-      	 *@return boolean return true if the application can access the internet
-      	 */
+    	 /**
+    	  * Use to check if there is an Internet connection
+    	  * 
+    	  * @param context
+    	  * @return boolean return true if the application can access the Internet, false otherwise
+    	  */
       	 public boolean isNetworkAvailable(Context context) {
       	     ConnectivityManager connectivity = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
       	     if (connectivity != null) {
@@ -264,6 +294,9 @@ public class DashboardActivity extends Activity {
     
     class deleteList extends AsyncTask<String, String, String> {
 		
+    	/**
+    	 * Progress dialog is created
+    	 */
 		@Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -271,6 +304,9 @@ public class DashboardActivity extends Activity {
 					getString(R.string.PleaseWait), true);
         }
 		
+		/**
+		 * List is deleted in background
+		 */
 		@Override
 		protected String doInBackground(String... args) {
 			DatabaseHandler db = new DatabaseHandler(getApplicationContext());

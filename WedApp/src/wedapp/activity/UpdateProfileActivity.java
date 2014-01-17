@@ -47,6 +47,10 @@ public class UpdateProfileActivity extends Activity {
 
 	private static String KEY_SUCCESS = "success";
 	
+	/**
+	 * On creation kind of device is checked and the orientation is set.
+	 * EditText, Textiew and Button are placed.
+	 */
 	protected void onCreate(Bundle savedInstanceState) {
 		DatabaseHandler db = new DatabaseHandler(getApplicationContext());
 		db.createLogin();
@@ -76,12 +80,18 @@ public class UpdateProfileActivity extends Activity {
 		inputPhone.setText(db.getUserDetails().get("phone"));
 		
 		btnUpdate.setOnClickListener(new View.OnClickListener() {
+			/**
+			 * It starts the update merchant's details phase
+			 */
 			public void onClick(View view) {
 				new updateMerchant().execute();
 			}
 		});
 	}
 	
+	/**
+	 * Back button is setted to go back to the previous activity
+	 */
 	public void onBackPressed() {
 		Intent back = new Intent(getApplicationContext(), DashboardActivity.class);
     	back.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -92,8 +102,9 @@ public class UpdateProfileActivity extends Activity {
 	
 	class updateMerchant extends AsyncTask<String, String, String> {
 		
-		
-		
+		/**
+		 * It sets a progress dialog
+		 */
 		@Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -101,6 +112,9 @@ public class UpdateProfileActivity extends Activity {
 					getString(R.string.PleaseWait), true);
         }
 		
+		/**
+		 * Merchant's details are retrieved and updated
+		 */
 		protected String doInBackground(String... args) {
 			DatabaseHandler db = new DatabaseHandler(getApplicationContext());
 			db.createLogin();
@@ -158,12 +172,18 @@ public class UpdateProfileActivity extends Activity {
 			return null;
 		}
 		
+		/**
+		 * Progress dialog is dismissed
+		 */
 		protected void onPostExecute() {
     		// dismiss the dialog once done
     		pDialog.dismiss();
 		}
 	}
 	
+	/**
+	 * It creates options menu
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -171,6 +191,9 @@ public class UpdateProfileActivity extends Activity {
 		return true;
 	}
 
+	/**
+	 * Logout and Home button are placed in menu
+	 */
 	@Override
     public boolean onOptionsItemSelected(MenuItem item) {      
         UserFunctions us = new UserFunctions();

@@ -21,7 +21,6 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -71,6 +70,10 @@ public class UpdateListDetailActivity extends Activity {
 		private static final String TAG_SUCCESS = "success";
 		private static final String TAG_PRODUCT = "list";
 
+	/**
+	 * On creation kind of device is checked and the orientation is set.
+	 * EditText, Textiew and Button are placed.
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -95,6 +98,9 @@ public class UpdateListDetailActivity extends Activity {
 		errorMsg = (TextView) findViewById(R.id.addListMessage);
 		
 		btnAddList.setOnClickListener(new View.OnClickListener() {
+			/**
+			 * It starts the update list phase
+			 */
 			@SuppressWarnings("deprecation")
 			public void onClick(View view) {
 				new upList().execute();
@@ -106,6 +112,9 @@ public class UpdateListDetailActivity extends Activity {
 	
 	class upList extends AsyncTask<String, String, String> {
 		
+		/**
+		 * Progress dialog is shown
+		 */
 		@Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -113,6 +122,9 @@ public class UpdateListDetailActivity extends Activity {
 					getString(R.string.PleaseWait), true);
         }
 		
+		/**
+		 * List is updated in background
+		 */
 		protected String doInBackground(String... args) {
 			String gName = nGroom.getText().toString();
 			String gSurname = sGroom.getText().toString();
@@ -153,20 +165,20 @@ public class UpdateListDetailActivity extends Activity {
 			return null;
 		}
 		
+		/**
+		 * Progress dialog is dismissed
+		 */
 		protected void onPostExecute() {
     		// dismiss the dialog once done
     		pDialog.dismiss();
 		}
 	}
 
-	/**
-	 * Background Async Task to Get complete product details
-	 * */
 	class GetListDetails extends AsyncTask<String, String, String> {
 
 		/**
 		 * Before starting background thread Show Progress Dialog
-		 * */
+		 */
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
@@ -175,8 +187,8 @@ public class UpdateListDetailActivity extends Activity {
 		}
 
 		/**
-		 * Getting product details in background thread
-		 * */
+		 * Product details are retrieved in background
+		 */
 		protected String doInBackground(String... params) {
 
 		
@@ -238,12 +250,15 @@ public class UpdateListDetailActivity extends Activity {
 		}
 		/**
 		 * After completing background task Dismiss the progress dialog
-		 * **/
+		 */
 		protected void onPostExecute(String file_url) {
 			pDialog.dismiss();
 		}
 	}
 	
+	/**
+	 * Back button is set to go to the previous Activity
+	 */
 	public void onBackPressed() {
 		Intent back = new Intent(getApplicationContext(), MerListActivity.class);
     	back.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -252,6 +267,9 @@ public class UpdateListDetailActivity extends Activity {
     	return;
 	}
 	
+	/**
+	 * Options menu is created
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -259,6 +277,9 @@ public class UpdateListDetailActivity extends Activity {
 		return true;
 	}
 
+	/**
+	 * Logout and Home button are placed in menu
+	 */
 	@Override
     public boolean onOptionsItemSelected(MenuItem item) {      
         UserFunctions us = new UserFunctions();

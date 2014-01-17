@@ -50,6 +50,10 @@ public class NewListActivity extends Activity {
 	JSONParser jsonParser = new JSONParser();
 	private static String URL = "http://wedapp.altervista.org/create_list.php";
 
+	/**
+	 * On creation kind of device is checked and the orientation is set.
+	 * EditText, Textiew and Button are placed.
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -70,6 +74,9 @@ public class NewListActivity extends Activity {
 		errorMsg = (TextView) findViewById(R.id.addListMessage);
 		
 		btnAddList.setOnClickListener(new View.OnClickListener() {
+			/**
+			 * It starts the "Add a new list" phase
+			 */
 			@SuppressWarnings("deprecation")
 			public void onClick(View view) {
 				new addList().execute();
@@ -84,6 +91,9 @@ public class NewListActivity extends Activity {
 	
 	class addList extends AsyncTask<String, String, String> {
 		
+		/**
+		 * A progress dialog is shown
+		 */
 		@Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -91,6 +101,9 @@ public class NewListActivity extends Activity {
 					getString(R.string.PleaseWait), true);
         }
 		
+		/**
+		 * Creation of a new list in database
+		 */
 		protected String doInBackground(String... args) {
 			DatabaseHandler db = new DatabaseHandler(getApplicationContext());
 			db.createLogin();
@@ -154,12 +167,18 @@ public class NewListActivity extends Activity {
 			return null;
 		}
 		
+		/**
+		 * Progress dialog is dismissed
+		 */
 		protected void onPostExecute() {
     		// dismiss the dialog once done
     		pDialog.dismiss();
 		}
 	}
 	
+	/**
+	 * Back button is set to go to previous activity
+	 */
 	public void onBackPressed() {
 		Intent back = new Intent(getApplicationContext(), DashboardActivity.class);
     	back.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -168,6 +187,9 @@ public class NewListActivity extends Activity {
     	return;
 	}
 
+	/**
+	 * Creation of the option menu
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -175,6 +197,9 @@ public class NewListActivity extends Activity {
 		return true;
 	}
 
+	/**
+	 * Logout and Home button are shown in the option menu 
+	 */
 	@Override
     public boolean onOptionsItemSelected(MenuItem item) {      
         UserFunctions us = new UserFunctions();

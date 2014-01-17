@@ -34,7 +34,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
 
-	// Creating Tables
+	/**
+	 * It is used to create the SQLite database
+	 */
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 //		String CREATE_LOGIN_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_LOGIN + "("
@@ -47,6 +49,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 //		db.execSQL(CREATE_LOGIN_TABLE);
 	}
 	
+	/**
+	 * It is used to create Login table in SQLite database
+	 */
 	public void createLogin() {
 		String CREATE_LOGIN_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_LOGIN + "("
 				+ KEY_EMAIL + " TEXT PRIMARY KEY," 
@@ -59,6 +64,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		db.execSQL(CREATE_LOGIN_TABLE);
 	}
 	
+	/**
+	 * It is used to create List table in SQLite database
+	 */
 	public void createList(){
 		String CREATE_LIST_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_LIST + "("
 				+ KEY_ID + " TEXT PRIMARY KEY" + ")";
@@ -66,7 +74,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		db.execSQL(CREATE_LIST_TABLE);
 	}
 
-	// Upgrading database
+	/**
+	 * It deletes old tables (if they exist) and creates a new database.
+	 * (This method is mandatory)
+	 */
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		// Drop older table if existed
@@ -77,6 +88,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		onCreate(db);
 	}
 	
+	/**
+	 * It deletes old tables (if they exist)
+	 */
 	public void upgradeDatabase() {
 		SQLiteDatabase db = this.getWritableDatabase();
 		//db.delete(TABLE_LOGIN, null, null);
@@ -86,8 +100,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	}
 
 	/**
-	 * Storing user details in database
-	 * */
+	 * It stores merchant details in database
+	 * 
+	 * @param email e-mail of the shop
+	 * @param name name of the shop
+	 * @param city city in which the shop is placed
+	 * @param address address of the shop
+	 * @param build_number build number of the shop
+	 * @param phone phone number of the shop
+	 */
 	public void addUser(String email, String name, String city, String address, String build_number, String phone) {
 		SQLiteDatabase db = this.getWritableDatabase();
 
@@ -104,6 +125,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		db.close(); // Closing database connection
 	}
 	
+	/**
+	 * It stores list id in database
+	 * 
+	 * @param id id of the list
+	 */
 	public void addList(String id) {
 		SQLiteDatabase db = this.getWritableDatabase();
 		ContentValues values = new ContentValues();
@@ -113,8 +139,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	}
 	
 	/**
-	 * Getting user data from database
-	 * */
+	 * It gets merchant's data from the database
+	 * 
+	 * @return HashMap<String, String> key-value pairs for merchant's data
+	 */
 	public HashMap<String, String> getUserDetails(){
 		HashMap<String,String> user = new HashMap<String,String>();
 		String selectQuery = "SELECT * FROM " + TABLE_LOGIN;
@@ -136,6 +164,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		return user;
 	}
 	
+	/**
+	 * It gets list id
+	 * 
+	 * @return String the list id
+	 */
 	public String getListId() {
 		String list = new String();
 		String selectQuery = "SELECT * FROM " + TABLE_LIST;
@@ -151,9 +184,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	}
 
 	/**
-	 * Getting user login status
-	 * return true if rows are there in table
-	 * */
+	 * It is used to check if a row is in SQLite database
+	 * 
+	 * @return int number of row counted (either 0 or 1)
+	 */
 	public int getRowLoginCount() {
 		String countQuery = "SELECT  * FROM " + TABLE_LOGIN;
 		SQLiteDatabase db = this.getReadableDatabase();
@@ -167,9 +201,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	}
 	
 	/**
-	 * Getting user login status
-	 * return true if rows are there in table
-	 * */
+	 * It is used to check if a row is in SQLite database
+	 * 
+	 * @return int number of row counted (either 0 or 1)
+	 */
 	public int getRowListCount() {
 		String countQuery = "SELECT  * FROM " + TABLE_LIST;
 		SQLiteDatabase db = this.getReadableDatabase();
@@ -183,9 +218,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	}
 	
 	/**
-	 * Re crate database
-	 * Delete all tables and create them again
-	 * */
+	 * It deletes Login table
+	 */
 	public void resetLoginTables(){
 		SQLiteDatabase db = this.getWritableDatabase();
 		// Delete All Rows
@@ -193,6 +227,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		db.close();
 	}
 	
+	/**
+	 * It deletes Login table
+	 */
 	public void resetListTable(){
 		SQLiteDatabase db = this.getWritableDatabase();
 		// Delete All Rows

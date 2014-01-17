@@ -32,8 +32,14 @@ public class JSONParser {
  
     }
  
-    // function get json from url
-    // by making HTTP POST or GET mehtod
+    /**
+     * Function get json from url by making HTTP POST or GET method
+     * 
+     * @param url where get the json
+     * @param method method to use to get the json
+     * @param params needed for the json retrieving
+     * @return JSONObject all information about params in the database
+     */
     public JSONObject makeHttpRequest(String url, String method,
             List<NameValuePair> params) {
  

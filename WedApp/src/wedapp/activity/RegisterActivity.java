@@ -19,7 +19,6 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -48,6 +47,10 @@ public class RegisterActivity extends Activity {
 
 	private static String KEY_SUCCESS = "success";
 
+	/**
+	 * On creation kind of device is checked and the orientation is set.
+	 * EditText, Textiew and Button are placed.
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -72,12 +75,18 @@ public class RegisterActivity extends Activity {
 		registerErrorMsg = (TextView) findViewById(R.id.register_error);
 		
 		btnRegister.setOnClickListener(new View.OnClickListener() {
+			/**
+			 * It starts the registration phase
+			 */
 			public void onClick(View view) {
 				new registerMerchant().execute();
 			}
 		});
 	}
 	
+	/**
+	 * Back button is set to go to the previous Activity
+	 */
 	public void onBackPressed() {
 		Intent back = new Intent(getApplicationContext(), LoginActivity.class);
     	back.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -86,6 +95,9 @@ public class RegisterActivity extends Activity {
     	return;
 	}
 	
+	/**
+	 * Home button is placed in menu bar
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 	   switch (item.getItemId()) {
@@ -101,6 +113,9 @@ public class RegisterActivity extends Activity {
 	
 	class registerMerchant extends AsyncTask<String, String, String> {
 		
+		/**
+		 * Progress dialog is shown
+		 */
 		@Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -108,6 +123,9 @@ public class RegisterActivity extends Activity {
 					getString(R.string.PleaseWait), true);
         }
 		
+		/**
+		 * Registration is done in background
+		 */
 		protected String doInBackground(String... args) {
 			String email = inputEmail.getText().toString();
 			String password = inputPassword.getText().toString();
@@ -165,6 +183,9 @@ public class RegisterActivity extends Activity {
 			return null;
 		}
 		
+		/**
+		 * Progress dialog is dismissed
+		 */
 		protected void onPostExecute() {
     		// dismiss the dialog once done
     		pDialog.dismiss();

@@ -22,7 +22,6 @@ import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -52,6 +51,10 @@ public class LoginActivity extends Activity {
 	private static String KEY_BUILD = "build_number";
 	private static String KEY_PHONE = "phone";
 	
+	/**
+	 * On creation kind of device is checked and the orientation is set.
+	 * EditText, Textiew and Button are placed.
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -72,6 +75,9 @@ public class LoginActivity extends Activity {
 
 		// Login button Click Event
 		btnLogin.setOnClickListener(new View.OnClickListener() {
+			/**
+			 * The AsyncTask is executed
+			 */
 			public void onClick(View view) {
 				new loginMerchant().execute();
 			}
@@ -79,6 +85,9 @@ public class LoginActivity extends Activity {
 		
 		// Link to Register Screen
 		btnLinkToRegister.setOnClickListener(new View.OnClickListener() {
+			/**
+			 * Registration activity is started
+			 */
 			public void onClick(View view) {
 				Intent i = new Intent(getApplicationContext(), RegisterActivity.class);
 				startActivity(i);
@@ -87,6 +96,9 @@ public class LoginActivity extends Activity {
 		});
 	}
 	
+	/**
+	 * Back button is set to go to previous activity
+	 */
 	public void onBackPressed() {
 		Intent back = new Intent(getApplicationContext(), WedApp.class);
     	back.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -95,6 +107,9 @@ public class LoginActivity extends Activity {
     	return;
 	}
 	
+	/**
+	 * Button home is shown in the option bar
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 	   switch (item.getItemId()) {
@@ -109,7 +124,10 @@ public class LoginActivity extends Activity {
 	}
 			
 	class loginMerchant extends AsyncTask<String, String, String> {
-
+		
+		/**
+		 * A progress dialog is shown
+		 */
 		@Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -117,6 +135,9 @@ public class LoginActivity extends Activity {
 					getString(R.string.PleaseWait), true);
         }
 		
+		/**
+		 * Data from database are retrieved in order to do the login
+		 */
 		protected String doInBackground(String... args) {
 			String email = inputEmail.getText().toString();
 			String password = inputPassword.getText().toString();
@@ -172,6 +193,9 @@ public class LoginActivity extends Activity {
 			return null;
 		}
 		
+		/**
+		 * the progress dialog is dismissed
+		 */
 		protected void onPostExecute() {
         		// dismiss the dialog once done
         		pDialog.dismiss();

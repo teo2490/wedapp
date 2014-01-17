@@ -24,6 +24,10 @@ public class WedApp extends Activity {
 	
 	private String lid;
 
+	/**
+	 * On creation kind of device is checked and the orientation is set.
+	 * EditText, Textiew and Button are placed.
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -39,6 +43,9 @@ public class WedApp extends Activity {
 		
 		btnMerchant.setOnClickListener(new View.OnClickListener() {
 
+			/**
+			 * Login Activity is started
+			 */
 			public void onClick(View v) {
 				Intent intent = new Intent(WedApp.this, LoginActivity.class);
 	        	startActivity(intent);
@@ -48,12 +55,15 @@ public class WedApp extends Activity {
 		
 		btnUser.setOnClickListener(new View.OnClickListener() {
 
+			/**
+			 * User home is started
+			 */
 			public void onClick(View v) {
 				lid = inputList.getText().toString();
 				if(lid == null || lid.equals("")){
 					Toast.makeText(getApplicationContext(), getString(R.string.insertListCode), Toast.LENGTH_SHORT).show();
 				}else{
-					System.out.println("LID "+lid);
+					//System.out.println("LID "+lid);
 					Intent intent = new Intent(WedApp.this, ListActivity.class);
 					DatabaseHandler db = new DatabaseHandler(getApplicationContext());
 					db.createList();
@@ -67,6 +77,9 @@ public class WedApp extends Activity {
 		});
 	}
 	
+	/**
+	 * Back button is disabled
+	 */
 	public void onBackPressed() {
     	return;
 	}
