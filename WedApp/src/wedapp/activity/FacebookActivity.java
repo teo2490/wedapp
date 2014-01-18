@@ -20,6 +20,12 @@ import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
 
+/**
+ * Activity that calls the Facebook API fragment.
+ * 
+ * @author Matteo
+ *
+ */
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class FacebookActivity extends FragmentActivity {
 	
@@ -28,6 +34,9 @@ public class FacebookActivity extends FragmentActivity {
 	
 	private static final String TAG_LID = "id_list";
 	
+	/**
+	 * At the creation the Facebook fragment is created and shown
+	 */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +66,7 @@ public class FacebookActivity extends FragmentActivity {
 
         try {
             PackageInfo info = getPackageManager().getPackageInfo(
-                    "wedapp.activity", //E' giusto questo?? o va cambiato?????????
+                    "wedapp.activity", 
                     PackageManager.GET_SIGNATURES);
             for (Signature signature : info.signatures) {
                 MessageDigest md = MessageDigest.getInstance("SHA");
@@ -71,6 +80,9 @@ public class FacebookActivity extends FragmentActivity {
         }
     }
     
+    /**
+     * By pressing the phisical back button, it will be shown the ListActivity
+     */
     public void onBackPressed() {
 		Intent back = new Intent(getApplicationContext(), ListActivity.class)/*.putExtra(TAG_LID, lid)*/;
     	back.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -79,12 +91,18 @@ public class FacebookActivity extends FragmentActivity {
     	return;
 	}
     
+    /**
+     * It creates the menu
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.facebook, menu);
         return true;
     }
     
+    /**
+     * By pressing the back button in the action bar, it will be shown the ListActivity
+     */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 	   switch (item.getItemId()) {

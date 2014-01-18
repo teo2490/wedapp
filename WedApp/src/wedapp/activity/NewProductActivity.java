@@ -48,7 +48,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
  
-
+/**
+ * Activity called in order to create a new gift associated to a defined list.
+ * 
+ * @author Matteo
+ *
+ */
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class NewProductActivity extends Activity {
  
@@ -78,6 +83,9 @@ public class NewProductActivity extends Activity {
     // JSON Node names
     private static final String TAG_SUCCESS = "success";
  
+    /**
+     * At the creation a form for the creation of a new gift is displayed
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -145,6 +153,9 @@ public class NewProductActivity extends Activity {
         });
     }
     
+    /**
+     * It chechs the input of the form
+     */
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		Uri selectedImageUri = null;
 		String filePath = null;
@@ -192,13 +203,11 @@ public class NewProductActivity extends Activity {
 	}
  
     /**
-     * Background Async Task to Create new product
-     * */
+     * Background Async Task to prepare and send a request in order to create a new gift
+     * 
+     */
     class CreateNewProduct extends AsyncTask<String, String, String> {
  
-        /**
-         * Before starting background thread Show Progress Dialog
-         * */
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -212,7 +221,7 @@ public class NewProductActivity extends Activity {
         }
  
         /**
-         * Creating product
+         * Creating request and handling response
          * */
         protected String doInBackground(String... args) {
             String name = inputName.getText().toString();
@@ -258,7 +267,8 @@ public class NewProductActivity extends Activity {
         }
  
         /**
-         * After completing background task Dismiss the progress dialog
+         * After completing background task (if there aren't other background tasks running),
+         * dismiss the progress dialog
          * **/
         protected void onPostExecute(String file_url) {
         	if(isLastThread){
@@ -271,7 +281,16 @@ public class NewProductActivity extends Activity {
         }
     }
     
+    /**
+     * Background Async Task to upload the photo of the new gift
+     * 
+     */
     class ImageGalleryTask extends AsyncTask<Void, Void, String> {
+    	
+    	/**
+         * Uploading photo and handling response
+         * 
+         * */
 		@SuppressWarnings("unused")
 		@Override
 		protected String doInBackground(Void... unsued) {
@@ -314,7 +333,11 @@ public class NewProductActivity extends Activity {
 		protected void onProgressUpdate(Void... unsued) {
 
 		}
-
+		
+		/**
+         * After completing background task (if there aren't other background tasks running),
+         * dismiss the progress dialog
+         * **/
 		@Override
 		protected void onPostExecute(String sResponse) {
         	if(isLastThread){
@@ -327,6 +350,11 @@ public class NewProductActivity extends Activity {
         }
 	}
 
+    /**
+     * Get the path of the taken picture
+     * @param uri
+     * @return
+     */
 	@SuppressWarnings("deprecation")
 	public String getPath(Uri uri) {
 		String[] projection = { MediaStore.Images.Media.DATA };
@@ -342,6 +370,10 @@ public class NewProductActivity extends Activity {
 			return null;
 	}
 
+	/**
+	 * Gets the stream from the camera and decodes it into a Bitmap image. Then it shows the image in the ImageView
+	 * @param filePath
+	 */
 	public void decodeFile(String filePath) {
 		// Decode image size
 		BitmapFactory.Options o = new BitmapFactory.Options();
@@ -371,6 +403,9 @@ public class NewProductActivity extends Activity {
 
 	}
 	
+	/**
+     * By pressing the phisical back button, it will be shown the MerListActivity
+     */
 	public void onBackPressed() {
 		Intent back = new Intent(getApplicationContext(), MerListActivity.class);
     	back.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -379,6 +414,9 @@ public class NewProductActivity extends Activity {
     	return;
 	}
 	
+	/**
+     * It creates the menu
+     */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -386,6 +424,10 @@ public class NewProductActivity extends Activity {
 		return true;
 	}
 
+	/**
+     * By pressing the back button in the action bar, it will be shown the MerListActivity
+     * By pressing the Logout button in the action bar, the session is removed and the WedApp activity is shown
+     */
 	@Override
     public boolean onOptionsItemSelected(MenuItem item) {      
         UserFunctions us = new UserFunctions();

@@ -41,14 +41,21 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
+/**
+ * Activity that is shawn only on smartphone. It calls the fragment that show the details of a gift.
+ * 
+ * @author Matteo
+ *
+ */
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class DetailActivity extends FragmentActivity {
 	
 	private static final String TAG_LID = "id_list";
 	private String lid;
 	
-		//---
+		/**
+		 * At the creation the fragment is created and shown
+		 */
         @Override
         protected void onCreate(Bundle savedInstanceState) {
                
@@ -62,17 +69,17 @@ public class DetailActivity extends FragmentActivity {
                 super.onCreate(savedInstanceState);
                 setContentView(R.layout.activity_detail);
                 
-                // Crea gli argomenti da passare al fragment in base all'intent di chiamata. 
+                // Get the parameters
                 Bundle arguments = getIntent().getExtras();
                 lid = arguments.getString(TAG_LID);
                 System.out.println("Lo stamp?" + lid);
                // pid = arguments.getString(MyDetailFragment.ARGUMENT_ITEM);
                 
-                // Crea il fragment.
+                // Creates the fragment
                 MyDetailFragment myDetailFragment = new MyDetailFragment();
                 myDetailFragment.setArguments(arguments);
                 
-                // Visualizza il fragment.
+                // Shows the fragment
                 FragmentManager fragmentManager = this.getSupportFragmentManager();
                 fragmentManager.beginTransaction()
                 .replace(R.id.detailContainer, myDetailFragment)
@@ -80,6 +87,9 @@ public class DetailActivity extends FragmentActivity {
                 .commit();
         }
         
+        /**
+         * By pressing the phisical back button, it will be shown the ListActivity
+         */
         public void onBackPressed() {
 			Intent back = new Intent(getApplicationContext(), ListActivity.class);
         	back.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -88,6 +98,9 @@ public class DetailActivity extends FragmentActivity {
         	return;
     	}
         
+        /**
+         * By pressing the back button in the action bar, it will be shown the ListActivity
+         */
         @Override
 		public boolean onOptionsItemSelected(MenuItem item) {
 		   switch (item.getItemId()) {

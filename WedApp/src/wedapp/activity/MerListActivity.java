@@ -43,9 +43,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 /**
- * Activity principale.
+ * Activity that calls the fragment in order to show the list of gifts in a list for a merchant. On tablets in 
+ * landscape mode, it calls also the fragment with the detail of a selected gift.
  * 
- * @author MarcoDuff [url=http://www.marcoduff.com/]MarcoDuff&#39;s Blog[/url]
+ * @author Matteo
  */
 public class MerListActivity extends FragmentActivity implements MerListFragment.OnMerListFragmentItemClick {
 
@@ -64,14 +65,25 @@ public class MerListActivity extends FragmentActivity implements MerListFragment
 	String ng;
 	String nb;
 	
+	/**
+	 * This method returns the ID of the list
+	 * @return
+	 */
 	public String getLid(){
 		return lid;
 	}
 	
+	/**
+	 * This method returns the email of the merchant
+	 * @return
+	 */
 	public String getMemail(){
 		return memail;
 	}
 	
+	/**
+	 * At the creation, the asynctask in order to get the details of a list is started
+	 */
 		@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 		@Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -108,7 +120,9 @@ public class MerListActivity extends FragmentActivity implements MerListFragment
 			finish();
 			startActivity(getIntent());
 		}
-		
+		/**
+         * By pressing the phisical back button, it will be shown the DashboardActivity
+         */
 		public void onBackPressed() {
 			Intent back = new Intent(getApplicationContext(), DashboardActivity.class);
         	back.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -126,6 +140,12 @@ public class MerListActivity extends FragmentActivity implements MerListFragment
 			return true;
 		}
 		
+		/**
+         * By pressing the back button in the action bar, it will be shown the DashboardActivity
+         * By pressing the Logout button in the action bar, the session is closed and i will be shown the WedApp activity
+         * By pressing the Update button in the action bar, it will be shown the UpdateListDetailActivity
+         * By pressing the Add button in the action bar, it will be shown the NewProductActivity
+         */
 		@Override
 		public boolean onOptionsItemSelected(MenuItem item) {
 		   switch (item.getItemId()) {
@@ -163,6 +183,10 @@ public class MerListActivity extends FragmentActivity implements MerListFragment
 		   }
 		}
 
+		/**
+		 * This method is a listener that react to a click on a gift in the list.
+		 * It calls the detail fragment and give it the id of the gift to be shown
+		 */
         @Override
         public void onClick(String item) {
                 // Preparo l'argomento da passare al Fragment o all'Activity. Questo argomento contiene l'oggetto cliccato.
@@ -194,9 +218,16 @@ public class MerListActivity extends FragmentActivity implements MerListFragment
                 }
         }
         
-        //Non credo serva
+        /**
+         * Background AsyncTask used in order to get the details of a list
+         * @author Matteo
+         *
+         */
         class GetListDetails extends AsyncTask<String, String, String> {
 
+        	/**
+    		 * Before starting background task Dismiss the progress dialog
+    		 * **/
     		@Override
     		protected void onPreExecute() {
     			super.onPreExecute();
@@ -204,6 +235,9 @@ public class MerListActivity extends FragmentActivity implements MerListFragment
     					getString(R.string.PleaseWait), true);
     		}
     		
+    		/**
+    		 * Getting the list detail from the server
+    		 */
     		protected String doInBackground(String... params) {
     			
     					int success;

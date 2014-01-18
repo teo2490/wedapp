@@ -38,6 +38,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * Activity that makes the call to the PayPal API and gets the data in order to insert a reservation in the DB on
+ * the server.
+ * 
+ * @author Matteo
+ *
+ */
 public class ReservationActivity extends Activity {
 
 	// set to PaymentActivity.ENVIRONMENT_LIVE to move real money.
@@ -69,6 +76,9 @@ public class ReservationActivity extends Activity {
  // url to add a reservation
     private static String url_add_reservation = "http://wedapp.altervista.org/add_reservation.php";
 
+    /**
+     * At the creation it sets the UI 
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,10 +124,17 @@ public class ReservationActivity extends Activity {
         startService(intent);
     }
     
+    /**
+     * Physical back button is disabled
+     */
     public void onBackPressed() {
     	return;
 	}
 
+    /**
+     * At the confirmation, the PayPal API is called
+     * @param pressed
+     */
     public void onBuyPressed(View pressed) {
     	DatabaseHandler db = new DatabaseHandler(getApplicationContext());
     	db.createList();
@@ -145,6 +162,9 @@ public class ReservationActivity extends Activity {
     	finish();
     }
     
+    /**
+     * It gets the response from the PayPal server and add a reservation on the WedApp server
+     */
     @Override
     protected void onActivityResult (int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK) {
@@ -192,8 +212,9 @@ public class ReservationActivity extends Activity {
 	}
 	
 	/**
-	 * Background Async Task to Get complete product details
-	 * */
+	 * Background Async Task to get the data about the reservation. It prepare a request for the server in order to
+	 * create a new reservationi n the DB.
+	 */
 	class AddReservation extends AsyncTask<String, String, String> {
 
 		/**
@@ -207,7 +228,7 @@ public class ReservationActivity extends Activity {
 		}
 
 		/**
-         * Creating product
+         * Creating reservation request and handlig response
          * */
         protected String doInBackground(String... args) {
             name = inputName.getText().toString();
@@ -249,10 +270,6 @@ public class ReservationActivity extends Activity {
             return null;
         }
 
-
-		/**
-		 * After completing background task Dismiss the progress dialog
-		 * **/
 		protected void onPostExecute(String file_url) {
 			DatabaseHandler db = new DatabaseHandler(getApplicationContext());
 			db.createList();

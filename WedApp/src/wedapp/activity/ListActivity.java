@@ -43,9 +43,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 /**
- * Activity principale.
+ * Activity that calls the fragment in order to show the list of gifts in a list. On tablets in landscape mode,
+ * it calls also the fragment with the detail of a selected gift
  * 
- * @author MarcoDuff [url=http://www.marcoduff.com/]MarcoDuff&#39;s Blog[/url]
+ * @author Matteo
  */
 public class ListActivity extends FragmentActivity implements MyListFragment.OnMyListFragmentItemClick {
 
@@ -63,9 +64,18 @@ public class ListActivity extends FragmentActivity implements MyListFragment.OnM
 	String ng;
 	String nb;
 	
-	public String getLid(){
-		return lid;
-	}
+		/**
+		 * This method gets the ID of the shown list of gifts
+		 * 
+		 * @return the ID of a list
+		 */
+		public String getLid(){
+			return lid;
+		}
+		
+		/**
+		 * At the creation the list of gifts is populated and shown to the user
+		 */
 		@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 		@Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +110,9 @@ public class ListActivity extends FragmentActivity implements MyListFragment.OnM
 			startActivity(getIntent());
 		}
 		
+		/**
+         * By pressing the phisical back button, it will be shown the WedApp activity
+         */
 		public void onBackPressed() {
 			Intent back = new Intent(getApplicationContext(), WedApp.class);
         	back.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -117,6 +130,11 @@ public class ListActivity extends FragmentActivity implements MyListFragment.OnM
 			return true;
 		}
 		
+		/**
+         * By pressing the back button in the action bar, it will be shown the WedApp activity
+         * By pressing the Facebook icon, it will be displayed the Facebook activity in order to share content on the social network
+         * By pressing the Twitter icon, it will be launched the Twitter app in order to share content on the social network
+         */
 		@Override
 		public boolean onOptionsItemSelected(MenuItem item) {
 		   switch (item.getItemId()) {
@@ -144,6 +162,10 @@ public class ListActivity extends FragmentActivity implements MyListFragment.OnM
 		   }
 		}
 
+		/**
+		 * This method is a listener that react to a click on a gift in the list.
+		 * It calls the detail fragement and give it the id og the gift to be shown
+		 */
         @Override
         public void onClick(String item) {
                 // Preparo l'argomento da passare al Fragment o all'Activity. Questo argomento contiene l'oggetto cliccato.
@@ -175,6 +197,15 @@ public class ListActivity extends FragmentActivity implements MyListFragment.OnM
                 }
         }
         
+        /**
+         * This method calls the Twitter application and prepare the content to be shared.
+         * If the Twitter application is not istalled, the method calls the Play Store app to the Twitter page in order to install it.
+         * If the Play Store app is not installed, it opens the browser on the Play Store link at the Twitter app page
+         *  
+         * @param nameApp
+         * @param nameGroom
+         * @param nameBride
+         */
         private void shareTwitter(String nameApp, String nameGroom, String nameBride) {
                List<Intent> targetedShareIntents = new ArrayList<Intent>();
                Intent share = new Intent(android.content.Intent.ACTION_SEND);
@@ -209,8 +240,15 @@ public class ListActivity extends FragmentActivity implements MyListFragment.OnM
                }
            }
         
+    	/**
+    	 * Background Async Task to get the data about the the detail of a gift.
+    	 */
         class GetListDetails extends AsyncTask<String, String, String> {
-
+        	
+        	/**
+    		 * Before starting background task Show the progress dialog
+    		 *
+    		 */
     		@Override
     		protected void onPreExecute() {
     			super.onPreExecute();
@@ -218,6 +256,9 @@ public class ListActivity extends FragmentActivity implements MyListFragment.OnM
     					getString(R.string.PleaseWait), true);
     		}
     		
+    		/**
+    		 * Getting the detail data
+    		 */
     		protected String doInBackground(String... params) {
     			
     					int success;
@@ -251,9 +292,11 @@ public class ListActivity extends FragmentActivity implements MyListFragment.OnM
     					}
     			return null;
     		}
+    		
     		/**
     		 * After completing background task Dismiss the progress dialog
-    		 * **/
+    		 *
+    		 */
     		protected void onPostExecute(String file_url) {
     			pDialog.dismiss();
     		}

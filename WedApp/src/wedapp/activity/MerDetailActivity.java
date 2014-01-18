@@ -44,14 +44,21 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
+/**
+ * Activity that is shawn only on smartphone. It calls the fragment that show the details of a gift for a merchant.
+ * 
+ * @author Matteo
+ *
+ */
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class MerDetailActivity extends FragmentActivity {
 	
 	private static final String TAG_LID = "id_list";
 	private String lid;
 	
-		//---
+		/**
+		 * At the creation, the fragment with the detials of a gift is created and shown
+		 */
         @Override
         protected void onCreate(Bundle savedInstanceState) {
                
@@ -83,6 +90,9 @@ public class MerDetailActivity extends FragmentActivity {
                 .commit();
         }
         
+        /**
+         * By pressing the phisical back button, it will be shown the MerListActivity
+         */
         public void onBackPressed() {
 			Intent back = new Intent(getApplicationContext(), MerListActivity.class);
         	back.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -90,6 +100,7 @@ public class MerDetailActivity extends FragmentActivity {
         	finish();
         	return;
     	}
+        
         
         @Override
 		public boolean onCreateOptionsMenu(Menu menu) {
@@ -100,6 +111,10 @@ public class MerDetailActivity extends FragmentActivity {
 			return true;
 		}
         
+        /**
+         * By pressing the back button in the action bar, it will be shown the MerListActivity
+         * By pressing the Logout button in the action bar, the session is closed and i will be shown the WedApp activity
+         */
         @Override
 		public boolean onOptionsItemSelected(MenuItem item) {
 		   switch (item.getItemId()) {

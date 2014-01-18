@@ -42,9 +42,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 /**
- * Fragment che si occupa della visualizzazione dei dettagli.
+ * Fragment that show the details of a gift.
  * 
- * @author MarcoDuff [url=http://www.marcoduff.com/]MarcoDuff&#39;s Blog[/url]
+ * @author Matteo
  */
 public class MyDetailFragment extends Fragment {
 	
@@ -112,6 +112,9 @@ public class MyDetailFragment extends Fragment {
                 return view;
         }
         
+        /**
+         * Once the activity is create, the UI is shown and an asynctask in order to get the details of a gift is started
+         */
         @Override
         public void onActivityCreated(Bundle savedInstanceState) {
                 super.onActivityCreated(savedInstanceState);
@@ -159,9 +162,8 @@ public class MyDetailFragment extends Fragment {
 				new GetProductDetails().execute();
         }
         
-        //DA QUI
         /**
-    	 * Background Async Task to Get complete product details
+    	 * Background Async Task to Get complete gift details
     	 * */
     	class GetProductDetails extends AsyncTask<String, String, String> {
 
@@ -263,7 +265,8 @@ public class MyDetailFragment extends Fragment {
 
 
     		/**
-    		 * After completing background task Dismiss the progress dialog
+    		 * After completing background task Dismiss the progress dialog and setting the data downloaded 
+    		 * from the server in the UI
     		 * **/
     		protected void onPostExecute(String file_url) {
     			if(isLastThread){
@@ -290,7 +293,11 @@ public class MyDetailFragment extends Fragment {
     	
     	
 
-        //AsyncTask for dowloading photos of a product
+        /**
+        * Background asyncTask for downloadin the image of a gift from the server
+        * @author Matteo
+        *
+        */
         class DownloadImage extends AsyncTask<Void,Void,Void>
         {
 
@@ -301,7 +308,9 @@ public class MyDetailFragment extends Fragment {
                 
             }
 
-
+            /**
+             * Downloading the image from the server
+             */
             @Override
             protected Void doInBackground(Void... params) {
                 // TODO Auto-generated method stub
@@ -318,6 +327,10 @@ public class MyDetailFragment extends Fragment {
                 return null;
             }
 
+            /**
+    		 * After completing background task (if this is the last tag active) dismiss the progress dialog
+    		 * 
+    		 */
             @Override
             protected void onPostExecute(Void result) {
                 // TODO Auto-generated method stub
@@ -339,6 +352,12 @@ public class MyDetailFragment extends Fragment {
             
             
         }
+        
+        /**
+         * This method get the stream from HTTP and converti it in Bitmap format
+         * @param url
+         * @return The bitmap image of a gift
+         */
          private Bitmap downloadBitmap(String url) {
              // initilize the default HTTP client object
              final DefaultHttpClient client = new DefaultHttpClient();
@@ -387,7 +406,10 @@ public class MyDetailFragment extends Fragment {
              return image;
          }
          
-       //Controlla che Google Maps sia installato.
+         /**
+     	 * This method checks if Google Maps App is installed
+     	 * @return true if it is installed, false otherwise
+     	 */
          public boolean isGoogleMapsInstalled()
          {
              try

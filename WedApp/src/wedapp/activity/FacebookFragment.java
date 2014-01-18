@@ -22,6 +22,12 @@ import com.facebook.widget.WebDialog.OnCompleteListener;
 
 import dima.wedapp.R;
 
+/**
+ * Fragment that checks the login on Facebook and makes able to publish some content on it.
+ *  
+ * @author Matteo
+ *
+ */
 public class FacebookFragment extends Fragment {
 	
 	private static final String TAG = "MainFragment";
@@ -40,6 +46,10 @@ public class FacebookFragment extends Fragment {
     
 	private Button publishButton;
 	
+	/**
+	 * It checks if an existing login on Facebook is present. If not the Login button is shown.
+	 * When the user is logged, the publish button will be available.
+	 */
 	@Override
 	public View onCreateView(LayoutInflater inflater, 
 	        ViewGroup container, 
@@ -71,6 +81,10 @@ public class FacebookFragment extends Fragment {
         
     }
 
+	/**
+	 * This method is used in order to handle a change in the login state
+	 * when the fragment is already running
+	 */
     @Override
     public void onResume() {
         super.onResume();
@@ -111,6 +125,10 @@ public class FacebookFragment extends Fragment {
         uiHelper.onSaveInstanceState(outState);
     }
     
+    /**
+     * This method prepare the content to publish on Facebook and show a preview to the user.
+     * It handles all the action that the user can do (X button, cancel button and publish button)
+     */
 	private void publishFeedDialog() {
 		String message = getString(R.string.messageFacebook)+" "+groom+" "+getString(R.string.and)+" "+bride;
         Bundle params = new Bundle();
@@ -162,6 +180,12 @@ public class FacebookFragment extends Fragment {
     	feedDialog.show();
     }
 	
+	/**
+	 * This method handles changes in the Login state and shows/hides the Publish button wrt this state
+	 * @param session
+	 * @param state
+	 * @param exception
+	 */
 	private void onSessionStateChange(Session session, SessionState state, Exception exception) {
 	    if (state.isOpened()) {
 	    	Log.i(TAG, "Logged in...");

@@ -28,9 +28,9 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 /**
- * Fragment che si occupa della visualizzazione di una lista di String.
+ * Fragment that shows the list of gifts in a list for a merchant
  * 
- * @author MarcoDuff [url=http://www.marcoduff.com/]MarcoDuff&#39;s Blog[/url]
+ * @author Matteo
  */
 public class MerListFragment extends ListFragment {
 	
@@ -64,7 +64,7 @@ public class MerListFragment extends ListFragment {
 
 		
         /**
-         * Interfaccia di Callback per comunicare con l'activity che contiene il Fragment.
+         * Callback interface in order to communicate with the activity that contains the fragment
          */
         public static interface OnMerListFragmentItemClick {
                 public void onClick(String item);
@@ -92,6 +92,9 @@ public class MerListFragment extends ListFragment {
                 }
         }
         
+        /**
+         * Once the activity is created a task in order to get the List detail from the server in started
+         */
         @Override
         public void onActivityCreated(Bundle savedInstanceState) {
                 super.onActivityCreated(savedInstanceState);
@@ -110,6 +113,9 @@ public class MerListFragment extends ListFragment {
                
         }
         
+        /**
+         * Listener that reacts to the click on a item of the list
+         */
         @Override
         public void onListItemClick(ListView l, View v, int position, long id) {
                 super.onListItemClick(l, v, position, id);
